@@ -1,7 +1,7 @@
 ## Модуль 1. Мессенджер
 
 ### Ссылка на проект в Netlify:
-https://inquisitive-cucurucho-cc5a25.netlify.app/
+https://lambent-kelpie-e2e1ec.netlify.app/
 
 ### Команды, использующиеся в проекте:
 - `npm run dev` – запуск Vite hot reload dev server
@@ -9,17 +9,17 @@ https://inquisitive-cucurucho-cc5a25.netlify.app/
 - `npm run build` – сборка проекта
 
 ### Ссылки на статичные страницы
-- https://inquisitive-cucurucho-cc5a25.netlify.app/index.html – экран формы логина
-- https://inquisitive-cucurucho-cc5a25.netlify.app/registration.html – экран формы регистрации
-- https://inquisitive-cucurucho-cc5a25.netlify.app/profile.html – экран профиля пользователя
-- https://inquisitive-cucurucho-cc5a25.netlify.app/profile_edit.html – экран редактирования профиля
-- https://inquisitive-cucurucho-cc5a25.netlify.app/profile_password.html – экран смены пароля
-- https://inquisitive-cucurucho-cc5a25.netlify.app/profile_popup.html – попап загрузки аватара
-- https://inquisitive-cucurucho-cc5a25.netlify.app/list.html – страница со списком чатов
-- https://inquisitive-cucurucho-cc5a25.netlify.app/list_active.html – страница с выбранным чатом
-- https://inquisitive-cucurucho-cc5a25.netlify.app/list_search.html – страница с активным поиском (чаты пока не фильтруются)
-- https://inquisitive-cucurucho-cc5a25.netlify.app/error404.html – страница с ошибкой 404
-- https://inquisitive-cucurucho-cc5a25.netlify.app/error500.html – страница с ошибкой 500
+- https://lambent-kelpie-e2e1ec.netlify.app/index – экран формы логина
+- https://lambent-kelpie-e2e1ec.netlify.app/registration – экран формы регистрации
+- https://lambent-kelpie-e2e1ec.netlify.app/profile – экран профиля пользователя
+- https://lambent-kelpie-e2e1ec.netlify.app/profile_edit – экран редактирования профиля
+- https://lambent-kelpie-e2e1ec.netlify.app/profile_password – экран смены пароля
+- https://lambent-kelpie-e2e1ec.netlify.app/profile_popup – попап загрузки аватара
+- https://lambent-kelpie-e2e1ec.netlify.app/list – страница со списком чатов
+- https://lambent-kelpie-e2e1ec.netlify.app/list_active – страница с выбранным чатом
+- https://lambent-kelpie-e2e1ec.netlify.app/list_search – страница с активным поиском (чаты пока не фильтруются)
+- https://lambent-kelpie-e2e1ec.netlify.app/error404 – страница с ошибкой 404
+- https://lambent-kelpie-e2e1ec.netlify.app/error500 – страница с ошибкой 500
 
 ### Макет
 Для вёрстки использовался макет от Яндекса, ссылка – https://www.figma.com/file/cwgeD98Q3YHHHRnhtN2WPT/Chat_external_link
