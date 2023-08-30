@@ -19,20 +19,27 @@
     width: 6px;
     border-radius: 1px;
     border: none;
-    background: #e0e0ea;
+    background: @colorGrayLighter;
   }
   &::-webkit-scrollbar-thumb {
     width: 6px;
     border: none;
     opacity: 1 !important;
-    background: #797980;
+    background: @colorGray;
     border-radius: 1px;
   }
 }
 
 /* VARIABLES */
-@colorMain: #3369F3;
-@colorBlack: #1E1E1E;
+@colorMain: #3369f3;
+@colorMainLight: #e4edfd;
+@colorBlack: #1e1e1e;
+@colorGray: #eaeaea;
+@colorGrayLight: #f8f8f8;
+@colorGrayLighter: #fbfbfb;
+@colorGrayDark: #999;
+@colorWhite: #fff;
+@colorRed: #ff2f2f;
 @base-url: "../assets/images/";
 
 * {
@@ -47,7 +54,7 @@ body {
   cursor: default;
   font-family:  'Segoe UI', 'SF Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: @colorBlack;
-  background-color: #fff;
+  background-color: @colorWhite;
   position: relative;
   font-size: 14px;
   width: 100vw;
@@ -84,7 +91,7 @@ b, strong {
   width: 100%;
   max-width: 340px;
   border-radius: 12px;
-  background: #FFF;
+  background: @colorWhite;
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.14);
   padding: 50px 30px 30px;
 }
@@ -112,7 +119,7 @@ b, strong {
 
   label {
     display: block;
-    color: #999;
+    color: @colorGrayDark;
     font-size: 9px;
     font-weight: 500;
     line-height: 1;
@@ -131,7 +138,7 @@ b, strong {
     }
   }
   .error_text {
-    color: #FF2F2F;
+    color: @colorRed;
     font-size: 8px;
     font-weight: 400;
     line-height: 1;
@@ -141,7 +148,7 @@ b, strong {
 
   &.error {
     input {
-      color: #FF2F2F;
+      color: @colorRed;
     }
     .error_text {
       display: block;
@@ -161,7 +168,7 @@ b, strong {
   padding: 12px;
   border-radius: 8px;
   background: @colorMain;
-  color: #FFF;
+  color: @colorWhite;
   text-align: center;
   font-size: 13px;
   font-weight: 500;
@@ -217,13 +224,13 @@ b, strong {
 .aside_back_button {
   width: 64px;
   height: 100%;
-  background: url("@{base-url}arrow_left.svg") no-repeat center #FBFBFB;
+  background: url("@{base-url}arrow_left.svg") no-repeat center @colorGrayLighter;
   display: block;
   position: absolute;
   z-index: 1;
 
   &:hover {
-    background-color: darken(#FBFBFB, 10%);
+    background-color: darken(@colorGrayLighter, 10%);
   }
 }
 
@@ -242,7 +249,7 @@ b, strong {
 .profile__avatar_wrapper {
   width: 130px;
   height: 130px;
-  background: url("@{base-url}placeholder_image.svg") no-repeat center #EFEFEF;
+  background: url("@{base-url}placeholder_image.svg") no-repeat center @colorGrayLight;
   border-radius: 100%;
   position: relative;
   overflow: hidden;
@@ -258,7 +265,7 @@ b, strong {
       height: 100%;
       top: 0;
       left: 0;
-      background: #000;
+      background: @colorBlack;
       opacity: 0.5;
       border-radius: 100%;
     }
@@ -270,7 +277,7 @@ b, strong {
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 2;
-      color: #fff;
+      color: @colorWhite;
       font-size: 13px;
       text-align: center;
       font-weight: 500;
@@ -303,9 +310,9 @@ b, strong {
     width: 100%;
     border: none;
     outline: none;
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid @colorGray;
     padding: 10px 0;
-    color: #999;
+    color: @colorGrayDark;
     text-align: right;
     font-size: 13px;
     font-weight: 500;
@@ -339,7 +346,7 @@ b, strong {
   width: 100%;
   text-decoration: none;
   padding: 10px 0;
-  border-bottom: 1px solid #EAEAEA;
+  border-bottom: 1px solid @colorGray;
   color: @colorMain;
   font-size: 13px;
   font-weight: 500;
@@ -349,7 +356,7 @@ b, strong {
     border-bottom: none;
   }
   &.red {
-    color: #F00;
+    color: @colorRed;
   }
 }
 
@@ -374,7 +381,7 @@ b, strong {
   width: 100%;
   max-width: 310px;
   border-radius: 12px;
-  background: #FFF;
+  background: @colorWhite;
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.14);
   position: absolute;
   top: 50%;
@@ -415,7 +422,7 @@ b, strong {
   flex-direction: column;
   flex-wrap: nowrap;
   align-items: flex-end;
-  border-right: 1px solid #EAEAEA;
+  border-right: 1px solid @colorGray;
 }
 .chats_list__head {
   padding: 0 10px;
@@ -424,7 +431,7 @@ b, strong {
 }
 .chats_list__profile {
   display: block;
-  color: #999;
+  color: @colorGrayDark;
   font-size: 12px;
   font-weight: 500;
   line-height: 1;
@@ -436,7 +443,7 @@ input.chats_list__search {
   border: none;
   outline: none;
   border-radius: 5px;
-  background: #EFEFEF;
+  background: @colorGrayLight;
   text-align: center;
   margin-top: 23px;
 }
@@ -459,18 +466,18 @@ input.chats_list__search {
   flex-wrap: nowrap;
   justify-content: space-between;
   padding: 12px 10px;
-  border-top: 1px solid #EAEAEA;
+  border-top: 1px solid @colorGray;
   cursor: pointer;
   position: relative;
 
   &.active {
-    background: #E4EDFD;
+    background: @colorMainLight;
   }
 }
 .chat_list_entry__img_wrapper {
   width: 47px;
   height: 47px;
-  background: #eaeaea;
+  background: @colorGray;
   border-radius: 100px;
   overflow: hidden;
 
@@ -488,7 +495,7 @@ input.chats_list__search {
   line-height: 1;
 }
 .chat_list_entry__info_message {
-  color: #999;
+  color: @colorGrayDark;
   font-size: 12px;
   font-weight: 500;
   line-height: 1.2;
@@ -501,19 +508,19 @@ input.chats_list__search {
   text-align: right;
 }
 .chat_list_entry__data_time {
-  color: #999;
+  color: @colorGrayDark;
   text-align: right;
   font-size: 9px;
   font-weight: 500;
   line-height: 1;
 }
 .chat_list_entry__data_unread {
-  color: #FFF;
+  color: @colorWhite;
   text-align: center;
   font-size: 11px;
   font-weight: 500;
   line-height: 1;
-  background: #3369F3;
+  background: @colorMain;
   height: 20px;
   width: auto;
   display: inline-block;
@@ -526,7 +533,7 @@ input.chats_list__search {
 /* chatWindow */
 .chat_window__empty {
   width: 76%;
-  color: #999;
+  color: @colorGrayDark;
   font-size: 12px;
   font-weight: 500;
 }
@@ -546,7 +553,7 @@ input.chats_list__search {
   flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #eaeaea;
+  border-bottom: 1px solid @colorGray;
   padding-bottom: 10px;
 }
 .chat_window__head_info {
@@ -558,7 +565,7 @@ input.chats_list__search {
 .chat_window__head_info_image {
   width: 37px;
   height: 37px;
-  background: #EFEFEF;
+  background: @colorGrayLight;
   border-radius: 100%;
   overflow: hidden;
 }
@@ -571,12 +578,12 @@ input.chats_list__search {
 .chat_window__head_menu {
   width: 25px;
   height: 25px;
-  background: url("@{base-url}menu.svg") #F5F5F5 no-repeat center;
+  background: url("@{base-url}menu.svg") @colorGrayLighter no-repeat center;
   border-radius: 100%;
   cursor: pointer;
 
   &:hover {
-    background-color: darken(#F5F5F5, 10%);
+    background-color: darken(@colorGrayLighter, 10%);
   }
 }
 .chat_window__messages {
@@ -595,11 +602,11 @@ input.chats_list__search {
   margin-top: 30px;
 
   &.received {
-    background-color: #F8F8F8;
+    background-color: @colorGrayLight;
     border-radius: 0 10px 10px 10px;
   }
   &.sent {
-    background-color: #E4EDFD;
+    background-color: @colorMainLight;
     border-radius: 10px 10px 0 10px;
     margin-right: 0;
     margin-left: auto;
@@ -618,7 +625,7 @@ input.chats_list__search {
   margin-top: 10px;
 }
 .chat_window__bubble_time {
-  color: #999;
+  color: @colorGrayDark;
   font-size: 9px;
   font-weight: 500;
   line-height: 9px;
@@ -627,14 +634,14 @@ input.chats_list__search {
   right: 10px;
 
   .image & {
-    color: #FFF;
+    color: @colorWhite;
     border-radius: 30px;
     background: rgba(82, 82, 82, 0.50);
     padding: 2px 7px;
   }
 }
 .chat_window__date {
-  color: #999;
+  color: @colorGrayDark;
   font-size: 12px;
   font-weight: 500;
   line-height: 1;
@@ -643,7 +650,7 @@ input.chats_list__search {
 }
 .chat_window__editor {
   padding-top: 11px;
-  border-top: 1px solid #eaeaea;
+  border-top: 1px solid @colorGray;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -655,7 +662,7 @@ input.chats_list__search {
   width: 32px;
   height: 32px;
   .vendor(mask, url("@{base-url}add_file.svg") no-repeat center);
-  background-color: #999;
+  background-color: @colorGrayDark;
 
   &.active {
     background-color: @colorMain;
@@ -663,7 +670,7 @@ input.chats_list__search {
 }
 .chat_window__editor_input {
   border-radius: 30px;
-  background: #EFEFEF;
+  background: @colorGrayLight;
   border: none;
   outline: none;
   height: 32px;
@@ -674,7 +681,7 @@ input.chats_list__search {
 .chat_window__editor_send {
   border: none;
   outline: none;
-  background: url("@{base-url}arrow_left.svg") no-repeat center #FBFBFB;
+  background: url("@{base-url}arrow_left.svg") no-repeat center @colorGrayLighter;
   transform: rotate(180deg);
   width: 28px;
   height: 28px;
