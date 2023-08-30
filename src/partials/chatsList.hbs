@@ -1,0 +1,21 @@
+<div class="chats_list__wrapper">
+    <div class="chats_list__head">
+        <a href="/profile.html" class="chats_list__profile">Профиль</a>
+        <form action="/list_search.html">
+            <input type="text" class="chats_list__search" placeholder="Поиск" value="{{search}}" name="title">
+        </form>
+    </div>
+    <div class="chats_list__list">
+        <!-- id=id title=title avatar=avatar(??last.message.user.avatar) unread=unread_count content=content time=time  -->
+        {{>chatListEntry title='Макс' unread='4' content='Ты опять из-за курсов своих работу не делаешь?' time='12:25'}}
+        {{>chatListEntry title='Группа 22' unread='999+' content='Сумасшествие является официальной причиной...' time='11:21'}}
+        {{>chatListEntry title='Васька Тараканов клуб' content='Вы: такси вызывай давай' time='03:37'}}
+        {{>chatListEntry title='Магазин Хлебный' content='Вы: шапочка топ' time='19:07' chatID='chatID'}}
+
+        {{>chatListEntry title='Илья' content='Ты опять из-за курсов своих работу не делаешь?' time='Пт'}}
+        {{>chatListEntry title='Вадим' content='Сумасшествие является официальной причиной...' time='Чт'}}
+        {{>chatListEntry title='1, 2, 3' content='Вы: такси вызывай давай' time='Чт'}}
+        {{>chatListEntry title='Магазин Важный' content='Вы: шапочка топ' time='Вт'}}
+        {{>chatListEntry title='Никодим' content='Ты опять из-за курсов своих работу не делаешь?' time='Пн'}}
+    </div>
+</div>

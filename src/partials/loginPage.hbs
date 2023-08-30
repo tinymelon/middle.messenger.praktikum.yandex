@@ -1,0 +1,12 @@
+<div class="auth_from_wrapper">
+    <div class="auth_from_wrapper__title">Вход</div>
+    <form action="/list.html" id="login_form" class="auth_from_wrapper__form">
+        <div class="auth_from_wrapper__form_inputs">
+            {{>formField label='Логин' name='login' type='text'}}
+            {{>formField label='Пароль' name='password' type='password'}}
+        </div>
+
+        {{>actionButton text='Авторизоваться'}}
+        {{>loginBlockLink text='Нет аккаунта?' href='/registration.html'}}
+    </form>
+</div>
