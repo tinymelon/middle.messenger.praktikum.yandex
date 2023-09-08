@@ -60,6 +60,11 @@ body {
   width: 100vw;
   height: 100vh;
 }
+#app {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
 .clear {
   clear: both;
 }
@@ -85,113 +90,18 @@ b, strong {
 }
 
 /* loginBlock */
-.auth_from_wrapper {
-  .flexVerticalCenter;
 
-  width: 100%;
-  max-width: 340px;
-  border-radius: 12px;
-  background: @colorWhite;
-  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.14);
-  padding: 50px 30px 30px;
-}
-.auth_from_wrapper__title {
-  text-align: center;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 1;
-}
-.auth_from_wrapper__form {
-  width: 100%;
-  margin-top: 40px;
-  .flexVerticalCenter;
-}
-.auth_from_wrapper__form_inputs {
-  width: 100%;
-  min-height: 200px;
-  margin-bottom: 47px;
-}
 
 /* formField */
-.form_group {
-  margin-top: 16px;
-  width: 100%;
 
-  label {
-    display: block;
-    color: @colorGrayDark;
-    font-size: 9px;
-    font-weight: 500;
-    line-height: 1;
-  }
-  input {
-    border: none;
-    border-bottom: 1px solid @colorMain;
-    padding: 7px 0;
-    width: 100%;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 1;
-    outline: none;
-    &:focus {
-      border-bottom-color: lighten(@colorMain, 20%);
-    }
-  }
-  .error_text {
-    color: @colorRed;
-    font-size: 8px;
-    font-weight: 400;
-    line-height: 1;
-    margin-top: 7px;
-    display: none;
-  }
-
-  &.error {
-    input {
-      color: @colorRed;
-    }
-    .error_text {
-      display: block;
-    }
-  }
-}
 
 
 /* actionButton */
-.action_button {
-  border: none;
-  outline: none;
-  cursor: pointer;
-  width: 100%;
-  max-width: 280px;
-  height: 37px;
-  padding: 12px;
-  border-radius: 8px;
-  background: @colorMain;
-  color: @colorWhite;
-  text-align: center;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1;
 
-  &:hover {
-    background: lighten(@colorMain, 10%);
-  }
-}
 
 
 /* loginBlockLink */
-.login_block_link {
-  color: @colorMain;
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 1;
-  margin-top: 14px;
-  text-decoration: none;
-  &:hover {
-    color: lighten(@colorMain, 10%);
-  }
-}
+
 
 
 /* errorPage */

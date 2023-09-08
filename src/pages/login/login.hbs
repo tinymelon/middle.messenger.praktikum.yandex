@@ -1,0 +1,11 @@
+{{#> AuthForm}}
+    <form action="#" id="login_form" class="auth_from_wrapper__form">
+        <div class="auth_from_wrapper__form_inputs">
+            {{>FormField label='Логин' name='login' type='text'}}
+            {{>FormField label='Пароль' name='password' type='password'}}
+        </div>
+
+        {{>ActionButton text='Авторизоваться'}}
+        {{>LoginBlockLink text='Нет аккаунта?' href='/registration.html'}}
+    </form>
+{{/AuthForm}}

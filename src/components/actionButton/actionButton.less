@@ -1,0 +1,22 @@
+@import '../../styles/main';
+
+.action_button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+  max-width: 280px;
+  height: 37px;
+  padding: 12px;
+  border-radius: 8px;
+  background: @colorMain;
+  color: @colorWhite;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+
+  &:hover {
+    background: lighten(@colorMain, 10%);
+  }
+}
