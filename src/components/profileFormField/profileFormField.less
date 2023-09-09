@@ -1,0 +1,40 @@
+@import "../../styles/main";
+
+.profile_form_group {
+  position: relative;
+  width: 100%;
+
+  label {
+    font-size: 13px;
+    line-height: 1;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+  input {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid @colorGray;
+    padding: 10px 0;
+    color: @colorGrayDark;
+    text-align: right;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+    &:disabled {
+      background: inherit;
+    }
+    &:focus {
+      color: @colorBlack;
+      border-bottom-color: @colorMain;
+    }
+  }
+
+  &:last-child {
+    input:not(:focus) {
+      border-bottom-color: transparent;
+    }
+  }
+}

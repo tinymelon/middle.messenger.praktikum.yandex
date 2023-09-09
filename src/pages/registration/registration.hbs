@@ -1,5 +1,5 @@
-{{#> AuthForm}}
-    <form action="#" id="login_form" class="auth_from_wrapper__form">
+{{#> AuthForm title='Регистрация'}}
+    <form action="chats" id="login_form" class="auth_from_wrapper__form">
         <div class="auth_from_wrapper__form_inputs">
             {{>FormField label='Почта' name='email' type='email'}}
             {{>FormField label='Логин' name='login' type='text'}}
@@ -11,6 +11,6 @@
         </div>
 
         {{>ActionButton text='Зарегистрироваться'}}
-        {{>LoginBlockLink text='Войти?' href='/index.html'}}
+        {{>LoginBlockLink text='Войти?' href='#' page='login'}}
     </form>
 {{/AuthForm}}
