@@ -1,0 +1,32 @@
+<aside>
+    {{>AsideBackButton}}
+</aside>
+<main class="centered_content">
+    <div class="profile__content_wrapper">
+        <div class="profile__avatar_wrapper">
+            <!-- <img src="" alt="" class="profile__avatar_image"> -->
+        </div>
+        <div class="profile__name">Иван</div>
+        {{#ifEquals changePassword 'true'}}
+            {{>ProfileFormPassword}}
+        {{/ifEquals}}
+        {{#ifNotEquals changePassword 'true'}}
+            {{#ifEquals editable 'disabled'}}
+                {{>ProfileForm editable='disabled'}}
+            {{/ifEquals}}
+            {{#ifNotEquals editable 'disabled'}}
+                {{>ProfileForm}}
+            {{/ifNotEquals}}
+        {{/ifNotEquals}}
+    </div>
+</main>
+
+{{#> PopupWrapper}}
+    <div class="popup_box popup__avatar_upload {{visible}}">
+        <form action="/">
+            <div class="popup__title">Загрузите файл</div>
+            <input type="file" class="popup__avatar_upload_input">
+            {{>ActionButton text='Поменять'}}
+        </form>
+    </div>
+{{/PopupWrapper}}

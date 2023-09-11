@@ -1,40 +1,49 @@
 import Handlebars from 'handlebars';
 import * as Components from './components/';
-import * as Pages from './pages/';
-
-type PagesObject = {
-    [key: string]: [string, Record<string, any>?];
-};
-
-const pages: PagesObject = {
-    'login': [Pages.LoginPage],
-    'registration': [Pages.RegistrationPage],
-    'profile': [Pages.ProfilePage],
-    'chats': [Pages.ChatsPage],
-    'error': [Pages.ErrorPage, {'code': 404, 'text': 'Не туда попали'}]
-}
+import * as Partials from './partials';
+import registerComponent from './core/registerComponent';
+import * as Pages from "./pages";
 
 
-Object.entries(Components).forEach(([name, component]) => {
+Object.entries(Partials).forEach(([name, component]) => {
     Handlebars.registerPartial(name, component);
 });
 
-Handlebars.registerHelper('ifEquals', (arg1, arg2, options) => ((arg1 == arg2 && arg1 != undefined) ? options.fn(this) : options.inverse(this)))
+Object.entries(Components).forEach(([ name, component ]) => {
+    registerComponent(name, component);
+});
 
-function navigate(page: string): void {
-    const [source, args] = pages[page];
+Handlebars.registerHelper('ifEquals', (arg1, arg2, options) => ((arg1 == arg2 && arg1 != undefined) ? options.fn(this) : options.inverse(this)));
+Handlebars.registerHelper('ifNotEquals', (arg1, arg2, options) => ((arg1 != arg2) ? options.fn(this) : options.inverse(this)));
 
-    document.querySelector<HTMLDivElement>('#app')!.innerHTML = Handlebars.compile(source)(args);
+
+/** TEMPORARY NAVIGATION **/
+const pages:Record<string, any> = {
+    'login': Pages.LoginPage,
+    'registration': Pages.RegistrationPage,
+    // 'profile': [Pages.ProfilePage, {'editable': 'disabled'}],
+    // 'chats': [Pages.ChatsPage],
+    // 'error': [Pages.ErrorPage, {'code': 404, 'text': 'Не туда попали'}]
 }
 
-document.addEventListener('DOMContentLoaded', () => navigate('profile'));
+function navigate(page: string) {
+    const app = document.getElementById('app');
 
-// @ts-ignore
+    const Component = pages[page];
+    const component = new Component();
+
+    app!.innerHTML = '';
+    app?.append(component.getContent()!);
+
+}
+
+document.addEventListener('DOMContentLoaded', () => navigate('login'));
+
 document.addEventListener('click', (e) => {
     // @ts-ignore
     const page = e.target.getAttribute('data-page');
 
-    if (page && pages[page]) {
+    if (page) {
         navigate(page);
 
         e.preventDefault();
@@ -42,11 +51,10 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// @ts-ignore
 document.addEventListener('submit', (e) => {
     // @ts-ignore
     const page = e.target.getAttribute('action');
-    if (page && pages[page]) {
+    if (page) {
         navigate(page);
 
         e.preventDefault();

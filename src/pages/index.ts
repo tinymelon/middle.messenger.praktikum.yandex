@@ -1,7 +1,5 @@
-import {LoginPage} from './login';
-import {RegistrationPage} from './registration';
-import {ProfilePage} from './profile';
-import {ChatsPage} from './chats';
-import {ErrorPage} from './error';
-
-export {LoginPage, RegistrationPage, ProfilePage, ChatsPage, ErrorPage};
+export {LoginPage} from './login';
+export {RegistrationPage} from './registration';
+// export {ProfilePage} from './profile';
+// export {ChatsPage} from './chats';
+// export {ErrorPage} from './error';

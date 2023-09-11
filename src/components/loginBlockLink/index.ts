@@ -1,2 +1,2 @@
 import './loginBlockLink.less'
-export { default as LoginBlockLink } from './loginBlockLink.hbs?raw';
+export { LoginBlockLink } from './loginBlockLink';
