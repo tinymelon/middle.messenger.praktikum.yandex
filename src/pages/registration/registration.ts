@@ -1,4 +1,5 @@
 import Block from "../../core/Block";
+import * as validators from "../../utils/validators";
 
 export class RegistrationPage extends Block {
     constructor(props: any) {
@@ -6,6 +7,18 @@ export class RegistrationPage extends Block {
             onRegister: (event: SubmitEvent) => {
                 event.preventDefault();
                 const formData = Object.fromEntries(new FormData(event.srcElement as HTMLFormElement).entries());
+                const errors = {};
+                for (let i in formData) {
+                    if (typeof validators[i] == 'function') {
+                        const error = validators[i](formData[i], true);
+                        if (error != '') errors[i] = error;
+                    }
+                }
+                if (Object.keys(errors).length) {
+                    event.stopImmediatePropagation();
+                    this.refs.registrationForm.setProps({errors});
+                    return;
+                }
                 console.log(formData);
             },
             ...props

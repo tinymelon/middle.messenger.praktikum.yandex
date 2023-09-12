@@ -7,9 +7,25 @@ export class LoginForm extends Block {
             events: {
                 submit: props.onSubmit
             },
-            validate: validators.login,
+            validators: {
+                login: validators.login,
+                password: validators.password
+            },
             ...props
         });
+    }
+
+    protected componentDidUpdate(): boolean {
+        const errors = this.props.errors;
+        if (errors) {
+            for (let key in errors) {
+                this.refs[key].setProps({
+                    error: errors[key],
+                    submitted: true
+                });
+            }
+        }
+        return false;
     }
 
     protected render(): string {
@@ -17,8 +33,8 @@ export class LoginForm extends Block {
         return (`
             <form action="chats" class="auth_from_wrapper__form">
                 <div class="auth_from_wrapper__form_inputs">
-                    {{{FormField label='Логин' name='login' type='text' validate=validate }}}
-                    {{{FormField label='Пароль' name='password' type='password'}}}
+                    {{{FormField label='Логин' name='login' ref='login' type='text' validate=validators.login}}}
+                    {{{FormField label='Пароль' name='password' ref='password' type='password' validate=validators.password}}}
                 </div>
                 
                 {{{ActionButton text='Авторизоваться'}}}

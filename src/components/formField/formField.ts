@@ -5,8 +5,11 @@ export class FormField extends Block {
         super({
             onBlur: () => {
                 const value = this.refs.input.element.value;
-                this.validate();
-                this.setProps({value});
+                //this.validate();
+                this.setProps({
+                    value,
+                    submitted: false
+                });
             },
             value: '',
             ...props
@@ -22,12 +25,17 @@ export class FormField extends Block {
 
     private validate() {
         const value = this.refs.input.element.value;
-        const error = this.props.validate?.(value);
+        const error = this.props.validate?.(value, this.props.submitted, this.props.compare ? this.props.compare() : null);
         if (error) {
             this.setProps({ error });
             return false;
         }
         this.setProps({ error: undefined });
+        return true;
+    }
+
+    protected componentDidUpdate(): boolean {
+        this.validate();
         return true;
     }
 
