@@ -6,8 +6,8 @@ export class RegistrationPage extends Block {
         super({
             onRegister: (event: SubmitEvent) => {
                 event.preventDefault();
-                const formData = Object.fromEntries(new FormData(event.srcElement as HTMLFormElement).entries());
-                const errors = {};
+                const formData = Object.fromEntries(new FormData(event.target as HTMLFormElement).entries());
+                const errors:Record<string, string> = {};
                 for (let i in formData) {
                     if (typeof validators[i] == 'function') {
                         const error = validators[i](formData[i], true);

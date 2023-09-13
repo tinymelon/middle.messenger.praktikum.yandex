@@ -6,12 +6,12 @@ export class LoginPage extends Block {
         super({
             onLogin: (event: SubmitEvent) => {
                 event.preventDefault();
-                const formData = Object.fromEntries(new FormData(event.srcElement as HTMLFormElement).entries());
-                const errors = {};
+                const formData = Object.fromEntries(new FormData(event.target as HTMLFormElement).entries());
+                const errors:Record<string, string> = {};
                 for (let i in formData) {
-                    const error = validators[i](formData[i], true);
-                    if (error != '') {
-                        errors[i] = error;
+                    if (typeof validators[i] == 'function') {
+                        const error = validators[i](formData[i], true);
+                        if (error != '') errors[i] = error;
                     }
                 }
                 if (Object.keys(errors).length) {

@@ -22,7 +22,7 @@ const pages:Record<string, any> = {
     'login': Pages.LoginPage,
     'registration': Pages.RegistrationPage,
     // 'profile': [Pages.ProfilePage, {'editable': 'disabled'}],
-    // 'chats': [Pages.ChatsPage],
+    'chats': Pages.ChatsPage,
     // 'error': [Pages.ErrorPage, {'code': 404, 'text': 'Не туда попали'}]
 }
 
@@ -37,7 +37,7 @@ function navigate(page: string) {
 
 }
 
-document.addEventListener('DOMContentLoaded', () => navigate('login'));
+document.addEventListener('DOMContentLoaded', () => navigate('chats'));
 
 document.addEventListener('click', (e) => {
     // @ts-ignore

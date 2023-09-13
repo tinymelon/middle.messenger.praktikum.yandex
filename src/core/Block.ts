@@ -1,7 +1,7 @@
 import EventBus from "./EventBus";
 import {nanoid} from 'nanoid';
 import Handlebars from "handlebars";
-class Block {
+export default class Block {
     static EVENTS = {
         INIT: "init",
         FLOW_CDM: "flow:component-did-mount",
@@ -11,7 +11,7 @@ class Block {
 
     public id = nanoid(6);
     protected props: any;
-    protected refs: Record<string, Block> = {};
+    protected refs: Record<string, Block> | Record<string, HTMLElement> = {};
     public children: Record<string, Block>;
     private _element: HTMLElement | null = null;
     private _meta: {props: any};
@@ -35,7 +35,7 @@ class Block {
         eventBus.emit(Block.EVENTS.INIT);
     }
 
-    _getChildrenAndProps(childrenAndProps: any) {
+    private _getChildrenAndProps(childrenAndProps: any) {
         const props: Record<string, any> = {};
         const children: Record<string, Block> = {};
 
@@ -69,7 +69,7 @@ class Block {
         this.componentDidMount();
     }
 
-    componentDidMount() {}
+    protected componentDidMount() {}
 
 
     dispatchComponentDidMount() {
@@ -89,7 +89,29 @@ class Block {
         return true;
     }
 
-    setProps(nextProps: any) {
+    protected unmountComponent() {
+        if (this._element) {
+            this._componentWillUnmount();
+            this._removeEvents();
+            Object.values(this.children).reverse().forEach(child => child.unmountComponent());
+        }
+    }
+
+    private _componentWillUnmount() {
+        this.componentWillUnmount();
+    }
+
+    protected componentWillUnmount() {}
+
+    private _removeEvents() {
+        const {events = {}} = this.props as { events: Record<string, () => void> };
+
+        Object.keys(events).forEach(eventName => {
+            this._element?.removeEventListener(eventName, events[eventName]);
+        });
+    }
+
+    protected setProps(nextProps: any) {
         if (!nextProps) {
             return;
         }
@@ -98,6 +120,8 @@ class Block {
     }
 
     private _render() {
+        this.unmountComponent();
+
         const fragment = this.compile(this.render(), this.props);
 
         const newElement = fragment.firstElementChild as HTMLElement;
@@ -106,7 +130,7 @@ class Block {
 
         this._element = newElement;
 
-        this._addEvents();
+        this.mountComponent();
     }
 
     protected render(): string {
@@ -122,14 +146,29 @@ class Block {
 
         temp.innerHTML = html;
 
+        const fragment = temp.content;
+
+        const refs = this.refs;
+        this.refs = Array.from(fragment.querySelectorAll('[ref]')).reduce((list, element) => {
+            const key = element.getAttribute('ref') as string;
+            list[key] = element as HTMLElement;
+            element.removeAttribute('ref');
+            return list;
+        }, refs);
+
         contextAndStubs.__children?.forEach(({embed}: any) => {
-            embed(temp.content);
+            embed(fragment);
         });
 
-        return temp.content;
+        return fragment;
     }
 
-    _addEvents() {
+    private mountComponent() {
+        this._addEvents();
+        this._componentDidMount();
+    }
+
+    private _addEvents() {
          const {events = {}} = this.props as { events: Record<string, () => void> };
 
          Object.keys(events).forEach(eventName => {
@@ -181,5 +220,3 @@ class Block {
         this.getContent()!.style.display = 'none';
     }
 }
-
-export default Block;
