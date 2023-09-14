@@ -1,0 +1,39 @@
+@import "../../styles/main";
+
+.chat_window__editor_wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+
+  form {
+    width: calc(100% - 32px);
+    margin: 0 auto 0 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+.chat_window__editor_input {
+  border-radius: 30px;
+  background: @colorGrayLight;
+  border: none;
+  outline: none;
+  height: 32px;
+  padding: 10px 20px;
+  width: calc(100% - 40px);
+  margin: 0 10px;
+}
+.chat_window__editor_send {
+  border: none;
+  outline: none;
+  background: url("@{base-url}arrow_left.svg") no-repeat center @colorGrayLighter;
+  transform: rotate(180deg);
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}

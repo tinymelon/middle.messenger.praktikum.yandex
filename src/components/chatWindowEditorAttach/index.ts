@@ -1,0 +1,1 @@
+export {ChatWindowEditorAttach} from './chatWindowEditorAttach';

@@ -1,0 +1,13 @@
+@import "../../styles/main";
+
+.chat_window__editor_add {
+  width: 32px;
+  height: 32px;
+  .vendor(mask, url("@{base-url}add_file.svg") no-repeat center);
+  background-color: @colorGrayDark;
+  cursor: pointer;
+
+  &.active {
+    background-color: @colorMain;
+  }
+}

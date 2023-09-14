@@ -1,0 +1,1 @@
+export {ChatWindowHead} from './chatWindowHead';

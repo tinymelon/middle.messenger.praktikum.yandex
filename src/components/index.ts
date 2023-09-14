@@ -11,4 +11,8 @@ export {ChatWindow} from './chatWindow';
 export {ChatBubble} from './chatBubble';
 export {ChatDate} from './chatDate';
 export {ChatDropdown} from './chatDropdown';
-export {ChatEditorAdd} from './chatEditorAdd';
+export {ChatEditorAttach} from './chatEditorAttach';
+export {ChatWindowHead} from './chatWindowHead';
+export {ChatWindowHeadMenu} from './chatWindowHeadMenu';
+export {ChatWindowEditor} from './chatWindowEditor';
+export {ChatWindowEditorAttach} from './chatWindowEditorAttach'
