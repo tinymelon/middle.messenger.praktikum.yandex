@@ -21,7 +21,7 @@ Handlebars.registerHelper('ifNotEquals', (arg1, arg2, options) => ((arg1 != arg2
 const pages:Record<string, any> = {
     'login': Pages.LoginPage,
     'registration': Pages.RegistrationPage,
-    // 'profile': [Pages.ProfilePage, {'editable': 'disabled'}],
+    'profile': Pages.ProfilePage,
     'chats': Pages.ChatsPage,
     // 'error': [Pages.ErrorPage, {'code': 404, 'text': 'Не туда попали'}]
 }
@@ -37,7 +37,7 @@ function navigate(page: string) {
 
 }
 
-document.addEventListener('DOMContentLoaded', () => navigate('chats'));
+document.addEventListener('DOMContentLoaded', () => navigate('profile'));
 
 document.addEventListener('click', (e) => {
     // @ts-ignore

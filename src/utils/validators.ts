@@ -42,6 +42,18 @@ export function name (value: string, submit?: boolean): string {
     return '';
 }
 
+export function message (value: string, submit?: boolean): string {
+    if (value.length == 0 && !submit) return '';
+    if (value.length == 0 && submit) return 'Поле не должно быть пустым';
+    return '';
+}
+
+export function displayName (value: string, submit?: boolean): string {
+    if (value.length == 0 && !submit) return '';
+    if (value.length == 0 && submit) return 'Поле не должно быть пустым';
+    return '';
+}
+
 export function first_name (value: string, submit?: boolean): string {
     return name(value, submit);
 }

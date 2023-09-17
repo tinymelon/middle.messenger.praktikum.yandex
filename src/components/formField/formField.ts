@@ -5,7 +5,6 @@ export class FormField extends Block {
         super({
             onBlur: () => {
                 const value = this.refs.input.element.value;
-                //this.validate();
                 this.setProps({
                     value,
                     submitted: false

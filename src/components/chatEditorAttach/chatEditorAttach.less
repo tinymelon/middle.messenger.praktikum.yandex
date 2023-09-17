@@ -7,11 +7,39 @@
   bottom: 60px;
   z-index: 100;
   background: #fff;
-  padding: 15px;
+  padding: 0px 20px;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0,0,0,0.2);
 
   &.active {
     display: block;
+  }
+
+  div {
+    margin: 20px 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    line-height: 1;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      margin-right: 15px;
+      width: 22px;
+      height: 22px;
+    }
+
+    &:nth-child(1):before {
+      background: url("../../assets/images/photo.svg") no-repeat center;
+    }
+    &:nth-child(2):before {
+      background: url("../../assets/images/file.svg") no-repeat center;
+    }
+    &:nth-child(3):before {
+      background: url("../../assets/images/location.svg") no-repeat center;
+    }
   }
 }

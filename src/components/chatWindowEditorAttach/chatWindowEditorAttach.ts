@@ -12,7 +12,6 @@ export class ChatWindowEditorAttach extends Block {
     }
 
     protected render(): string {
-        console.log(this.props);
         return (`
             <div class="chat_window__editor_add"></div>
         `);

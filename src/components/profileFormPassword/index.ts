@@ -1,0 +1,1 @@
+export {ProfileFormPassword} from './profileFormPassword';

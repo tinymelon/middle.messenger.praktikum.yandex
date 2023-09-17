@@ -17,8 +17,7 @@ export class ChatsPage extends Block {
                     title
                 });
             },
-            activeChat: 'chatID', //TODO change to null
-            title: 'ышщаодылва', //TODO remove
+            activeChat: null,
             ...props
         });
     }
