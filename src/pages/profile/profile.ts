@@ -27,14 +27,22 @@ export class ProfilePage extends Block {
             changeFormMode: (data: Record<string, any>) => {
                 this.setProps(data);
             },
+            showAvatarPopup: () => {
+                this.setProps({showPopup: true});
+            },
+            checkPopupClose: (event: MouseEvent) => {
+                if (event.target.classList.contains('close'))
+                    this.setProps({showPopup: false});
+            },
             editable: 'disabled',
             changePassword: false,
+            showPopup: false,
             ...props
         });
     }
 
     protected render(): string {
-        // language=Handlebars
+        //language=hbs
         return (`
             <div class="profile_page__wrapper">
                 <aside>
@@ -42,9 +50,7 @@ export class ProfilePage extends Block {
                 </aside>
                 <main class="centered_content">
                     <div class="profile__content_wrapper">
-                        <div class="profile__avatar_wrapper">
-                            <!-- <img src="" alt="" class="profile__avatar_image"> -->
-                        </div>
+                        {{{ProfileAvatarWrapper onClick=showAvatarPopup}}}
                         <div class="profile__name">Иван</div>
                         {{#if changePassword}}
                             {{{ProfileFormPassword ref='passwordForm' editable=editable onPasswordSave=changeProfilePassword}}}
@@ -53,6 +59,7 @@ export class ProfilePage extends Block {
                         {{/if}}
                     </div>
                 </main>
+                {{{ PopupAvatarUpload visible=showPopup onClick=checkPopupClose }}}
             </div>
         `);
     }

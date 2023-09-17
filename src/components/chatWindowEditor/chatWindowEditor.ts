@@ -27,7 +27,7 @@ export class ChatWindowEditor extends Block {
     }
 
     protected render(): string {
-        //language=Handlebars
+        //language=hbs
         return (`
             <div class="chat_window__editor_wrapper">
                 {{{ChatWindowEditorAttach ref='attachButton' onClick=messageAttachToggle}}}

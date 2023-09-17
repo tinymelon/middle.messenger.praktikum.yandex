@@ -33,7 +33,7 @@ export class ProfileFormPassword extends Block {
     }
 
     protected render(): string {
-        // language=Handlebars
+        //language=hbs
         return (`
             <form action="#put_user_password">
                 <div class="profile__form_wrapper">

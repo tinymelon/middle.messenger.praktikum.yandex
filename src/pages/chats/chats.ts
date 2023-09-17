@@ -23,7 +23,7 @@ export class ChatsPage extends Block {
     }
 
     protected render(): string {
-        // language=Handlebars
+        //language=hbs
         return (`
             <div class="chats_page__wrapper">
                 {{{ChatsList ref='list' onSearch=setSearch onChatSelect=setSelectedChat activeChat=activeChat}}}

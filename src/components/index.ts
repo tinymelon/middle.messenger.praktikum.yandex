@@ -25,3 +25,6 @@ export {ProfileAction} from './profileAction';
 export {ProfileForm} from './profileForm';
 export {ProfileFormField} from './profileFormField';
 export {ProfileFormPassword} from './profileFormPassword';
+export {ProfileAvatarWrapper} from './profileAvatarWrapper';
+
+export {PopupAvatarUpload} from './popupAvatarUpload';

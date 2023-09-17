@@ -15,7 +15,7 @@ export class RegistrationPage extends Block {
     }
 
     protected render(): string {
-        // language=Handlebars
+        //language=hbs
         return (`
             {{#> AuthFormWrapper title='Регистрация'}}
                 {{{ RegistrationForm onSubmit=onRegister ref='registrationForm' }}}

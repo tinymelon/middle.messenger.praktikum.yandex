@@ -39,7 +39,7 @@ export class FormField extends Block {
     }
 
     protected render(): string {
-        //language=Handlebars
+        //language=hbs
         return (`
             <div class="form_group {{#if error}}error{{/if}}">
                 <label for="{{name}}">{{label}}</label>

@@ -21,7 +21,7 @@ export class ProfileAction extends Block {
     }
 
     protected render(): string {
-        //language=Handlebars
+        //language=hbs
         return (`
             <a href="#" {{#if page}}data-page="{{page}}"{{/if}} class="{{class}}">{{text}}</a>
         `);

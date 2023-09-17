@@ -15,7 +15,7 @@ export class LoginPage extends Block {
     }
 
     protected render(): string {
-        // language=Handlebars
+        //language=hbs
         return (`
             {{#> AuthFormWrapper title='Авторизация'}}
                 {{{ LoginForm onSubmit=onLogin ref='loginForm' }}}

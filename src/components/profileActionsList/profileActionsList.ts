@@ -8,7 +8,7 @@ export class ProfileActionsList extends Block {
     }
 
     protected render(): string {
-        //language=Handlebars
+        //language=hbs
         return (`
             <div class="profile_actions__wrapper">
                 {{{ProfileAction class='profile_actions__action' text='Изменить данные' onClick=onModeChange property='editable' value=''}}}

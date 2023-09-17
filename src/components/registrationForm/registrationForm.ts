@@ -37,7 +37,7 @@ export class RegistrationForm extends Block {
     }
 
     protected render(): string {
-        // language=Handlebars
+        //language=hbs
         return (`
             <form action="chats" class="auth_from_wrapper__form">
                 <div class="auth_from_wrapper__form_inputs">
