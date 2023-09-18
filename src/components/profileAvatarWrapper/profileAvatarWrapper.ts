@@ -1,7 +1,11 @@
 import Block from "../../core/block";
 
+interface Props {
+    onClick: () => void
+}
+
 export class ProfileAvatarWrapper extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
             events: {
                 click: props.onClick

@@ -1,7 +1,12 @@
 import Block from "../../core/block";
 
+interface Props {
+    onClick: (arg0: MouseEvent) => void,
+    visible: boolean
+}
+
 export class PopupAvatarUpload extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
             events: {
                 click: (event: MouseEvent) => {

@@ -1,14 +1,19 @@
 import Block from "../../core/block";
 import './chatEditorMessage.less';
 
+interface Props {
+    onSubmit: (arg0: SubmitEvent) => boolean | void,
+    active: boolean
+}
+
 export class ChatEditorMessage extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
+            ...props,
             events: {
                 submit: props.onSubmit
             },
-            active: false,
-            ...props
+            active: false
         });
     }
 

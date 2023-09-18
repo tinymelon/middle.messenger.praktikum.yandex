@@ -2,9 +2,15 @@ import Block from "../../core/block";
 import './chatWindowEditor.less';
 import isFormSubmitErrors from "../../utils/isFormSubmitErrors";
 
+interface Props {
+    messageAttachToggle: () => void,
+    sendMessage: (arg0: SubmitEvent) => void
+}
+
 export class ChatWindowEditor extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
+            ...props,
             messageAttachToggle: () => {
                 const ref = this.refs.attachPopup as Block;
                 ref.setProps({
@@ -19,8 +25,7 @@ export class ChatWindowEditor extends Block {
                 if (errors) return;
                 const formData = Object.fromEntries(new FormData(event.target as HTMLFormElement).entries());
                 console.log(formData);
-            },
-            ...props
+            }
         });
     }
 

@@ -1,7 +1,14 @@
 import Block from "../../core/block";
 
+interface Props {
+    onChatSelect: (arg0: string, arg1: string) => void,
+    search?: string,
+    chatID?: string,
+    activeChat?: string
+}
+
 export class ChatsList extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
             ...props
         });

@@ -13,7 +13,6 @@ export default class Block {
     public props: any;
     public refs: Record<string, Block> | Record<string, HTMLElement> = {};
     public children: Record<string, Block>;
-    //public element: HTMLElement | undefined = undefined;
     private _element: HTMLElement | undefined = undefined;
     protected _meta: {props: any};
     private eventBus: () => EventBus;
@@ -87,10 +86,7 @@ export default class Block {
     }
 
     protected componentDidUpdate(oldProperties: any, newProperties: any) {
-        if (oldProperties && newProperties)
-            return true;
-        else
-            return true;
+        return oldProperties && newProperties ? true : true;
     }
 
     protected unmountComponent() {

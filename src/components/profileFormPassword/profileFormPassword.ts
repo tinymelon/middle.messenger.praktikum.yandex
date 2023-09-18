@@ -1,8 +1,12 @@
 import Block from "../../core/block";
 import * as validators from "../../utils/validators";
 
+interface Props {
+    onPasswordSave: (arg0: SubmitEvent) => void
+}
+
 export class ProfileFormPassword extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
             events: {
                 submit: props.onPasswordSave

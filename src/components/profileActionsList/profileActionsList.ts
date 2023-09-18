@@ -1,7 +1,11 @@
 import Block from "../../core/block";
 
+interface Props {
+    onModeChange: (arg0: Record<string, any>) => void
+}
+
 export class ProfileActionsList extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
             ...props
         });

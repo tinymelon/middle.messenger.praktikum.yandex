@@ -1,9 +1,16 @@
 import Block from "../../core/block";
 import * as validators from "../../utils/validators";
 
+interface Props {
+    onProfileSave: (arg0: SubmitEvent) => void,
+    onModeChange: (arg0: Record<string, any>) => void,
+    editable: string
+}
+
 export class ProfileForm extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
+            ...props,
             events: {
                 submit: props.onProfileSave
             },
@@ -15,8 +22,7 @@ export class ProfileForm extends Block {
                 email: validators.email,
                 name: validators.name,
                 displayName: validators.displayName
-            },
-            ...props
+            }
         });
     }
 

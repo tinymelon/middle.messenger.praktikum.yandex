@@ -1,15 +1,21 @@
 import Block from "../../core/block";
 
+interface Props {
+    chatActionsToggle: () => void,
+    title: string,
+    active?: boolean
+}
+
 export class ChatWindow extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
+            ...props,
             chatActionsToggle: () => {
                 const ref = this.refs.chatDropdown as Block;
                 ref.setProps({
                     active: !ref.props.active
                 });
-            },
-            ...props
+            }
         });
     }
 

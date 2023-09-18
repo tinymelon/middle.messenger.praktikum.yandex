@@ -1,17 +1,21 @@
 import Block from "../../core/block";
 import * as validators from '../../utils/validators';
 
+interface Props {
+    onSubmit: (arg0: SubmitEvent) => void
+}
+
 export class LoginForm extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
+            ...props,
             events: {
                 submit: props.onSubmit
             },
             validators: {
                 login: validators.login,
                 password: validators.password
-            },
-            ...props
+            }
         });
     }
 

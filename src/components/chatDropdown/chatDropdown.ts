@@ -1,8 +1,12 @@
 import Block from "../../core/block";
 import './chatDropdown.less';
 
+interface Props {
+    active: boolean
+}
+
 export class ChatDropdown extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
             ...props
         });

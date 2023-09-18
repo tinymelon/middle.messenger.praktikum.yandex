@@ -1,7 +1,13 @@
 import Block from "../../core/block";
 
+interface Props {
+    class: string,
+    content: string,
+    time: string
+}
+
 export class ChatBubble extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
             ...props
         });

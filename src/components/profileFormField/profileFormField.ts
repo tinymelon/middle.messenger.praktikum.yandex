@@ -1,7 +1,18 @@
 import Block from "../../core/block";
 
+interface Props {
+    change: () => void,
+    value: string,
+    label: string,
+    type: string,
+    editable?: string,
+    name?: string,
+    submitted?: boolean,
+    error?: string,
+}
+
 export class ProfileFormField extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
             events: {
                 change: () => {
@@ -13,14 +24,12 @@ export class ProfileFormField extends Block {
     }
 
     public value() {
-        const ref = this.refs.input as Block;
-        const element = ref.element as HTMLInputElement;
+        const element = this.refs.input as HTMLInputElement;
         return element.value;
     }
 
     protected setValue() {
-        const ref = this.refs.input as Block;
-        const element = ref.element as HTMLInputElement;
+        const element = this.refs.input as HTMLInputElement;
         const value = element.value;
         this.setProps({
             value,
@@ -30,8 +39,7 @@ export class ProfileFormField extends Block {
 
     public validate() {
         if (!this.props.validate) return true;
-        const ref = this.refs.input as Block;
-        const element = ref.element as HTMLInputElement;
+        const element = this.refs.input as HTMLInputElement;
         const value = element.value;
         const error = this.props.validate?.(value, this.props.submitted, this.props.compare ? this.props.compare() : undefined);
         if (error) {

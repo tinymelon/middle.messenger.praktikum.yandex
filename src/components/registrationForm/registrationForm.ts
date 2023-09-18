@@ -1,9 +1,14 @@
 import Block from "../../core/block";
 import * as validators from '../../utils/validators';
 
+interface Props {
+    onSubmit: (arg0: SubmitEvent) => void
+}
+
 export class RegistrationForm extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
+            ...props,
             events: {
                 submit: props.onSubmit
             },
@@ -18,8 +23,7 @@ export class RegistrationForm extends Block {
             compare: () => {
                 const ref = this.refs.password as Block;
                 return ref.value();
-            },
-            ...props
+            }
         });
     }
 

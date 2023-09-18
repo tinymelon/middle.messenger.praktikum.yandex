@@ -1,13 +1,17 @@
 import Block from "../../core/block";
 import './chatWindowEditorAttach.less';
 
+interface Props {
+    onClick: () => void
+}
+
 export class ChatWindowEditorAttach extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
+            ...props,
             events: {
                 click: props.onClick
-            },
-            ...props
+            }
         });
     }
 

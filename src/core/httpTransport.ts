@@ -32,11 +32,12 @@ export default class HttpTransport {
 
     queryStringify(data: Record<any, any>) {
         if (typeof data !== 'object') {
-            throw new Error('Data must be object');
+            throw new TypeError('Data must be object');
         }
 
-        // Здесь достаточно и [object Object] для объекта
+
         const keys = Object.keys(data);
+        // eslint-disable-next-line unicorn/no-array-reduce
         return keys.reduce((result, key, index) => {
             return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
         }, '?');
@@ -44,6 +45,7 @@ export default class HttpTransport {
 
     request = (url: string, options: Options = {}, timeout = 5000) => {
         const {headers = {}, method, data} = options;
+        // eslint-disable-next-line unicorn/no-this-assignment
         const self = this;
 
         return new Promise(function(resolve, reject) {

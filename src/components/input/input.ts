@@ -1,7 +1,14 @@
 import Block from "../../core/block";
 
+interface Props {
+    onBlur: () => void,
+    value: string,
+    type: string,
+    name?: string
+}
+
 export class Input extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
             events: {
                 blur: props.onBlur

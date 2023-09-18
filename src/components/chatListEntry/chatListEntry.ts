@@ -1,14 +1,24 @@
 import Block from "../../core/block";
 
+interface Props {
+    onChatSelect: (arg0: string, arg1: string) => void,
+    title: string,
+    content: string,
+    time: string,
+    unread?: string,
+    chatID?: string,
+    activeChat?: string
+}
+
 export class ChatListEntry extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
+            ...props,
             events: {
                 click: () => {
                     this.props.onChatSelect(this.props.chatID, this.props.title);
                 }
-            },
-            ...props
+            }
         });
     }
 

@@ -38,7 +38,7 @@ function navigate(page: string) {
 
 }
 
-document.addEventListener('DOMContentLoaded', () => navigate('profile'));
+document.addEventListener('DOMContentLoaded', () => navigate('login'));
 
 document.addEventListener('click', (event: MouseEvent) => {
     // @ts-ignore

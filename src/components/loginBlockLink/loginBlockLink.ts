@@ -1,7 +1,12 @@
 import Block from "../../core/block";
 
+interface Props {
+    page: string,
+    text: string
+}
+
 export class LoginBlockLink extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
             ...props
         });

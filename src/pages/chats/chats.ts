@@ -1,13 +1,21 @@
 import Block from "../../core/block";
 
+interface Props {
+    setSearch: (arg0: SubmitEvent | Event) => void,
+    setSelectedChat: (arg0: string, arg1: string) => void,
+    activeChat: string | undefined,
+    title?: string
+}
+
 export class ChatsPage extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
+            ...props,
             setSearch: (event: SubmitEvent | Event) => {
                 event.preventDefault();
                 event.stopImmediatePropagation();
                 let value;
-                if ((event.target as HTMLElement).tagName == 'input') {
+                if ((event.target as HTMLElement).tagName == 'INPUT') {
                     value = (event.target as HTMLInputElement).value;
                 } else {
                     const element = (event.target as HTMLElement).querySelector('.chats_list__search') as HTMLInputElement;
@@ -24,8 +32,7 @@ export class ChatsPage extends Block {
                     title
                 });
             },
-            activeChat: undefined,
-            ...props
+            activeChat: undefined
         });
     }
 

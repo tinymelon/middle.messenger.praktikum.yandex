@@ -1,8 +1,19 @@
 import Block from "../../core/block";
 
+interface Props {
+    onBlur: () => void,
+    value: string,
+    label: string,
+    type: string,
+    name?: string,
+    submitted?: boolean,
+    error?: string,
+}
+
 export class FormField extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
+            ...props,
             onBlur: () => {
                 const ref = this.refs.input as Block;
                 const element = ref.element as HTMLInputElement;
@@ -12,8 +23,7 @@ export class FormField extends Block {
                     submitted: false
                 });
             },
-            value: '',
-            ...props
+            value: ''
         });
     }
 

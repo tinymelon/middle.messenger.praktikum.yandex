@@ -18,10 +18,12 @@
     "noEmit": true,
 
     /* Linting */
-    "strict": true,
+    "noImplicitAny": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": false,
-    "noFallthroughCasesInSwitch": true
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "strictNullChecks": true
+
   },
   "include": ["src"]
 }

@@ -1,10 +1,8 @@
 import Block from "../../core/block";
 
 export class AsideBackButton extends Block {
-    constructor(props: any) {
-        super({
-            ...props
-        });
+    constructor() {
+        super();
     }
 
     protected render(): string {

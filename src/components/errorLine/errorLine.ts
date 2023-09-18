@@ -1,7 +1,11 @@
 import Block from "../../core/block";
 
+interface Props {
+    error: string
+}
+
 export class ErrorLine extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
             ...props
         });

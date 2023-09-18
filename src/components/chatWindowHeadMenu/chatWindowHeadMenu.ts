@@ -1,8 +1,12 @@
 import Block from "../../core/block";
 import './chatWindowHeadMenu.less';
 
+interface Props {
+    onChatActionsClick: () => void
+}
+
 export class ChatWindowHeadMenu extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
             events: {
                 click: props.onChatActionsClick

@@ -1,9 +1,21 @@
 import Block from "../../core/block";
 import isFormSubmitErrors from "../../utils/isFormSubmitErrors";
 
+interface Props {
+    changeProfilePassword: (arg0: SubmitEvent) => void,
+    changeProfileData: (arg0: SubmitEvent) => void,
+    changeFormMode: (arg0: Record<string, any>) => void,
+    showAvatarPopup: () => void,
+    checkPopupClose: (arg0: MouseEvent) => void,
+    editable: string,
+    changePassword: boolean,
+    showPopup: boolean
+}
+
 export class ProfilePage extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
+            ...props,
             changeProfilePassword: (event: SubmitEvent) => {
                 const form = this.refs.passwordForm as Block;
                 const errors = isFormSubmitErrors(event, form.refs);
@@ -38,8 +50,7 @@ export class ProfilePage extends Block {
             },
             editable: 'disabled',
             changePassword: false,
-            showPopup: false,
-            ...props
+            showPopup: false
         });
     }
 

@@ -1,7 +1,11 @@
 import Block from "../../core/block";
 
+interface Props {
+    date: string
+}
+
 export class ChatDate extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
             ...props
         });

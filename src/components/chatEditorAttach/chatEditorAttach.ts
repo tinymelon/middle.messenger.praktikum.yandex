@@ -1,11 +1,15 @@
 import Block from "../../core/block";
 import './chatEditorAttach.less';
 
+interface Props {
+    active: boolean
+}
+
 export class ChatEditorAttach extends Block {
-    constructor(props: any) {
+    constructor(props: Props) {
         super({
-            active: false,
-            ...props
+            ...props,
+            active: false
         });
     }
 
