@@ -6,7 +6,7 @@ export class ChatWindowEditor extends Block {
     constructor(props: any) {
         super({
             messageAttachToggle: () => {
-                const ref = this.refs.attachPopup;
+                const ref = this.refs.attachPopup as Block;
                 ref.setProps({
                     active: !ref.props.active
                 });
@@ -14,12 +14,10 @@ export class ChatWindowEditor extends Block {
             sendMessage: (event: SubmitEvent) => {
                 event.preventDefault();
                 event.stopImmediatePropagation();
+                const form = this.refs.messageForm as Block;
+                const errors = isFormSubmitErrors(event, form.refs);
+                if (errors) return;
                 const formData = Object.fromEntries(new FormData(event.target as HTMLFormElement).entries());
-                const errors = isFormSubmitErrors(event, formData);
-                if (errors) {
-                    this.refs.messageForm.setProps({errors});
-                    return;
-                }
                 console.log(formData);
             },
             ...props

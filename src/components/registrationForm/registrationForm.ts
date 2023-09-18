@@ -15,7 +15,10 @@ export class RegistrationForm extends Block {
                 email: validators.email,
                 name: validators.name
             },
-            compare: () => { return this.refs.password.refs.input.element.value},
+            compare: () => {
+                const ref = this.refs.password as Block;
+                return ref.value();
+            },
             ...props
         });
     }
@@ -24,14 +27,17 @@ export class RegistrationForm extends Block {
         const errors = this.props.errors;
         if (errors) {
             for (let key in errors) {
-                this.refs[key].setProps({
+                const ref = this.refs[key] as Block;
+                ref.setProps({
                     error: errors[key],
                     submitted: true
                 });
             }
         }
-        if (this.refs.passwordAgain.refs.input.element.value != this.refs.password.refs.input.element.value) {
-            this.refs.passwordAgain.setProps({error: 'Пароли не совпадают'});
+        const refNewPass = this.refs.password as Block;
+        const refPassAgain = this.refs.passwordAgain as Block;
+        if (refPassAgain.value() != refNewPass.value()) {
+            refPassAgain.setProps({error: 'Пароли не совпадают'});
         }
         return false;
     }

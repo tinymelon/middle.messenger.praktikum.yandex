@@ -5,7 +5,8 @@ export class LoginPage extends Block {
     constructor(props: any) {
         super({
             onLogin: (event: SubmitEvent) => {
-                const errors = isFormSubmitErrors(event, this.refs.loginForm.refs);
+                const form = this.refs.loginForm as Block;
+                const errors = isFormSubmitErrors(event, form.refs);
                 if (errors) return;
                 const formData = Object.fromEntries(new FormData(event.target as HTMLFormElement).entries());
                 console.log(formData);

@@ -13,20 +13,26 @@ export class ProfileFormField extends Block {
     }
 
     public value() {
-        return this.refs.input.value;
+        const ref = this.refs.input as Block;
+        const element = ref.element as HTMLInputElement;
+        return element.value;
     }
 
     protected setValue() {
-        const value = this.refs.input.value;
+        const ref = this.refs.input as Block;
+        const element = ref.element as HTMLInputElement;
+        const value = element.value;
         this.setProps({
             value,
             submitted: false
         });
     }
 
-    private validate() {
+    public validate() {
         if (!this.props.validate) return true;
-        const value = this.refs.input.value;
+        const ref = this.refs.input as Block;
+        const element = ref.element as HTMLInputElement;
+        const value = element.value;
         const error = this.props.validate?.(value, this.props.submitted, this.props.compare ? this.props.compare() : undefined);
         if (error) {
             this.setProps({ error });

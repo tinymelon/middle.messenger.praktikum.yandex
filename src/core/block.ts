@@ -10,11 +10,12 @@ export default class Block {
     };
 
     public id = nanoid(6);
-    protected props: any;
-    protected refs: Record<string, Block> | Record<string, HTMLElement> = {};
+    public props: any;
+    public refs: Record<string, Block> | Record<string, HTMLElement> = {};
     public children: Record<string, Block>;
+    //public element: HTMLElement | undefined = undefined;
     private _element: HTMLElement | undefined = undefined;
-    private _meta: {props: any};
+    protected _meta: {props: any};
     private eventBus: () => EventBus;
 
     constructor(propsWithChildren: any = {}) {
@@ -86,7 +87,10 @@ export default class Block {
     }
 
     protected componentDidUpdate(oldProperties: any, newProperties: any) {
-        return true;
+        if (oldProperties && newProperties)
+            return true;
+        else
+            return true;
     }
 
     protected unmountComponent() {
@@ -111,7 +115,7 @@ export default class Block {
         }
     }
 
-    protected setProps(nextProperties: any) {
+    public setProps(nextProperties: any): void {
         if (!nextProperties) {
             return;
         }
@@ -183,7 +187,7 @@ export default class Block {
         return this.element;
     }
 
-    get element() {
+    public get element(): HTMLElement | undefined {
         return this._element;
     }
 
@@ -216,11 +220,19 @@ export default class Block {
         return props;
     }
 
-    show() {
+    public validate(): boolean {
+        return true;
+    }
+
+    public value(): string | boolean {
+        return false;
+    }
+
+    protected show() {
         this.getContent()!.style.display = 'block';
     }
 
-    hide() {
+    protected hide() {
         this.getContent()!.style.display = 'none';
     }
 }

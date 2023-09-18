@@ -15,7 +15,7 @@ export function password (value: string, submit?: boolean): string {
     return '';
 }
 
-export function passwordAgain (value: string, submit?: boolean, compare: string): string {
+export function passwordAgain (value: string, submit?: boolean, compare?: string): string {
     if (compare && compare != value) return 'Пароли не совпадают';
     return '';
 }

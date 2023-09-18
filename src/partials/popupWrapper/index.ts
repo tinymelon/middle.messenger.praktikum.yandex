@@ -1,3 +1,7 @@
 import './popupWrapper.less';
 
-export {default as PopupWrapper} from './popupWrapper.hbs?raw';
+export const PopupWrapper = `
+    <div class="popup_wrapper close {{#if visible}}active{{/if}}">
+        {{> @partial-block }}
+    </div>
+`;

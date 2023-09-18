@@ -3,6 +3,7 @@ import * as Components from './components/';
 import * as Partials from './partials';
 import registerComponent from './core/registerComponent';
 import * as Pages from "./pages";
+import Block from "./core/block";
 
 
 for (const [name, component] of Object.entries(Partials)) {
@@ -10,7 +11,7 @@ for (const [name, component] of Object.entries(Partials)) {
 }
 
 for (const [ name, component ] of Object.entries(Components)) {
-    registerComponent(name, component);
+    registerComponent(name, component as typeof Block);
 }
 
 Handlebars.registerHelper('ifEquals', (argument1, argument2, options) => ((argument1 == argument2 && argument1 != undefined) ? options.fn(this) : options.inverse(this)));
@@ -46,8 +47,8 @@ document.addEventListener('click', (event: MouseEvent) => {
     if (page) {
         navigate(page);
 
-        e.preventDefault();
-        e.stopImmediatePropagation();
+        event.preventDefault();
+        event.stopImmediatePropagation();
     }
 });
 
@@ -57,7 +58,7 @@ document.addEventListener('submit', (event: SubmitEvent) => {
     if (page) {
         navigate(page);
 
-        e.preventDefault();
-        e.stopImmediatePropagation();
+        event.preventDefault();
+        event.stopImmediatePropagation();
     }
 });

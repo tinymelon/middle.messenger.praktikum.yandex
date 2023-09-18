@@ -19,7 +19,8 @@ export class LoginForm extends Block {
         const errors = this.props.errors;
         if (errors) {
             for (let key in errors) {
-                this.refs[key].setProps({
+                const ref = this.refs[key] as Block;
+                ref.setProps({
                     error: errors[key],
                     submitted: true
                 });

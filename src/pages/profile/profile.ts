@@ -5,7 +5,8 @@ export class ProfilePage extends Block {
     constructor(props: any) {
         super({
             changeProfilePassword: (event: SubmitEvent) => {
-                const errors = isFormSubmitErrors(event, this.refs.passwordForm.refs);
+                const form = this.refs.passwordForm as Block;
+                const errors = isFormSubmitErrors(event, form.refs);
                 if (errors) return;
                 this.setProps({
                     editable: 'disabled',
@@ -15,7 +16,8 @@ export class ProfilePage extends Block {
                 console.log(formData);
             },
             changeProfileData: (event: SubmitEvent) => {
-                const errors = isFormSubmitErrors(event, this.refs.profileForm.refs);
+                const form = this.refs.profileForm as Block;
+                const errors = isFormSubmitErrors(event, form.refs);
                 if (errors) return;
                 this.setProps({
                     editable: 'disabled',
@@ -31,7 +33,7 @@ export class ProfilePage extends Block {
                 this.setProps({showPopup: true});
             },
             checkPopupClose: (event: MouseEvent) => {
-                if (event.target.classList.contains('close'))
+                if ((event.target as HTMLElement).classList.contains('close'))
                     this.setProps({showPopup: false});
             },
             editable: 'disabled',

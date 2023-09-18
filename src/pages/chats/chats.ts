@@ -6,9 +6,16 @@ export class ChatsPage extends Block {
             setSearch: (event: SubmitEvent | Event) => {
                 event.preventDefault();
                 event.stopImmediatePropagation();
-                const value = (event.target as HTMLElement).value || (event.target as HTMLElement).querySelector('.chats_list__search')?.value;
+                let value;
+                if ((event.target as HTMLElement).tagName == 'input') {
+                    value = (event.target as HTMLInputElement).value;
+                } else {
+                    const element = (event.target as HTMLElement).querySelector('.chats_list__search') as HTMLInputElement;
+                    value = element.value;
+                }
                 const data = {search: value};
-                this.refs.list.setProps(data);
+                const ref = this.refs.list as Block;
+                ref.setProps(data);
                 console.log(data);
             },
             setSelectedChat: (id: string, title: string) => {

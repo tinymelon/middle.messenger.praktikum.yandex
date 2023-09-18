@@ -1,23 +1,50 @@
-class HttpTransport {
-    get = (url, options = {}) => {
+type Options = {
+    timeout?: number,
+    method?: string,
+    data?: any,
+    headers?: Record<string, string>
+}
 
-        return this.request(url, {...options, method: METHODS.GET}, options.timeout);
+export default class HttpTransport {
+    METHODS: Record<string, string> = {
+        GET: 'GET',
+        POST: 'POST',
+        PUT: 'PUT',
+        DELETE: 'DELETE'
+    }
+
+    get = (url: string, options: Options) => {
+
+        return this.request(url, {...options, method: this.METHODS.GET}, options.timeout);
     };
 
-    post = (url, options = {}) => {
-        return this.request(url, {...options, method: METHODS.POST}, options.timeout);
+    post = (url: string, options: Options = {}) => {
+        return this.request(url, {...options, method: this.METHODS.POST}, options.timeout);
     };
 
-    put = (url, options = {}) => {
-        return this.request(url, {...options, method: METHODS.PUT}, options.timeout);
+    put = (url: string, options: Options = {}) => {
+        return this.request(url, {...options, method: this.METHODS.PUT}, options.timeout);
     };
 
-    delete = (url, options = {}) => {
-        return this.request(url, {...options, method: METHODS.DELETE}, options.timeout);
+    delete = (url: string, options: Options = {}) => {
+        return this.request(url, {...options, method: this.METHODS.DELETE}, options.timeout);
     };
 
-    request = (url, options = {}, timeout = 5000) => {
+    queryStringify(data: Record<any, any>) {
+        if (typeof data !== 'object') {
+            throw new Error('Data must be object');
+        }
+
+        // Здесь достаточно и [object Object] для объекта
+        const keys = Object.keys(data);
+        return keys.reduce((result, key, index) => {
+            return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
+        }, '?');
+    }
+
+    request = (url: string, options: Options = {}, timeout = 5000) => {
         const {headers = {}, method, data} = options;
+        const self = this;
 
         return new Promise(function(resolve, reject) {
             if (!method) {
@@ -26,12 +53,12 @@ class HttpTransport {
             }
 
             const xhr = new XMLHttpRequest();
-            const isGet = method === METHODS.GET;
+            const isGet = method === self.METHODS.GET;
 
             xhr.open(
                 method,
                 isGet && !!data
-                    ? `${url}${queryStringify(data)}`
+                    ? `${url}${self.queryStringify(data)}`
                     : url,
             );
 

@@ -4,7 +4,9 @@ export class FormField extends Block {
     constructor(props: any) {
         super({
             onBlur: () => {
-                const value = this.refs.input.element.value;
+                const ref = this.refs.input as Block;
+                const element = ref.element as HTMLInputElement;
+                const value = element.value;
                 this.setProps({
                     value,
                     submitted: false
@@ -19,11 +21,15 @@ export class FormField extends Block {
         if (!this.validate()) {
             return false;
         }
-        return this.refs.input.element.value
+        const ref = this.refs.input as Block;
+        const element = ref.element as HTMLInputElement;
+        return element.value;
     }
 
-    private validate() {
-        const value = this.refs.input.element.value;
+    public validate() {
+        const ref = this.refs.input as Block;
+        const element = ref.element as HTMLInputElement;
+        const value = element.value;
         const error = this.props.validate?.(value, this.props.submitted, this.props.compare ? this.props.compare() : undefined);
         if (error) {
             this.setProps({ error });
