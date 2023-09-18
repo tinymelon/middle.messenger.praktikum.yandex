@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from "../../core/block";
 
 export class ProfileFormField extends Block {
     constructor(props: any) {
@@ -27,7 +27,7 @@ export class ProfileFormField extends Block {
     private validate() {
         if (!this.props.validate) return true;
         const value = this.refs.input.value;
-        const error = this.props.validate?.(value, this.props.submitted, this.props.compare ? this.props.compare() : null);
+        const error = this.props.validate?.(value, this.props.submitted, this.props.compare ? this.props.compare() : undefined);
         if (error) {
             this.setProps({ error });
             return false;

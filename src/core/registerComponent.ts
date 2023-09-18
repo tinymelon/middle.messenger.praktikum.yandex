@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import Block from './Block';
+import Block from './block';
 import {HelperOptions} from 'handlebars';
 
 export default function registerComponent(name: string, Component: typeof Block) {
@@ -23,7 +23,7 @@ export default function registerComponent(name: string, Component: typeof Block)
 
                 if (!stub) return;
 
-                component.getContent()?.append(...Array.from(stub.childNodes));
+                component.getContent()?.append(...stub.childNodes);
 
                 stub.replaceWith(component.getContent()!);
             }

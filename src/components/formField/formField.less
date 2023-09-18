@@ -1,4 +1,4 @@
-@import '../../styles/main';
+@import url('../../styles/main');
 
 .form_group {
   margin-top: 16px;
@@ -11,6 +11,7 @@
     font-weight: 500;
     line-height: 1;
   }
+
   input {
     border: none;
     border-bottom: 1px solid @colorMain;
@@ -20,10 +21,12 @@
     font-weight: 500;
     line-height: 1;
     outline: none;
+
     &:focus {
       border-bottom-color: lighten(@colorMain, 20%);
     }
   }
+
   .error_text {
     color: @colorRed;
     font-size: 8px;
@@ -38,6 +41,7 @@
       color: @colorRed;
       border-bottom-color: @colorRed;
     }
+
     .error_text {
       display: block;
     }

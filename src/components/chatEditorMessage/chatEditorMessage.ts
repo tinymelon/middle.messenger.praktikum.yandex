@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from "../../core/block";
 import './chatEditorMessage.less';
 import * as validators from "../../utils/validators";
 

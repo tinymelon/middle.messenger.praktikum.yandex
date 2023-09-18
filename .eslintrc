@@ -1,0 +1,22 @@
+{
+  "extends": "plugin:unicorn/recommended",
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "unicorn/filename-case": [
+      "error",
+      {
+        "case": "camelCase"
+      }
+    ],
+    "unicorn/prevent-abbreviations": [
+      "error",
+      {
+        "allowList": {
+          "props": true,
+          "ref": true
+        }
+      }
+    ]
+  }
+}

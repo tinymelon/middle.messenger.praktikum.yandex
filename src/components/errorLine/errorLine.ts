@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from "../../core/block";
 
 export class ErrorLine extends Block {
     constructor(props: any) {

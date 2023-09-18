@@ -1,4 +1,4 @@
-class HTTPTransport {
+class HttpTransport {
     get = (url, options = {}) => {
 
         return this.request(url, {...options, method: METHODS.GET}, options.timeout);
@@ -35,16 +35,16 @@ class HTTPTransport {
                     : url,
             );
 
-            Object.keys(headers).forEach(key => {
+            for (const key of Object.keys(headers)) {
                 xhr.setRequestHeader(key, headers[key]);
+            }
+
+            xhr.addEventListener('load', function() {
+                resolve(xhr);
             });
 
-            xhr.onload = function() {
-                resolve(xhr);
-            };
-
-            xhr.onabort = reject;
-            xhr.onerror = reject;
+            xhr.addEventListener('abort', reject);
+            xhr.addEventListener('error', reject);
 
             xhr.timeout = timeout;
             xhr.ontimeout = reject;

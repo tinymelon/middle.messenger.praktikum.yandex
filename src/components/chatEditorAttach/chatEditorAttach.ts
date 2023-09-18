@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from "../../core/block";
 import './chatEditorAttach.less';
 
 export class ChatEditorAttach extends Block {

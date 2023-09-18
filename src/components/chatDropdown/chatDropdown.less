@@ -1,4 +1,4 @@
-@import "../../styles/main";
+@import url("../../styles/main");
 
 .chat_dropdown__wrapper {
   display: none;
@@ -7,9 +7,9 @@
   top: 70px;
   z-index: 100;
   background: #fff;
-  padding: 0px 15px;
+  padding: 0 15px;
   border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  box-shadow: 0 0 5px rgb(0 0 0 / 20%);
 
   &.active {
     display: block;
@@ -19,7 +19,7 @@
     margin: 15px 0;
     cursor: pointer;
 
-    &:before {
+    &::before {
       content: '';
       display: inline-block;
       margin-right: 5px;
@@ -28,18 +28,20 @@
       text-align: center;
     }
 
-    &:nth-child(1):before {
+    &:nth-child(1)::before {
       background: url("../../assets/images/chat_add.svg") no-repeat center;
     }
-    &:nth-child(2):before {
+
+    &:nth-child(2)::before {
       background: url("../../assets/images/chat_remove.svg") no-repeat center;
     }
+
     &:nth-child(3) {
       color: @colorRed;
       border-top: 1px solid @colorGray;
       padding-top: 5px;
 
-      &:before {
+      &::before {
         content: '×';
         font-size: 20px;
         line-height: 1;

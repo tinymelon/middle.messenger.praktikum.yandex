@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from "../../core/block";
 import './chatWindowEditor.less';
 import isFormSubmitErrors from "../../utils/isFormSubmitErrors";
 

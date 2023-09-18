@@ -1,4 +1,4 @@
-import EventBus from "./EventBus";
+import EventBus from "./eventBus";
 import {nanoid} from 'nanoid';
 import Handlebars from "handlebars";
 export default class Block {
@@ -13,7 +13,7 @@ export default class Block {
     protected props: any;
     protected refs: Record<string, Block> | Record<string, HTMLElement> = {};
     public children: Record<string, Block>;
-    private _element: HTMLElement | null = null;
+    private _element: HTMLElement | undefined = undefined;
     private _meta: {props: any};
     private eventBus: () => EventBus;
 
@@ -35,17 +35,17 @@ export default class Block {
         eventBus.emit(Block.EVENTS.INIT);
     }
 
-    private _getChildrenAndProps(childrenAndProps: any) {
+    private _getChildrenAndProps(childrenAndProperties: any) {
         const props: Record<string, any> = {};
         const children: Record<string, Block> = {};
 
-        Object.entries(childrenAndProps).forEach(([key, value]) => {
+        for (const [key, value] of Object.entries(childrenAndProperties)) {
             if (value instanceof Block) {
                 children[key] = value;
             } else {
                 props[key] = value;
             }
-        });
+        }
 
         return {props, children};
     }
@@ -75,17 +75,17 @@ export default class Block {
     dispatchComponentDidMount() {
         this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 
-        Object.values(this.children).forEach(child => child.dispatchComponentDidMount());
+        for (const child of Object.values(this.children)) child.dispatchComponentDidMount();
     }
 
-    private _componentDidUpdate(oldProps: any, newProps: any) {
-        const response = this.componentDidUpdate(oldProps, newProps);
+    private _componentDidUpdate(oldProperties: any, newProperties: any) {
+        const response = this.componentDidUpdate(oldProperties, newProperties);
         if (response) {
             this._render();
         }
     }
 
-    protected componentDidUpdate(oldProps: any, newProps: any) {
+    protected componentDidUpdate(oldProperties: any, newProperties: any) {
         return true;
     }
 
@@ -93,7 +93,7 @@ export default class Block {
         if (this._element) {
             this._componentWillUnmount();
             this._removeEvents();
-            Object.values(this.children).reverse().forEach(child => child.unmountComponent());
+            for (const child of Object.values(this.children).reverse()) child.unmountComponent();
         }
     }
 
@@ -106,17 +106,17 @@ export default class Block {
     private _removeEvents() {
         const {events = {}} = this.props as { events: Record<string, () => void> };
 
-        Object.keys(events).forEach(eventName => {
+        for (const eventName of Object.keys(events)) {
             this._element?.removeEventListener(eventName, events[eventName]);
-        });
+        }
     }
 
-    protected setProps(nextProps: any) {
-        if (!nextProps) {
+    protected setProps(nextProperties: any) {
+        if (!nextProperties) {
             return;
         }
 
-        Object.assign(this.props, nextProps);
+        Object.assign(this.props, nextProperties);
     }
 
     private _render() {
@@ -142,23 +142,26 @@ export default class Block {
 
         const html = Handlebars.compile(template)(contextAndStubs);
 
-        const temp = document.createElement('template');
+        const temporary = document.createElement('template');
 
-        temp.innerHTML = html;
+        temporary.innerHTML = html;
 
-        const fragment = temp.content;
+        const fragment = temporary.content;
 
-        const refs = this.refs;
-        this.refs = Array.from(fragment.querySelectorAll('[ref]')).reduce((list, element) => {
+        const references = this.refs;
+        // eslint-disable-next-line unicorn/no-array-reduce
+        this.refs = [...fragment.querySelectorAll('[ref]')].reduce((list, element) => {
             const key = element.getAttribute('ref') as string;
             list[key] = element as HTMLElement;
             element.removeAttribute('ref');
             return list;
-        }, refs);
+        }, references);
 
-        contextAndStubs.__children?.forEach(({embed}: any) => {
-            embed(fragment);
-        });
+        if (contextAndStubs.__children) {
+            for (const element of contextAndStubs.__children) {
+                element.embed(fragment)
+            }
+        }
 
         return fragment;
     }
@@ -171,9 +174,9 @@ export default class Block {
     private _addEvents() {
          const {events = {}} = this.props as { events: Record<string, () => void> };
 
-         Object.keys(events).forEach(eventName => {
+         for (const eventName of Object.keys(events)) {
              this._element?.addEventListener(eventName, events[eventName]);
-         });
+         }
     }
 
     getContent() {
@@ -185,21 +188,22 @@ export default class Block {
     }
 
     private _makePropsProxy(props: any) {
+        // eslint-disable-next-line unicorn/no-this-assignment
         const self = this;
 
         props = new Proxy(props, {
-            get(target, prop) {
-                if (prop.toString().startsWith('_')) {
+            get(target, property) {
+                if (property.toString().startsWith('_')) {
                     throw new Error('Нет доступа');
                 }
-                return target[prop] == 'function' ? target[prop].bind(target) : target[prop];
+                return target[property] == 'function' ? target[property].bind(target) : target[property];
             },
-            set(target, prop, value) {
-                if (prop.toString().startsWith('_')) {
+            set(target, property, value) {
+                if (property.toString().startsWith('_')) {
                     throw new Error('Нет доступа');
                 }
-                const oldValue = target[prop];
-                target[prop] = value;
+                const oldValue = target[property];
+                target[property] = value;
                 if (oldValue !== value) {
                     self.eventBus().emit(Block.EVENTS.FLOW_CDU, {...target}, target);
                 }

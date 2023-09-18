@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from "../../core/block";
 
 export class FormField extends Block {
     constructor(props: any) {
@@ -24,7 +24,7 @@ export class FormField extends Block {
 
     private validate() {
         const value = this.refs.input.element.value;
-        const error = this.props.validate?.(value, this.props.submitted, this.props.compare ? this.props.compare() : null);
+        const error = this.props.validate?.(value, this.props.submitted, this.props.compare ? this.props.compare() : undefined);
         if (error) {
             this.setProps({ error });
             return false;

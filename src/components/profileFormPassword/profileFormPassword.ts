@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from "../../core/block";
 import * as validators from "../../utils/validators";
 
 export class ProfileFormPassword extends Block {

@@ -1,4 +1,4 @@
-@import "../../styles/main";
+@import url("../../styles/main");
 
 .chat_window__bubble {
   padding: 11px;
@@ -10,27 +10,32 @@
 
   &.received {
     background-color: @colorGrayLight;
-    border-radius: 0 10px 10px 10px;
+    border-radius: 0 10px 10px;
   }
+
   &.sent {
     background-color: @colorMainLight;
-    border-radius: 10px 10px 0 10px;
+    border-radius: 10px 10px 0;
     margin-right: 0;
     margin-left: auto;
   }
+
   &.image {
     border-radius: 10px;
     padding: 0;
     font-size: 0;
   }
+
   &.short {
     padding-right: 63px;
   }
 }
+
 .sent + .sent,
 .received + .received {
   margin-top: 10px;
 }
+
 .chat_window__bubble_time {
   color: @colorGrayDark;
   font-size: 9px;
@@ -43,7 +48,7 @@
   .image & {
     color: @colorWhite;
     border-radius: 30px;
-    background: rgba(82, 82, 82, 0.50);
+    background: rgb(82 82 82 / 50%);
     padding: 2px 7px;
   }
 }

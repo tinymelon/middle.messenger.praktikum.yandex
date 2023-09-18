@@ -5,16 +5,16 @@ import registerComponent from './core/registerComponent';
 import * as Pages from "./pages";
 
 
-Object.entries(Partials).forEach(([name, component]) => {
+for (const [name, component] of Object.entries(Partials)) {
     Handlebars.registerPartial(name, component);
-});
+}
 
-Object.entries(Components).forEach(([ name, component ]) => {
+for (const [ name, component ] of Object.entries(Components)) {
     registerComponent(name, component);
-});
+}
 
-Handlebars.registerHelper('ifEquals', (arg1, arg2, options) => ((arg1 == arg2 && arg1 != undefined) ? options.fn(this) : options.inverse(this)));
-Handlebars.registerHelper('ifNotEquals', (arg1, arg2, options) => ((arg1 != arg2) ? options.fn(this) : options.inverse(this)));
+Handlebars.registerHelper('ifEquals', (argument1, argument2, options) => ((argument1 == argument2 && argument1 != undefined) ? options.fn(this) : options.inverse(this)));
+Handlebars.registerHelper('ifNotEquals', (argument1, argument2, options) => ((argument1 == argument2) ? options.inverse(this) : options.fn(this)));
 
 
 /** TEMPORARY NAVIGATION **/
@@ -27,7 +27,7 @@ const pages:Record<string, any> = {
 }
 
 function navigate(page: string) {
-    const app = document.getElementById('app');
+    const app = document.querySelector('#app');
 
     const Component = pages[page];
     const component = new Component();
@@ -39,9 +39,9 @@ function navigate(page: string) {
 
 document.addEventListener('DOMContentLoaded', () => navigate('profile'));
 
-document.addEventListener('click', (e) => {
+document.addEventListener('click', (event: MouseEvent) => {
     // @ts-ignore
-    const page = e.target.getAttribute('data-page');
+    const page = event.target.dataset.page;
 
     if (page) {
         navigate(page);
@@ -51,9 +51,9 @@ document.addEventListener('click', (e) => {
     }
 });
 
-document.addEventListener('submit', (e) => {
+document.addEventListener('submit', (event: SubmitEvent) => {
     // @ts-ignore
-    const page = e.target.getAttribute('action');
+    const page = event.target.getAttribute('action');
     if (page) {
         navigate(page);
 

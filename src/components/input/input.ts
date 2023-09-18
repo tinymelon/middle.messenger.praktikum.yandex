@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from "../../core/block";
 
 export class Input extends Block {
     constructor(props: any) {

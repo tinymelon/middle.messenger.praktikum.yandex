@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from "../../core/block";
 
 export class ChatBubble extends Block {
     constructor(props: any) {

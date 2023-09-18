@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from "../../core/block";
 import './chatWindowHead.less';
 
 export class ChatWindowHead extends Block {

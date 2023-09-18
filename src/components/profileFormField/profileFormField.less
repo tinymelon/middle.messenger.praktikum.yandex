@@ -1,4 +1,4 @@
-@import "../../styles/main";
+@import url("../../styles/main");
 
 .profile_form_group {
   position: relative;
@@ -12,6 +12,7 @@
     left: 0;
     transform: translateY(-50%);
   }
+
   input {
     width: 100%;
     border: none;
@@ -23,23 +24,25 @@
     font-size: 13px;
     font-weight: 500;
     line-height: 1;
+
     &:disabled {
       background: inherit;
     }
+
     &:focus {
       color: @colorBlack;
       border-bottom-color: @colorMain;
     }
   }
 
+  &.error, &.error input {
+    color: @colorRed;
+    border-color: @colorRed;
+  }
+
   &:last-child {
     input:not(:focus) {
       border-bottom-color: transparent;
     }
-  }
-
-  &.error, &.error input {
-    color: @colorRed;
-    border-color: @colorRed;
   }
 }

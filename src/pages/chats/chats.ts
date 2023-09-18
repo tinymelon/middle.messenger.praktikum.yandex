@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from "../../core/block";
 
 export class ChatsPage extends Block {
     constructor(props: any) {
@@ -17,7 +17,7 @@ export class ChatsPage extends Block {
                     title
                 });
             },
-            activeChat: null,
+            activeChat: undefined,
             ...props
         });
     }

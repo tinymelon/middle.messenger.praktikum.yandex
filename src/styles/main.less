@@ -5,11 +5,13 @@
   -moz-@{property}: @value;
     @{property}: @value;
 }
+
 .flexVerticalCenter {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .customScrollbar {
   overflow: auto;
   scrollbar-width: thin;
@@ -21,6 +23,7 @@
     border: none;
     background: @colorGrayLighter;
   }
+
   &::-webkit-scrollbar-thumb {
     width: 6px;
     border: none;
@@ -46,10 +49,12 @@
   -webkit-locale: auto;
   box-sizing: border-box;
 }
+
 html, body {
   margin: 0;
   padding: 0;
 }
+
 body {
   cursor: default;
   font-family:  'Segoe UI', 'SF Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -60,26 +65,33 @@ body {
   width: 100vw;
   height: 100vh;
 }
+
 #app {
   width: 100vw;
   height: 100vh;
   position: relative;
 }
+
 .clear {
   clear: both;
 }
-.clear:after {
+
+.clear::after {
   content: ' ';
   display: block;
   clear: both;
 }
+
 b, strong {
   font-weight: 500;
 }
+
 .disable-select {
   .vendor(user-select, none);
+
   -webkit-touch-callout: none;
 }
+
 .centered_content {
   display: flex;
   flex-direction: row;

@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from "../../core/block";
 import template from './profileForm.hbs?raw';
 import * as validators from "../../utils/validators";
 

@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from "../../core/block";
 import template from './chatsList.hbs?raw';
 
 export class ChatsList extends Block {

@@ -1,11 +1,11 @@
-import Block from "../../core/Block";
+import Block from "../../core/block";
 
 export class PopupAvatarUpload extends Block {
     constructor(props: any) {
         super({
             events: {
-                click: (e) => {
-                    this.props.onClick(e);
+                click: (event: MouseEvent) => {
+                    this.props.onClick(event);
                 }
             },
             ...props

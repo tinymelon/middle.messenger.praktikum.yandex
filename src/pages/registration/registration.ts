@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from "../../core/block";
 import isFormSubmitErrors from "../../utils/isFormSubmitErrors";
 
 export class RegistrationPage extends Block {
