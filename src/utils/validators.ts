@@ -15,9 +15,10 @@ export function password (value: string, submit?: boolean): string {
     return '';
 }
 
-// @ts-ignore submit летит всегда, т.к. валидаторы вызываются в цикле, но здесь он не используется
+// тут должен быть ts-ignore
 export function passwordAgain (value: string, submit?: boolean, compare?: string): string {
-    if (compare && compare != value) return 'Пароли не совпадают';
+    //submit летит всегда, т.к. валидаторы вызываются в цикле, но здесь он не используется
+    if ((submit || !submit) && compare && compare != value) return 'Пароли не совпадают';
     return '';
 }
 

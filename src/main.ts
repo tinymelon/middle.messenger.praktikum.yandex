@@ -41,8 +41,7 @@ function navigate(page: string) {
 document.addEventListener('DOMContentLoaded', () => navigate('login'));
 
 document.addEventListener('click', (event: MouseEvent) => {
-    // @ts-ignore
-    const page = event.target.dataset.page;
+    const page = (event.target as HTMLElement)?.dataset.page;
 
     if (page) {
         navigate(page);
@@ -53,8 +52,7 @@ document.addEventListener('click', (event: MouseEvent) => {
 });
 
 document.addEventListener('submit', (event: SubmitEvent) => {
-    // @ts-ignore
-    const page = event.target.getAttribute('action');
+    const page = (event.target as HTMLFormElement)?.getAttribute('action');
     if (page) {
         navigate(page);
 
