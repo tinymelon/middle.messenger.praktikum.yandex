@@ -11,8 +11,8 @@ export default class Block<Props extends Record<string, any>> {
     };
 
     public id = nanoid(6);
-    public props: Props;
-    public refs: Record<string, Block<Props> | HTMLElement>;
+    public props = {} as Props;
+    public refs = {} as Record<string, Block<Props> | HTMLElement>;
     public children: Record<string, Block<Props>>;
     private _element: HTMLElement | undefined = undefined;
     protected _meta: {props: any};
