@@ -1,6 +1,8 @@
 import Block from "../../core/block";
 
-export class AsideBackButton extends Block {
+type Props = {};
+
+export class AsideBackButton extends Block<Props> {
     constructor() {
         super();
     }

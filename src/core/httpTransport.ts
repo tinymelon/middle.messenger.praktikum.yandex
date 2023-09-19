@@ -5,6 +5,8 @@ type Options = {
     headers?: Record<string, string>
 }
 
+type HttpMethod = (url: string, options?: Options) => Promise<unknown>
+
 export default class HttpTransport {
     METHODS: Record<string, string> = {
         GET: 'GET',
@@ -13,20 +15,20 @@ export default class HttpTransport {
         DELETE: 'DELETE'
     }
 
-    get = (url: string, options: Options) => {
+    get: HttpMethod = (url: string, options: Options) => {
 
         return this.request(url, {...options, method: this.METHODS.GET}, options.timeout);
     };
 
-    post = (url: string, options: Options = {}) => {
+    post: HttpMethod = (url: string, options: Options = {}) => {
         return this.request(url, {...options, method: this.METHODS.POST}, options.timeout);
     };
 
-    put = (url: string, options: Options = {}) => {
+    put: HttpMethod = (url: string, options: Options = {}) => {
         return this.request(url, {...options, method: this.METHODS.PUT}, options.timeout);
     };
 
-    delete = (url: string, options: Options = {}) => {
+    delete: HttpMethod = (url: string, options: Options = {}) => {
         return this.request(url, {...options, method: this.METHODS.DELETE}, options.timeout);
     };
 

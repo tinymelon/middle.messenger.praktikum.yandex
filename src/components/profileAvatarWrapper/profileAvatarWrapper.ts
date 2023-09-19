@@ -4,7 +4,7 @@ interface Props {
     onClick: () => void
 }
 
-export class ProfileAvatarWrapper extends Block {
+export class ProfileAvatarWrapper extends Block<Props> {
     constructor(props: Props) {
         super({
             events: {

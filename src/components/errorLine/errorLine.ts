@@ -4,7 +4,7 @@ interface Props {
     error: string
 }
 
-export class ErrorLine extends Block {
+export class ErrorLine extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props

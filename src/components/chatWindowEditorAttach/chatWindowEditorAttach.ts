@@ -5,7 +5,7 @@ interface Props {
     onClick: () => void
 }
 
-export class ChatWindowEditorAttach extends Block {
+export class ChatWindowEditorAttach extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props,

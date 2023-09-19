@@ -4,10 +4,11 @@ import * as validators from "../../utils/validators";
 interface Props {
     onProfileSave: (arg0: SubmitEvent) => void,
     onModeChange: (arg0: Record<string, any>) => void,
-    editable: string
+    editable: string,
+    errors: Record<string, string>
 }
 
-export class ProfileForm extends Block {
+export class ProfileForm extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props,
@@ -30,7 +31,7 @@ export class ProfileForm extends Block {
         const errors = this.props.errors;
         if (errors) {
             for (let key in errors) {
-                const ref = this.refs[key] as Block;
+                const ref = this.refs[key] as Block<Props>;
                 ref.setProps({
                     error: errors[key],
                     submitted: true

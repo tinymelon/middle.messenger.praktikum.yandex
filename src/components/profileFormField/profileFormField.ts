@@ -2,6 +2,8 @@ import Block from "../../core/block";
 
 interface Props {
     change: () => void,
+    validate: (arg0: string, arg1?: boolean, arg2?: string) => string,
+    compare: () => string,
     value: string,
     label: string,
     type: string,
@@ -11,7 +13,7 @@ interface Props {
     error?: string,
 }
 
-export class ProfileFormField extends Block {
+export class ProfileFormField extends Block<Props> {
     constructor(props: Props) {
         super({
             events: {

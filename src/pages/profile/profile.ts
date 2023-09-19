@@ -12,13 +12,13 @@ interface Props {
     showPopup: boolean
 }
 
-export class ProfilePage extends Block {
+export class ProfilePage extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props,
             changeProfilePassword: (event: SubmitEvent) => {
-                const form = this.refs.passwordForm as Block;
-                const errors = isFormSubmitErrors(event, form.refs);
+                const form = this.refs.passwordForm as Block<Props>;
+                const errors = isFormSubmitErrors(event, form.refs as Record<string, Block<any>>);
                 if (errors) return;
                 this.setProps({
                     editable: 'disabled',
@@ -28,8 +28,8 @@ export class ProfilePage extends Block {
                 console.log(formData);
             },
             changeProfileData: (event: SubmitEvent) => {
-                const form = this.refs.profileForm as Block;
-                const errors = isFormSubmitErrors(event, form.refs);
+                const form = this.refs.profileForm as Block<Props>;
+                const errors = isFormSubmitErrors(event, form.refs as Record<string, Block<any>>);
                 if (errors) return;
                 this.setProps({
                     editable: 'disabled',

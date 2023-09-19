@@ -4,7 +4,7 @@ interface Props {
     onModeChange: (arg0: Record<string, any>) => void
 }
 
-export class ProfileActionsList extends Block {
+export class ProfileActionsList extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props

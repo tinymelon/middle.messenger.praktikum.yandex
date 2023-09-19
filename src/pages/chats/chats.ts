@@ -7,7 +7,7 @@ interface Props {
     title?: string
 }
 
-export class ChatsPage extends Block {
+export class ChatsPage extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props,
@@ -22,7 +22,7 @@ export class ChatsPage extends Block {
                     value = element.value;
                 }
                 const data = {search: value};
-                const ref = this.refs.list as Block;
+                const ref = this.refs.list as Block<Props>;
                 ref.setProps(data);
                 console.log(data);
             },

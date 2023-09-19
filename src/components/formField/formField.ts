@@ -2,6 +2,8 @@ import Block from "../../core/block";
 
 interface Props {
     onBlur: () => void,
+    validate: (arg0: string, arg1?: boolean, arg2?: string) => string,
+    compare: () => string,
     value: string,
     label: string,
     type: string,
@@ -10,12 +12,12 @@ interface Props {
     error?: string,
 }
 
-export class FormField extends Block {
+export class FormField extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props,
             onBlur: () => {
-                const ref = this.refs.input as Block;
+                const ref = this.refs.input as Block<Props>;
                 const element = ref.element as HTMLInputElement;
                 const value = element.value;
                 this.setProps({
@@ -31,13 +33,13 @@ export class FormField extends Block {
         if (!this.validate()) {
             return false;
         }
-        const ref = this.refs.input as Block;
+        const ref = this.refs.input as Block<Props>;
         const element = ref.element as HTMLInputElement;
         return element.value;
     }
 
     public validate() {
-        const ref = this.refs.input as Block;
+        const ref = this.refs.input as Block<Props>;
         const element = ref.element as HTMLInputElement;
         const value = element.value;
         const error = this.props.validate?.(value, this.props.submitted, this.props.compare ? this.props.compare() : undefined);

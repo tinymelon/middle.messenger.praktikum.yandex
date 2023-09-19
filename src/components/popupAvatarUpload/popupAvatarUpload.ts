@@ -5,7 +5,7 @@ interface Props {
     visible: boolean
 }
 
-export class PopupAvatarUpload extends Block {
+export class PopupAvatarUpload extends Block<Props> {
     constructor(props: Props) {
         super({
             events: {

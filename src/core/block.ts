@@ -1,7 +1,8 @@
 import EventBus from "./eventBus";
 import {nanoid} from 'nanoid';
 import Handlebars from "handlebars";
-export default class Block {
+
+export default class Block<Props extends Record<string, any>> {
     static EVENTS = {
         INIT: "init",
         FLOW_CDM: "flow:component-did-mount",
@@ -10,9 +11,9 @@ export default class Block {
     };
 
     public id = nanoid(6);
-    public props: any;
-    public refs: Record<string, Block> | Record<string, HTMLElement> = {};
-    public children: Record<string, Block>;
+    public props: Props;
+    public refs: Record<string, Block<Props> | HTMLElement>;
+    public children: Record<string, Block<Props>>;
     private _element: HTMLElement | undefined = undefined;
     protected _meta: {props: any};
     private eventBus: () => EventBus;
@@ -37,7 +38,7 @@ export default class Block {
 
     private _getChildrenAndProps(childrenAndProperties: any) {
         const props: Record<string, any> = {};
-        const children: Record<string, Block> = {};
+        const children: Record<string, Block<Props>> = {};
 
         for (const [key, value] of Object.entries(childrenAndProperties)) {
             if (value instanceof Block) {
@@ -104,7 +105,7 @@ export default class Block {
     protected componentWillUnmount() {}
 
     private _removeEvents() {
-        const {events = {}} = this.props as { events: Record<string, () => void> };
+        const {events = {}} = this.props;
 
         for (const eventName of Object.keys(events)) {
             this._element?.removeEventListener(eventName, events[eventName]);
@@ -172,7 +173,7 @@ export default class Block {
     }
 
     private _addEvents() {
-         const {events = {}} = this.props as { events: Record<string, () => void> };
+         const {events = {}} = this.props;
 
          for (const eventName of Object.keys(events)) {
              this._element?.addEventListener(eventName, events[eventName]);

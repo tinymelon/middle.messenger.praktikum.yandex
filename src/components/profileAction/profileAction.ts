@@ -1,13 +1,15 @@
 import Block from "../../core/block";
 
 interface Props {
-    onClick?: (arg0: MouseEvent) => void,
+    onClick?: (arg0: Record<string, string>) => void,
     page: string,
     class: string,
-    text: string
+    text: string,
+    property: string,
+    value: string
 }
 
-export class ProfileAction extends Block {
+export class ProfileAction extends Block<Props> {
     constructor(props: Props) {
         super({
             events: {

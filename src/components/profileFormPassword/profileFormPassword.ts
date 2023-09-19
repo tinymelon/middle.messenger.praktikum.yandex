@@ -2,10 +2,11 @@ import Block from "../../core/block";
 import * as validators from "../../utils/validators";
 
 interface Props {
-    onPasswordSave: (arg0: SubmitEvent) => void
+    onPasswordSave: (arg0: SubmitEvent) => void,
+    errors: Record<string, string>
 }
 
-export class ProfileFormPassword extends Block {
+export class ProfileFormPassword extends Block<Props> {
     constructor(props: Props) {
         super({
             events: {
@@ -16,7 +17,7 @@ export class ProfileFormPassword extends Block {
                 passwordAgain: validators.passwordAgain
             },
             compare: () => {
-                const ref = this.refs.newPassword as Block;
+                const ref = this.refs.newPassword as Block<Props>;
                 return ref.value();
             },
             ...props
@@ -27,15 +28,15 @@ export class ProfileFormPassword extends Block {
         const errors = this.props.errors;
         if (errors) {
             for (let key in errors) {
-                const ref = this.refs[key] as Block;
+                const ref = this.refs[key] as Block<Props>;
                 ref.setProps({
                     error: errors[key],
                     submitted: true
                 });
             }
         }
-        const refNewPass = this.refs.newPassword as Block;
-        const refPassAgain = this.refs.passwordAgain as Block;
+        const refNewPass = this.refs.newPassword as Block<Props>;
+        const refPassAgain = this.refs.passwordAgain as Block<Props>;
         if (refPassAgain.value() != refNewPass.value()) {
             refPassAgain.setProps({error: 'Пароли не совпадают'});
         }

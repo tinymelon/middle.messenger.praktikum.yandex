@@ -5,7 +5,7 @@ interface Props {
     active: boolean
 }
 
-export class ChatEditorAttach extends Block {
+export class ChatEditorAttach extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props,

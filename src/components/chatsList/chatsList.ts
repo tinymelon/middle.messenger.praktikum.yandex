@@ -2,12 +2,13 @@ import Block from "../../core/block";
 
 interface Props {
     onChatSelect: (arg0: string, arg1: string) => void,
+    onSearch: (arg0: SubmitEvent | Event) => void,
     search?: string,
     chatID?: string,
     activeChat?: string
 }
 
-export class ChatsList extends Block {
+export class ChatsList extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props

@@ -6,12 +6,12 @@ interface Props {
     active?: boolean
 }
 
-export class ChatWindow extends Block {
+export class ChatWindow extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props,
             chatActionsToggle: () => {
-                const ref = this.refs.chatDropdown as Block;
+                const ref = this.refs.chatDropdown as Block<Props>;
                 ref.setProps({
                     active: !ref.props.active
                 });

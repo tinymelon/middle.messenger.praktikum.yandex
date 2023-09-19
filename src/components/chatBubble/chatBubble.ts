@@ -6,7 +6,7 @@ interface Props {
     time: string
 }
 
-export class ChatBubble extends Block {
+export class ChatBubble extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props

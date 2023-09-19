@@ -5,7 +5,7 @@ interface Props {
     active: boolean
 }
 
-export class ChatDropdown extends Block {
+export class ChatDropdown extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props

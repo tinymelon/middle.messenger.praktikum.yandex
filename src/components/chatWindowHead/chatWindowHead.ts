@@ -6,7 +6,7 @@ interface Props {
     onChatActionsClick: () => void
 }
 
-export class ChatWindowHead extends Block {
+export class ChatWindowHead extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props

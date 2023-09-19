@@ -6,7 +6,7 @@ interface Props {
     text: string
 }
 
-export class ActionButton extends Block {
+export class ActionButton extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props

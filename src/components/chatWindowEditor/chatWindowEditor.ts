@@ -4,15 +4,16 @@ import isFormSubmitErrors from "../../utils/isFormSubmitErrors";
 
 interface Props {
     messageAttachToggle: () => void,
-    sendMessage: (arg0: SubmitEvent) => void
+    sendMessage: (arg0: SubmitEvent) => void,
+    active: boolean
 }
 
-export class ChatWindowEditor extends Block {
+export class ChatWindowEditor extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props,
             messageAttachToggle: () => {
-                const ref = this.refs.attachPopup as Block;
+                const ref = this.refs.attachPopup as Block<Props>;
                 ref.setProps({
                     active: !ref.props.active
                 });
@@ -20,8 +21,8 @@ export class ChatWindowEditor extends Block {
             sendMessage: (event: SubmitEvent) => {
                 event.preventDefault();
                 event.stopImmediatePropagation();
-                const form = this.refs.messageForm as Block;
-                const errors = isFormSubmitErrors(event, form.refs);
+                const form = this.refs.messageForm as Block<Props>;
+                const errors = isFormSubmitErrors(event, form.refs as Record<string, Block<any>>);
                 if (errors) return;
                 const formData = Object.fromEntries(new FormData(event.target as HTMLFormElement).entries());
                 console.log(formData);

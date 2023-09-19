@@ -5,7 +5,7 @@ interface Props {
     text: string
 }
 
-export class LoginBlockLink extends Block {
+export class LoginBlockLink extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props

@@ -2,10 +2,11 @@ import Block from "../../core/block";
 import * as validators from '../../utils/validators';
 
 interface Props {
-    onSubmit: (arg0: SubmitEvent) => void
+    onSubmit: (arg0: SubmitEvent) => void,
+    errors: Record<string, string>
 }
 
-export class LoginForm extends Block {
+export class LoginForm extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props,
@@ -23,7 +24,7 @@ export class LoginForm extends Block {
         const errors = this.props.errors;
         if (errors) {
             for (let key in errors) {
-                const ref = this.refs[key] as Block;
+                const ref = this.refs[key] as Block<Props>;
                 ref.setProps({
                     error: errors[key],
                     submitted: true

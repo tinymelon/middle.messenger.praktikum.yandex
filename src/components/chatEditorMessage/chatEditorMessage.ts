@@ -6,7 +6,7 @@ interface Props {
     active: boolean
 }
 
-export class ChatEditorMessage extends Block {
+export class ChatEditorMessage extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props,

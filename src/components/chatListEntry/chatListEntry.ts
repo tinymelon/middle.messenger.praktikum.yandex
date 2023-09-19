@@ -1,7 +1,7 @@
 import Block from "../../core/block";
 
 interface Props {
-    onChatSelect: (arg0: string, arg1: string) => void,
+    onChatSelect: (arg0: string | undefined, arg1: string) => void,
     title: string,
     content: string,
     time: string,
@@ -10,7 +10,7 @@ interface Props {
     activeChat?: string
 }
 
-export class ChatListEntry extends Block {
+export class ChatListEntry extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props,
