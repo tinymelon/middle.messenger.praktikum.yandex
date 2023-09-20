@@ -1,0 +1,14 @@
+@import url("../../styles/main");
+
+.chat_window__head_menu {
+  width: 25px;
+  height: 25px;
+  background: url("@{base-url}menu.svg") @colorGrayLighter no-repeat center;
+  border-radius: 100%;
+  cursor: pointer;
+  margin-left: auto;
+
+  &:hover {
+    background-color: darken(@colorGrayLighter, 10%);
+  }
+}

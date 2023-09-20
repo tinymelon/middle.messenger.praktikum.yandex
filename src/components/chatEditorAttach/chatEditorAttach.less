@@ -1,0 +1,46 @@
+@import url("../../styles/main");
+
+.message_attach__dropdown__wrapper {
+  display: none;
+  position: absolute;
+  left: 10px;
+  bottom: 60px;
+  z-index: 100;
+  background: #fff;
+  padding: 0 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgb(0 0 0 / 20%);
+
+  &.active {
+    display: block;
+  }
+
+  div {
+    margin: 20px 0;
+    cursor: pointer;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    line-height: 1;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      margin-right: 15px;
+      width: 22px;
+      height: 22px;
+    }
+
+    &:nth-child(1)::before {
+      background: url("../../assets/images/photo.svg") no-repeat center;
+    }
+
+    &:nth-child(2)::before {
+      background: url("../../assets/images/file.svg") no-repeat center;
+    }
+
+    &:nth-child(3)::before {
+      background: url("../../assets/images/location.svg") no-repeat center;
+    }
+  }
+}
