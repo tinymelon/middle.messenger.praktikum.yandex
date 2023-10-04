@@ -12,7 +12,7 @@ export default function isFormSubmitErrors(event: SubmitEvent, references: Recor
     let isErrors: boolean;
     for (let element in references) {
         let ref = references[element] as Block<Props>;
-        if (typeof ref.validate == 'function' && !ref.validate()) {
+        if (typeof ref.validate == 'function' && !ref.validate(true)) {
             errors[ref.props.ref] = ref.props.error;
         }
     }

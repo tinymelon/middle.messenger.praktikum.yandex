@@ -239,7 +239,8 @@ export default class Block<Props extends Record<string, any>> {
         return props;
     }
 
-    public validate(): boolean {
+    public validate(isSubmit?: boolean): boolean {
+        if (isSubmit) return true;
         return true;
     }
 
