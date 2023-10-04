@@ -7,6 +7,7 @@ export default class Block<Props extends Record<string, any>> {
         INIT: "init",
         FLOW_CDM: "flow:component-did-mount",
         FLOW_CDU: "flow:component-did-update",
+        FLOW_CWU: 'flow:component-will-unmount',
         FLOW_RENDER: "flow:render"
     };
 
@@ -55,6 +56,7 @@ export default class Block<Props extends Record<string, any>> {
         eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+        eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
     }
 
@@ -67,6 +69,7 @@ export default class Block<Props extends Record<string, any>> {
     protected init() {}
 
     private _componentDidMount() {
+        this._checkInDom();
         this.componentDidMount();
     }
 
@@ -103,6 +106,17 @@ export default class Block<Props extends Record<string, any>> {
     }
 
     protected componentWillUnmount() {}
+
+    _checkInDom() {
+        const elementInDOM = document.body.contains(this._element as Node);
+
+        if (elementInDOM) {
+            setTimeout(() => this._checkInDom(), 1000);
+            return;
+        }
+
+        this.eventBus().emit(Block.EVENTS.FLOW_CWU, this.props);
+    }
 
     private _removeEvents() {
         const {events = {}} = this.props;
@@ -181,7 +195,15 @@ export default class Block<Props extends Record<string, any>> {
     }
 
     getContent() {
-        return this.element;
+        if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+            setTimeout(() => {
+                if (this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
+                    this.dispatchComponentDidMount();
+                }
+            }, 100);
+        }
+
+        return this._element;
     }
 
     public get element(): HTMLElement | undefined {
@@ -225,11 +247,11 @@ export default class Block<Props extends Record<string, any>> {
         return false;
     }
 
-    protected show() {
+    public show() {
         this.getContent()!.style.display = 'block';
     }
 
-    protected hide() {
+    public hide() {
         this.getContent()!.style.display = 'none';
     }
 }

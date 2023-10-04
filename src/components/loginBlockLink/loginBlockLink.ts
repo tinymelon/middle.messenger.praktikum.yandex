@@ -8,7 +8,14 @@ interface Props {
 export class LoginBlockLink extends Block<Props> {
     constructor(props: Props) {
         super({
-            ...props
+            ...props,
+            events: {
+                click: (event: MouseEvent) => {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    window.location.href = `/${this.props.page}`;
+                }
+            }
         });
     }
 

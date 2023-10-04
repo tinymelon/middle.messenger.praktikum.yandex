@@ -15,6 +15,7 @@ export class LoginPage extends Block<Props> {
                 if (errors) return;
                 const formData = Object.fromEntries(new FormData(event.target as HTMLFormElement).entries());
                 console.log(formData);
+                //window.location.href = '/messenger';
             }
         });
     }

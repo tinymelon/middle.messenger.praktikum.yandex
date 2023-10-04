@@ -50,7 +50,7 @@ export class RegistrationForm extends Block<Props> {
     protected render(): string {
         //language=hbs
         return (`
-            <form action="chats" class="auth_from_wrapper__form">
+            <form action="messenger" class="auth_from_wrapper__form">
                 <div class="auth_from_wrapper__form_inputs">
                     {{{FormField label='Почта' name='email' ref='email' type='email' validate=validators.email}}}
                     {{{FormField label='Логин' name='login' ref='login' type='text' validate=validators.login}}}
@@ -62,7 +62,7 @@ export class RegistrationForm extends Block<Props> {
                 </div>
 
                 {{{ActionButton text='Зарегистрироваться'}}}
-                {{{LoginBlockLink text='Войти?' href='#' page='login'}}}
+                {{{LoginBlockLink text='Войти?' href='#' page=' '}}}
             </form>
         `)
     }
