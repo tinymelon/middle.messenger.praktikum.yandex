@@ -31,7 +31,7 @@ export class ChatsList extends Block<Props> {
         return (`
         <div class="chats_list__wrapper">
             <div class="chats_list__head">
-                <a href="#" class="chats_list__profile" data-page="profile">Профиль</a>
+                {{{ChatsProfileLink}}}
                 <form action="#" ref="searchForm">
                     <input type="text" class="chats_list__search" placeholder="Поиск" value="{{search}}" name="search">
                 </form>

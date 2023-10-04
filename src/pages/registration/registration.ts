@@ -1,5 +1,6 @@
 import Block from "../../core/block";
 import isFormSubmitErrors from "../../utils/isFormSubmitErrors";
+import Router from "../../core/router";
 
 interface Props {
     onRegister: (arg0: SubmitEvent) => void
@@ -15,7 +16,8 @@ export class RegistrationPage extends Block<Props> {
                 if (errors) return;
                 const formData = Object.fromEntries(new FormData(event.target as HTMLFormElement).entries());
                 console.log(formData);
-                window.location.href = '/messenger';
+                const router = new Router('#app');
+                router.go('/messenger');
             }
         });
     }

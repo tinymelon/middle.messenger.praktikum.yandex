@@ -1,4 +1,5 @@
 import Block from "../../core/block";
+import Router from "../../core/router";
 
 interface Props {
     class: string,
@@ -9,11 +10,21 @@ interface Props {
 export class ActionButton extends Block<Props> {
     constructor(props: Props) {
         super({
-            ...props
+            ...props,
+            events: {
+                click: (event: MouseEvent) => {
+                    if (this.props.page) {
+                        event.preventDefault();
+                        event.stopImmediatePropagation();
+                        const router = new Router('#app');
+                        router.go(`/${this.props.page}`);
+                    }
+                }
+            }
         });
     }
 
     protected render(): string {
-        return (`<button class="action_button {{class}}" data-page="{{page}}">{{text}}</button>`)
+        return (`<button class="action_button {{class}}">{{text}}</button>`)
     }
 }

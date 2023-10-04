@@ -1,9 +1,9 @@
 import Block from "../../core/block";
 import Router from "../../core/router";
 
-type Props = {};
+interface Props {}
 
-export class AsideBackButton extends Block<Props> {
+export class ChatsProfileLink extends Block<Props> {
     constructor() {
         super({
             events: {
@@ -11,13 +11,16 @@ export class AsideBackButton extends Block<Props> {
                     event.preventDefault();
                     event.stopImmediatePropagation();
                     const router = new Router('#app');
-                    router.go(`/messenger`);
+                    router.go(`/settings`);
                 }
             }
         });
     }
 
     protected render(): string {
-        return (`<a href="#" class="aside_back_button"></a>`);
+        //language=hbs
+        return (`
+            <a href="#" class="chats_list__profile">Профиль</a>
+        `);
     }
 }

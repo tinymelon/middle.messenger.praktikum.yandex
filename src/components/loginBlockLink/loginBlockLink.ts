@@ -1,4 +1,5 @@
 import Block from "../../core/block";
+import Router from "../../core/router";
 
 interface Props {
     page: string,
@@ -13,7 +14,8 @@ export class LoginBlockLink extends Block<Props> {
                 click: (event: MouseEvent) => {
                     event.preventDefault();
                     event.stopImmediatePropagation();
-                    window.location.href = `/${this.props.page}`;
+                    const router = new Router('#app');
+                    router.go(`/${this.props.page}`);
                 }
             }
         });

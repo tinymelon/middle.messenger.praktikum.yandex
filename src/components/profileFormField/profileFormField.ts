@@ -39,16 +39,22 @@ export class ProfileFormField extends Block<Props> {
         });
     }
 
-    public validate() {
+    public validate(isSubmitted?: boolean) {
         if (!this.props.validate) return true;
         const element = this.refs.input as HTMLInputElement;
         const value = element.value;
-        const error = this.props.validate?.(value, this.props.submitted, this.props.compare ? this.props.compare() : undefined);
+        const error = this.props.validate?.(value, isSubmitted || this.props.submitted, this.props.compare ? this.props.compare() : undefined);
         if (error) {
-            this.setProps({ error });
+            this.setProps({
+                error,
+                submitted: isSubmitted || this.props.submitted
+            });
             return false;
         }
-        this.setProps({ error: undefined });
+        this.setProps({
+            error: undefined,
+            submitted: isSubmitted || this.props.submitted
+        });
         return true;
     }
 

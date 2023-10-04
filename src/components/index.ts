@@ -7,6 +7,7 @@ export {ErrorLine} from './errorLine';
 export {RegistrationForm} from './registrationForm';
 
 export {ChatsList} from './chatsList';
+export {ChatsProfileLink} from './chatsProfileLink';
 export {ChatListEntry} from './chatListEntry';
 export {ChatWindow} from './chatWindow';
 export {ChatBubble} from './chatBubble';
