@@ -93,7 +93,7 @@ export default class Block<Props extends Record<string, any>> {
         return oldProperties && newProperties ? true : true;
     }
 
-    protected unmountComponent() {
+    public unmountComponent() {
         if (this._element) {
             this._componentWillUnmount();
             this._removeEvents();

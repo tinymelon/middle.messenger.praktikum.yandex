@@ -21,7 +21,7 @@ export default class Route {
 
     leave() {
         if (this._block) {
-            this._block.hide();
+            this._block.unmountComponent();
         }
     }
 
@@ -30,14 +30,10 @@ export default class Route {
     }
 
     render() {
-        if (!this._block) {
-            this._block = new this._blockClass();
-            const app = document.querySelector(this._props.rootQuery);
-            app.innerHTML = '';
-            app.append(this._block.getContent()!);
-            return;
-        }
-
-        this._block.show();
+        const app = document.querySelector(this._props.rootQuery);
+        if (!this._block) this._block = new this._blockClass();
+        app.innerHTML = '';
+        app.append(this._block.getContent()!);
+        return;
     }
 }

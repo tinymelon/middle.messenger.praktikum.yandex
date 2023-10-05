@@ -11,7 +11,8 @@ export default class EventBus<E extends string = string, M extends {[K in E]: un
 
     off(event: E, callback: Listener<M[E]>) {
         if (!this.listeners[event]) {
-            throw new Error(`Нет подписок на событие ${event}`)
+            return;
+            //throw new Error(`Нет подписок на событие ${event}`)
         }
 
         this.listeners[event] = this.listeners[event]!.filter(listener => listener !== callback);
@@ -19,7 +20,8 @@ export default class EventBus<E extends string = string, M extends {[K in E]: un
 
     emit(event: E, ...arguments_: M[E]) {
         if (!this.listeners[event]) {
-            throw new Error(`Нет подписок на событие ${event}`)
+            return;
+            //throw new Error(`Нет подписок на событие ${event}`)
         }
 
         for (const listener of this.listeners[event]!) listener(...arguments_);

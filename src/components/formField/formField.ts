@@ -1,10 +1,10 @@
 import Block from "../../core/block";
 
 interface Props {
-    onBlur: () => void,
-    validate: (arg0: string, arg1?: boolean, arg2?: string) => string,
-    compare: () => string,
-    value: string,
+    onBlur?: () => void,
+    validate?: (arg0: string, arg1?: boolean, arg2?: string) => string,
+    compare?: () => string,
+    value?: string,
     label: string,
     type: string,
     name?: string,

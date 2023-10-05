@@ -38,13 +38,15 @@ export class RegistrationForm extends Block<Props> {
                     submitted: true
                 });
             }
+            return false;
         }
         const refNewPass = this.refs.password as Block<Props>;
         const refPassAgain = this.refs.passwordAgain as Block<Props>;
         if (refPassAgain.value() != refNewPass.value()) {
             refPassAgain.setProps({error: 'Пароли не совпадают'});
+            return false;
         }
-        return false;
+        return true;
     }
 
     protected render(): string {
@@ -59,6 +61,7 @@ export class RegistrationForm extends Block<Props> {
                     {{{FormField label='Телефон' name='phone' ref='phone' type='phone' validate=validators.phone}}}
                     {{{FormField label='Пароль' name='password' ref='password' type='password' validate=validators.password}}}
                     {{{FormField label='Пароль (ещё раз)' ref='passwordAgain' type='password' validate=validators.passwordAgain compare=compare}}}
+                    {{{ ErrorLine ref="errorLine" error=error}}}
                 </div>
 
                 {{{ActionButton text='Зарегистрироваться'}}}

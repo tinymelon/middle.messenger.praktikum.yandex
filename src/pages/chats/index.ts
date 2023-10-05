@@ -1,3 +1,4 @@
 import './chats.less';
+import ChatsPage from "./chats";
 
-export { ChatsPage } from './chats';
+export default ChatsPage;

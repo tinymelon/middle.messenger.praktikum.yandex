@@ -8,6 +8,7 @@ export {RegistrationForm} from './registrationForm';
 
 export {ChatsList} from './chatsList';
 export {ChatsProfileLink} from './chatsProfileLink';
+export {ChatAddButton} from './chatAddButton';
 export {ChatListEntry} from './chatListEntry';
 export {ChatWindow} from './chatWindow';
 export {ChatBubble} from './chatBubble';
@@ -29,3 +30,5 @@ export {ProfileFormPassword} from './profileFormPassword';
 export {ProfileAvatarWrapper} from './profileAvatarWrapper';
 
 export {PopupAvatarUpload} from './popupAvatarUpload';
+export {Dialog} from './dialog';
+export {default as AddChatPopup} from './addChatPopup';

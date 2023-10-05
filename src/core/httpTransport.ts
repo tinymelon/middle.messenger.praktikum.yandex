@@ -1,3 +1,5 @@
+import constants from "../constants";
+
 type Options = {
     timeout?: number,
     method?: string,
@@ -5,7 +7,7 @@ type Options = {
     headers?: Record<string, string>
 }
 
-type HttpMethod = (url: string, options?: Options) => Promise<unknown>
+type OptionsWithoutMethod = Omit<Options, 'method'>;
 
 export default class HttpTransport {
     METHODS: Record<string, string> = {
@@ -15,24 +17,29 @@ export default class HttpTransport {
         DELETE: 'DELETE'
     }
 
-    get: HttpMethod = (url: string, options: Options) => {
+    private readonly apiUrl: string = ''
 
-        return this.request(url, {...options, method: this.METHODS.GET}, options.timeout);
+    constructor(apiPath: string) {
+        this.apiUrl = `${constants.HOST}${apiPath}`;
+    }
+
+    get<TResponse>(url: string, options: OptionsWithoutMethod = {}): Promise<TResponse> {
+        return this.request<TResponse>(`${this.apiUrl}${url}`, {...options, method: this.METHODS.GET}, options.timeout);
     };
 
-    post: HttpMethod = (url: string, options: Options = {}) => {
-        return this.request(url, {...options, method: this.METHODS.POST}, options.timeout);
+    post<TResponse>(url: string, options: OptionsWithoutMethod = {}): Promise<TResponse> {
+        return this.request<TResponse>(`${this.apiUrl}${url}`, {...options, method: this.METHODS.POST}, options.timeout);
     };
 
-    put: HttpMethod = (url: string, options: Options = {}) => {
-        return this.request(url, {...options, method: this.METHODS.PUT}, options.timeout);
+    put<TResponse>(url: string, options: OptionsWithoutMethod = {}): Promise<TResponse> {
+        return this.request<TResponse>(`${this.apiUrl}${url}`, {...options, method: this.METHODS.PUT}, options.timeout);
     };
 
-    delete: HttpMethod = (url: string, options: Options = {}) => {
-        return this.request(url, {...options, method: this.METHODS.DELETE}, options.timeout);
+    delete<TResponse>(url: string, options: OptionsWithoutMethod = {}): Promise<TResponse> {
+        return this.request<TResponse>(`${this.apiUrl}${url}`, {...options, method: this.METHODS.DELETE}, options.timeout);
     };
 
-    queryStringify(data: Record<any, any>) {
+    queryStringify(data: Record<any, any>): string {
         if (typeof data !== 'object') {
             throw new TypeError('Data must be object');
         }
@@ -45,7 +52,7 @@ export default class HttpTransport {
         }, '?');
     }
 
-    request = (url: string, options: Options = {}, timeout = 5000) => {
+    async request<TResponse>(url: string, options: Options = {}, timeout = 5000): Promise<TResponse> {
         const {headers = {}, method, data} = options;
         // eslint-disable-next-line unicorn/no-this-assignment
         const self = this;
@@ -58,7 +65,7 @@ export default class HttpTransport {
 
             const xhr = new XMLHttpRequest();
             const isGet = method === self.METHODS.GET;
-
+            xhr.withCredentials = true;
             xhr.open(
                 method,
                 isGet && !!data
@@ -66,12 +73,16 @@ export default class HttpTransport {
                     : url,
             );
 
+
             for (const key of Object.keys(headers)) {
                 xhr.setRequestHeader(key, headers[key]);
             }
 
             xhr.addEventListener('load', function() {
-                resolve(xhr);
+                const isJson = xhr.getResponseHeader('content-type')?.includes('application/json');
+                const response = isJson ? JSON.parse(xhr.response) : xhr.response;
+                if (this.status >= 400) reject(response);
+                resolve(response);
             });
 
             xhr.addEventListener('abort', reject);
@@ -79,11 +90,10 @@ export default class HttpTransport {
 
             xhr.timeout = timeout;
             xhr.ontimeout = reject;
-
             if (isGet || !data) {
                 xhr.send();
             } else {
-                xhr.send(data);
+                xhr.send(JSON.stringify(data));
             }
         });
     };

@@ -4,7 +4,8 @@ import Router from "../../core/router";
 interface Props {
     class: string,
     page: string,
-    text: string
+    text: string,
+    onClick?: (e: Event) => void
 }
 
 export class ActionButton extends Block<Props> {
@@ -18,6 +19,9 @@ export class ActionButton extends Block<Props> {
                         event.stopImmediatePropagation();
                         const router = new Router('#app');
                         router.go(`/${this.props.page}`);
+                    }
+                    if (this.props.onClick) {
+                        this.props.onClick(event);
                     }
                 }
             }

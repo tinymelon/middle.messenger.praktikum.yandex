@@ -1,4 +1,4 @@
-function isEqual(a: Record<string, any>, b: Record<string, any>): boolean {
+export default function isEqual(a: Record<string, any>, b: Record<string, any>): boolean {
     let result: boolean = true;
     let i: string;
     for (i in a) {
