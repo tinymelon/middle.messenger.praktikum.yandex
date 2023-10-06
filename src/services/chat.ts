@@ -91,17 +91,30 @@ const getChatMessages = async (chatId: number) => {
     await websocket.connect();
     const wsChats = window.store.getState().wsChats;
     wsChats[chatId] = websocket;
-    websocket.on(WsTransportEvents.MESSAGE, (data: MessageDTO) => {
+    websocket.send({
+        content: '0',
+        type: 'get old',
+    });
+    websocket.on(WsTransportEvents.MESSAGE, (data: MessageDTO[] | MessageDTO) => {
         const messages = cloneDeep(window.store.getState().messages);
         const activeChat = window.store.getState().activeChat;
         if (!messages[chatId]) messages[chatId] = [];
-        messages[chatId].push(transformMessage(data));
-        const activeMessages = (activeChat == chatId) ? messages[chatId] : [];
-        window.store.set({
+        if (Array.isArray(data)) {
+            for (let i in data) {
+                messages[chatId].unshift(transformMessage(data[i]));
+            }
+
+        } else {
+            messages[chatId].push(transformMessage(data));
+        }
+        const obj: Record<string, any> = {
             messages,
-            activeMessages,
             wsChats
-        })
+        }
+        if (activeChat == chatId) {
+            obj.activeMessages = messages[chatId];
+        }
+        window.store.set(obj)
     });
 }
 

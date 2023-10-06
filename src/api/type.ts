@@ -54,7 +54,9 @@ export type MessageDTO = {
     content: string,
     time: string,
     type: string,
-    user_id: number
+    user_id: number,
+    is_read?: boolean,
+    chat_id?: number
 }
 
 export type Token = {
