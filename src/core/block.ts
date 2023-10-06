@@ -1,6 +1,7 @@
 import EventBus from "./eventBus";
 import {nanoid} from 'nanoid';
 import Handlebars from "handlebars";
+import cloneDeep from "../utils/cloneDeep";
 
 export default class Block<Props extends Record<string, any>> {
     static EVENTS = {
@@ -223,10 +224,11 @@ export default class Block<Props extends Record<string, any>> {
                 if (property.toString().startsWith('_')) {
                     throw new Error('Нет доступа');
                 }
-                const oldValue = target[property];
+                const oldProps = cloneDeep(target);
+                const oldValue = oldProps[property];
                 target[property] = value;
                 if (oldValue !== value) {
-                    self.eventBus().emit(Block.EVENTS.FLOW_CDU, {...target}, target);
+                    self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, target);
                 }
                 return true;
             },

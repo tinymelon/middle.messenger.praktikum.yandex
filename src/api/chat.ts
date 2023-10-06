@@ -1,5 +1,5 @@
 import HttpTransport from "../core/httpTransport";
-import { APIError, ChatDTO, CreateChat, AddUser } from "./type";
+import { APIError, ChatDTO, CreateChat, AddUser, Token } from "./type";
 
 const chatApi = new HttpTransport('/chats');
 
@@ -27,5 +27,9 @@ export default class ChatApi {
 
     async getChats(): Promise<ChatDTO[] | APIError > {
         return chatApi.get<ChatDTO[]>('')
+    }
+
+    async getToken(chatId: string): Promise<Token | APIError> {
+        return chatApi.post<Token>(`/token/${chatId}`)
     }
 }

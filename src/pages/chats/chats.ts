@@ -1,11 +1,11 @@
 import Block from "../../core/block";
 import { connect } from "../../utils/connect";
 import {initChatPage} from "../../services/initApp";
+import {changeActiveChat} from '../../services/chat';
 
 interface Props {
     setSearch: (arg0: SubmitEvent | Event) => void,
     setSelectedChat: (arg0: string, arg1: string) => void,
-    activeChat: string | undefined,
     title?: string
 }
 
@@ -29,12 +29,15 @@ export class ChatsPage extends Block<Props> {
                 console.log(data);
             },
             setSelectedChat: (id: string, title: string) => {
-                this.setProps({
+                changeActiveChat(parseInt(id));
+                (<any> this.refs.list).setProps({
+                    activeChat: id
+                });
+                (<any> this.refs.chatWindow).setProps({
                     activeChat: id,
                     title
                 });
-            },
-            activeChat: undefined
+            }
         });
 
         initChatPage();
@@ -44,8 +47,8 @@ export class ChatsPage extends Block<Props> {
         //language=hbs
         return (`
             <div class="chats_page__wrapper">
-                {{{ChatsList ref='list' onSearch=setSearch onChatSelect=setSelectedChat activeChat=activeChat}}}
-                {{{ChatWindow ref='chatWindow' activeChat=activeChat title=title}}}
+                {{{ChatsList ref='list' onSearch=setSearch onChatSelect=setSelectedChat}}}
+                {{{ChatWindow ref='chatWindow' title=title}}}
             </div>
         `);
     }

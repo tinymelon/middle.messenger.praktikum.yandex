@@ -1,10 +1,16 @@
+import WsTransport from "./core/wsTransport";
+
 export type AppState = {
     error: string | null,
     user: User | null,
+    activeChat: number | null,
     isOpenDialogChat: boolean,
     isOpenDialogAddUser: boolean,
     isOpenDialogRemoveUser: boolean,
-    chats: Chat[]
+    chats: Chat[],
+    messages: Record<string, Message[]>,
+    activeMessages: Message[],
+    wsChats: Record<string, WsTransport>
 }
 
 export type User = {
@@ -30,4 +36,10 @@ export type Chat = {
     avatar: Nullable<string>,
     unreadCount: number,
     lastMessage: LastMessage | null
+}
+
+export type Message = {
+    content: string,
+    time: string,
+    class: string
 }

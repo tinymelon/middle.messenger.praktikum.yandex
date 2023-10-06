@@ -60,8 +60,8 @@ export class ChatsList extends Block<Props> {
                     {{{ChatListEntry
                             title=this.title
                             avatar=this.avatar
-                            content=this.lastMessage?.content
-                            time=this.lastMessage?.time
+                            content=this.lastMessage.content
+                            time=this.lastMessage.time
                             unread=this.unreadCount
                             chatID=this.id
                             activeChat=../activeChat

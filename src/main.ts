@@ -34,10 +34,14 @@ Handlebars.registerHelper('ifNotEquals', (argument1, argument2, options) => ((ar
 const initState: AppState = {
     error: null,
     user: null,
+    activeChat: null,
     isOpenDialogChat: false,
     isOpenDialogAddUser: false,
     isOpenDialogRemoveUser: false,
-    chats: []
+    chats: [],
+    messages: {},
+    activeMessages: [],
+    wsChats: {}
 }
 window.store = new Store<AppState>(initState);
 

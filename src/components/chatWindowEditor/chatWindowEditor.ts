@@ -1,11 +1,13 @@
 import Block from "../../core/block";
 import './chatWindowEditor.less';
 import isFormSubmitErrors from "../../utils/isFormSubmitErrors";
+import {sendMessage} from "../../services/chat";
 
 interface Props {
     messageAttachToggle: () => void,
     sendMessage: (arg0: SubmitEvent) => void,
-    active: boolean
+    active: boolean,
+    activeChat: number
 }
 
 export class ChatWindowEditor extends Block<Props> {
@@ -25,7 +27,7 @@ export class ChatWindowEditor extends Block<Props> {
                 const errors = isFormSubmitErrors(event, form.refs as Record<string, Block<any>>);
                 if (errors) return;
                 const formData = Object.fromEntries(new FormData(event.target as HTMLFormElement).entries());
-                console.log(formData);
+                sendMessage(this.props.activeChat, (formData as Record<string, any>).message);
             },
         });
     }
