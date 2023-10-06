@@ -1,11 +1,13 @@
 import Block from "../../core/block";
+import {connect} from "../../utils/connect";
+import {createChat} from "../../services/chat";
 
 interface Props {
     onChatSelect: (arg0: string, arg1: string) => void,
     onSearch: (arg0: SubmitEvent | Event) => void,
-    onDialogOpen: () => void,
-    onDialogClose: () => void,
-    onChatCreate: () => void,
+    openDialog: () => void,
+    closeDialog: () => void,
+    saveDialogData: () => void,
     search?: string,
     chatID?: string,
     activeChat?: string
@@ -14,14 +16,26 @@ interface Props {
 export class ChatsList extends Block<Props> {
     constructor(props: Props) {
         super({
-            ...props
+            ...props,
+            openDialog: () => window.store.set({isOpenDialogChat: true}),
+            closeDialog: () => window.store.set({isOpenDialogChat: false}),
+            saveDialogData: () => {
+                const chatTitle = (<any> this.refs.createChat).getChatTitle();
+                if(!chatTitle) {
+                    (<any> this.refs.createChat).setError('Название переписки не может быть пустым');
+                    return;
+                }
+                createChat(chatTitle)
+                    .then(() => window.store.set({isOpenDialogChat: false}))
+                    .catch(error => (<any> this.refs.createChat).setError(error))
+            }
         });
         this._setEventListenerToSearch();
     }
 
     protected componentDidUpdate(): boolean {
         this._setEventListenerToSearch();
-        return false;
+        return true;
     }
 
     private _setEventListenerToSearch() {
@@ -34,8 +48,8 @@ export class ChatsList extends Block<Props> {
         return (`
         <div class="chats_list__wrapper">
             <div class="chats_list__head">
-                {{{AddChatPopup onSave=onChatCreate onClose=onDialogClose ref="createChat"}}}
-                {{{ChatAddButton onClick=onDialogOpen}}}
+                {{{AddChatPopup onClose=closeDialog onSave=saveDialogData ref="createChat"}}}
+                {{{ChatAddButton onClick=openDialog}}}
                 {{{ChatsProfileLink}}}
                 <form action="#" ref="searchForm">
                     <input type="text" class="chats_list__search" placeholder="Поиск" value="{{search}}" name="search">
@@ -43,20 +57,21 @@ export class ChatsList extends Block<Props> {
             </div>
             <div class="chats_list__list">
                 {{#each chats}}
-                    {{{ ChatListEntry
+                    {{{ChatListEntry
                             title=this.title
                             avatar=this.avatar
-                            content=this.lastMessage
-                            time=this.time
-                            unread=this.unread
+                            content=this.lastMessage?.content
+                            time=this.lastMessage?.time
+                            unread=this.unreadCount
                             chatID=this.id
-                            activeChat=activeChat
-                            onChatSelect=onChatSelect
+                            activeChat=../activeChat
+                            onChatSelect=../onChatSelect
                     }}}
                 {{/each}}
-                <!-- id=id title=title avatar=avatar(??last.message.user.avatar) unread=unread_count content=content time=time  -->
             </div>
         </div>
         `);
     }
 }
+
+export const withStoreChatsList = connect(({chats, user}) => ({chats, user}))(ChatsList)

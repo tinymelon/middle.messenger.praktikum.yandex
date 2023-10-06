@@ -1,7 +1,6 @@
 import Block from "../../core/block";
 import { connect } from "../../utils/connect";
 import {initChatPage} from "../../services/initApp";
-//import {createChat} from "../../services/chat";
 
 interface Props {
     setSearch: (arg0: SubmitEvent | Event) => void,
@@ -35,9 +34,6 @@ export class ChatsPage extends Block<Props> {
                     title
                 });
             },
-            openDialog: () => window.store.set({isOpenDialogChat: true}),
-            closeDialog: () => window.store.set({isOpenDialogChat: false}),
-
             activeChat: undefined
         });
 
@@ -48,7 +44,7 @@ export class ChatsPage extends Block<Props> {
         //language=hbs
         return (`
             <div class="chats_page__wrapper">
-                {{{ChatsList ref='list' onSearch=setSearch onChatSelect=setSelectedChat activeChat=activeChat onDialogOpen=openDialog onDialogClose=closeDialog onChatCreate=createChat}}}
+                {{{ChatsList ref='list' onSearch=setSearch onChatSelect=setSelectedChat activeChat=activeChat}}}
                 {{{ChatWindow ref='chatWindow' activeChat=activeChat title=title}}}
             </div>
         `);

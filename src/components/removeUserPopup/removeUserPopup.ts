@@ -2,21 +2,21 @@ import Block from "../../core/block";
 import { connect } from "../../utils/connect";
 
 interface Props {
-    isOpenDialogChat: boolean,
+    isOpenDialogAddUser: boolean,
     onClose: () => void,
     onSave: () => void,
     error: string
 }
 
-export class AddChatPopup extends Block<Props> {
+export class RemoveUserPopup extends Block<Props> {
     constructor(props: Props) {
         super({
             ...props,
         })
     }
 
-    public getChatTitle() {
-        return (<any> this.refs.title).value();
+    public getUserId() {
+        return (<any> this.refs.id).value();
     }
 
     public setError(error: string) {
@@ -26,13 +26,13 @@ export class AddChatPopup extends Block<Props> {
     protected render(): string {
         //language=hbs
         return `
-            {{#Dialog open=isOpenDialogChat}}
+            {{#Dialog open=isOpenDialogRemoveUser}}
                 <form method="dialog">
-                    <h3>Создать новую переписку</h3>
-                    {{{FormField label='Название чата' ref='title' type='text'}}}
+                    <h3>Удалить пользователя из чата</h3>
+                    {{{FormField label='ID пользователя' ref='id' type='text'}}}
                     {{{ErrorLine error=error ref="errorLine"}}}
                     <div class="dialog_actions_line">
-                        {{{ActionButton text="создать" class='create' onClick=onSave}}}
+                        {{{ActionButton text="удалить" class='remove' onClick=onSave}}}
                         {{{ActionButton text="отменить" class="close" onClick=onClose}}}
                     </div>
                 </form>
@@ -41,4 +41,4 @@ export class AddChatPopup extends Block<Props> {
     }
 }
 
-export const withStoreAddChatPopup = connect((state) => ({isOpenDialogChat: state.isOpenDialogChat}))(AddChatPopup);
+export const withStoreRemoveUserPopup = connect((state) => ({isOpenDialogRemoveUser: state.isOpenDialogRemoveUser}))(RemoveUserPopup);

@@ -28,8 +28,46 @@ const createChat = async (title: string) => {
     window.store.set({chats})
 }
 
+const addChatUser = async (userId: number, chatId: number) => {
+    const response = await chatApi.addUser({
+        users: [userId],
+        chatId
+    });
+    if(apiHasError(response)) {
+        throw Error(response.reason)
+    }
+
+    const responseChat = await chatApi.getChats();
+    if(apiHasError(responseChat)) {
+        throw Error(responseChat.reason)
+    }
+
+    const chats = await getChats();
+    window.store.set({chats})
+}
+
+const removeChatUser = async (userId: number, chatId: number) => {
+    const response = await chatApi.removeUser({
+        users: [userId],
+        chatId
+    });
+    if(apiHasError(response)) {
+        throw Error(response.reason)
+    }
+
+    const responseChat = await chatApi.getChats();
+    if(apiHasError(responseChat)) {
+        throw Error(responseChat.reason)
+    }
+
+    const chats = await getChats();
+    window.store.set({chats})
+}
+
 
 export {
     createChat,
-    getChats
+    getChats,
+    addChatUser,
+    removeChatUser
 }

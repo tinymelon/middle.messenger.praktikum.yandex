@@ -13,7 +13,7 @@ export function connect(mapStateToProps: (state: AppState) => Partial<AppState>)
                 let state = mapStateToProps(store.getState());
                 super({...props, ...state});
                 this.onChangeStoreCallback = () => {
-
+                    console.log(1);
                     // при обновлении получаем новое состояние
                     const newState = mapStateToProps(store.getState());
 

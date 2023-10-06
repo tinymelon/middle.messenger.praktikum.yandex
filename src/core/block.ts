@@ -135,8 +135,6 @@ export default class Block<Props extends Record<string, any>> {
     }
 
     private _render() {
-        this.unmountComponent();
-
         const fragment = this.compile(this.render(), this.props);
 
         const newElement = fragment.firstElementChild as HTMLElement;
