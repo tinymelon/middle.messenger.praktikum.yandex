@@ -49,24 +49,24 @@ export class ChatWindow extends Block<Props> {
             closeRemoveUserPopup: () => window.store.set({isOpenDialogRemoveUser: false}),
             saveAddUserPopup: () => {
                 if (!this.props.activeChat) return;
-                const userId = (<any> this.refs.addUser).getUserId();
-                if(!userId) {
-                    (<any> this.refs.addUser).setError('Введите ID пользователя');
+                const userLogin = (<any> this.refs.addUser).getUserLogin();
+                if(!userLogin) {
+                    (<any> this.refs.addUser).setError('Введите логин пользователя');
                     return;
                 }
-                addChatUser(userId, this.props.activeChat)
-                    .then(() => console.log(`User ${userId} added`))
+                addChatUser(userLogin, this.props.activeChat)
+                    .then(() => console.log(`User ${userLogin} added`))
                     .catch(error => (<any> this.refs.addUser).setError(error))
             },
             saveRemoveUserPopup: () => {
                 if (!this.props.activeChat) return;
-                const userId = (<any> this.refs.removeUser).getUserId();
-                if(!userId) {
-                    (<any> this.refs.removeUser).setError('Введите ID пользователя');
+                const userLogin = (<any> this.refs.removeUser).getUserLogin();
+                if(!userLogin) {
+                    (<any> this.refs.removeUser).setError('Введите логин пользователя');
                     return;
                 }
-                removeChatUser(userId, this.props.activeChat)
-                    .then(() => console.log(`User ${userId} removed`))
+                removeChatUser(userLogin, this.props.activeChat)
+                    .then(() => console.log(`User ${userLogin} removed`))
                     .catch(error => (<any> this.refs.removeUser).setError(error))
             }
         });

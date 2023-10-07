@@ -15,7 +15,9 @@ export default class ChatApi {
         return chatApi.put<void>('/users', {
             data,
             headers: { 'Content-Type': 'application/json' }
-        })
+        }).then((data) => {
+            console.log(data);
+        });
     }
 
     async removeUser(data: AddUser): Promise<void | APIError> {

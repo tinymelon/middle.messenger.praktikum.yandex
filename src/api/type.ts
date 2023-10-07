@@ -62,3 +62,9 @@ export type MessageDTO = {
 export type Token = {
     token: string
 }
+
+export type SearchUser = {
+    login: string
+}
+
+export type UserSearchResponse = UserDTO[];

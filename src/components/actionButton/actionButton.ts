@@ -14,9 +14,9 @@ export class ActionButton extends Block<Props> {
             ...props,
             events: {
                 click: (event: MouseEvent) => {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
                     if (this.props.page) {
-                        event.preventDefault();
-                        event.stopImmediatePropagation();
                         const router = new Router('#app');
                         router.go(`/${this.props.page}`);
                     }

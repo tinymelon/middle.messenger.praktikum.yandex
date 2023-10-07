@@ -15,8 +15,8 @@ export class AddUserPopup extends Block<Props> {
         })
     }
 
-    public getUserId() {
-        return (<any> this.refs.id).value();
+    public getUserLogin() {
+        return (<any> this.refs.login).value();
     }
 
     public setError(error: string) {
@@ -29,7 +29,7 @@ export class AddUserPopup extends Block<Props> {
             {{#Dialog open=isOpenDialogAddUser}}
                 <form method="dialog">
                     <h3>Добавить пользователя в чат</h3>
-                    {{{FormField label='ID пользователя' ref='id' type='text'}}}
+                    {{{FormField label='Логин пользователя' ref='login' type='text'}}}
                     {{{ErrorLine error=error ref="errorLine"}}}
                     <div class="dialog_actions_line">
                         {{{ActionButton text="добавить" class='create' onClick=onSave}}}

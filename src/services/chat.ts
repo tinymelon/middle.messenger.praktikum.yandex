@@ -1,4 +1,5 @@
 import ChatApi from "../api/chat";
+import UserApi from "../api/user";
 import { apiHasError } from "../utils/apiHasError";
 import {transformChats, transformMessage} from "../utils/apiTransformers";
 import WsTransport, {WsTransportEvents} from "../core/wsTransport";
@@ -34,7 +35,18 @@ const createChat = async (title: string) => {
     window.store.set({chats})
 }
 
-const addChatUser = async (userId: number, chatId: number) => {
+const addChatUser = async (userLogin: string, chatId: number) => {
+    const userApi = new UserApi();
+    const user = await userApi.search({
+        login: userLogin
+    });
+    if (apiHasError(user)) {
+        throw Error(user.reason);
+    }
+    if (!user.length) {
+        throw Error('Пользователь не найден');
+    }
+    const userId = user[0].id;
     const response = await chatApi.addUser({
         users: [userId],
         chatId
@@ -49,10 +61,24 @@ const addChatUser = async (userId: number, chatId: number) => {
     }
 
     const chats = await getChats();
-    window.store.set({chats})
+    window.store.set({
+        chats,
+        isOpenDialogAddUser: false
+    })
 }
 
-const removeChatUser = async (userId: number, chatId: number) => {
+const removeChatUser = async (userLogin: string, chatId: number) => {
+    const userApi = new UserApi();
+    const user = await userApi.search({
+        login: userLogin
+    });
+    if (apiHasError(user)) {
+        throw Error(user.reason);
+    }
+    const userId = user[0].id;
+    if (!userId) {
+        throw Error('Пользователь не найден');
+    }
     const response = await chatApi.removeUser({
         users: [userId],
         chatId
@@ -67,7 +93,10 @@ const removeChatUser = async (userId: number, chatId: number) => {
     }
 
     const chats = await getChats();
-    window.store.set({chats})
+    window.store.set({
+        chats,
+        isOpenDialogRemoveUser: false
+    })
 }
 
 const getChatsMessages = (chats: Chat[]): void => {
