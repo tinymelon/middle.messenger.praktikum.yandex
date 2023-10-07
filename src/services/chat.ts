@@ -129,6 +129,13 @@ const getChatMessages = async (chatId: number) => {
         const activeChat = window.store.getState().activeChat;
         if (!messages[chatId]) messages[chatId] = [];
         if (Array.isArray(data)) {
+            if (!data.length) {
+                window.store.set({
+                    gettingMessages: false,
+                    noNewMessages: true
+                })
+                return
+            };
             for (let i in data) {
                 messages[chatId].unshift(transformMessage(data[i]));
             }
@@ -136,12 +143,15 @@ const getChatMessages = async (chatId: number) => {
         } else {
             messages[chatId].push(transformMessage(data));
         }
+        //messages[chatId].reverse();
         const obj: Record<string, any> = {
             messages,
-            wsChats
+            wsChats,
+            gettingMessages: false,
+            noNewMessages: false
         }
         if (activeChat == chatId) {
-            obj.activeMessages = messages[chatId];
+            obj.activeMessages = cloneDeep(messages[chatId]).reverse();
         }
         window.store.set(obj)
     });
@@ -159,8 +169,26 @@ const changeActiveChat = (chatId: number) => {
     const messages = cloneDeep(window.store.getState().messages);
     if (!messages[chatId]) messages[chatId] = [];
     window.store.set({
-        activeMessages: messages[chatId],
-        activeChat: chatId
+        activeMessages: cloneDeep(messages[chatId]).reverse(),
+        activeChat: chatId,
+        chatScroll: 0,
+        noNewMessages: false
+    });
+}
+
+const getOlderMessages = (scroll: number): void => {
+    const state = window.store.getState();
+    if (state.gettingMessages || state.noNewMessages) return;
+    const messagesLength = state.activeMessages.length;
+    const activeChat = state.activeChat;
+    const chat = state.wsChats[activeChat!.toString()];
+    window.store.set({
+        gettingMessages: true,
+        chatScroll: scroll
+    })
+    chat.send({
+        content: messagesLength.toString(),
+        type: 'get old',
     });
 }
 
@@ -172,5 +200,6 @@ export {
     addChatUser,
     removeChatUser,
     sendMessage,
-    changeActiveChat
+    changeActiveChat,
+    getOlderMessages
 }

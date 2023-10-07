@@ -83,15 +83,7 @@ export class ChatWindow extends Block<Props> {
                     {{{AddUserPopup ref='addUser' onClose=closeAddUserPopup onSave=saveAddUserPopup}}}
                     {{{RemoveUserPopup ref='removeUser' onClose=closeRemoveUserPopup onSave=saveRemoveUserPopup}}}
                 </div>
-                <div class="chat_window__messages">
-                    {{#each activeMessages}}
-                        {{{ChatBubble 
-                            content=this.content
-                            class=this.class
-                            time=this.time
-                        }}}
-                    {{/each}}
-                </div>
+                {{{ChatWindowMessages activeMessages=activeMessages}}}
                 <div class="chat_window__editor">
                     {{{ChatWindowEditor activeChat=activeChat}}}
                 </div>

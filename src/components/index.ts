@@ -18,6 +18,7 @@ export {ChatDropdownAction} from './chatDropdownAction';
 export {ChatEditorAttach} from './chatEditorAttach';
 export {ChatWindowHead} from './chatWindowHead';
 export {ChatWindowHeadMenu} from './chatWindowHeadMenu';
+export {default as ChatWindowMessages} from './chatWindowMessages';
 export {ChatWindowEditor} from './chatWindowEditor';
 export {ChatWindowEditorAttach} from './chatWindowEditorAttach';
 export {ChatEditorMessage} from './chatEditorMessage';
