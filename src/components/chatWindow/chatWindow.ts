@@ -1,6 +1,6 @@
 import Block from "../../core/block";
 import {connect} from "../../utils/connect";
-import {addChatUser, removeChatUser} from "../../services/chat";
+import {addChatUser, removeChatUser, deleteChat} from "../../services/chat";
 
 interface Props {
     chatActionsToggle: () => void,
@@ -66,8 +66,12 @@ export class ChatWindow extends Block<Props> {
                     return;
                 }
                 removeChatUser(userLogin, this.props.activeChat)
-                    .then(() => console.log(`User ${userLogin} removed`))
-                    .catch(error => (<any> this.refs.removeUser).setError(error))
+                    .catch(error => (<any> this.refs.removeUser).setError(error));
+            },
+            onDeleteChat: () => {
+                if (this.props.activeChat)
+                    deleteChat(this.props.activeChat)
+                        .catch(error => alert(`Ошибка запроса. Причина: ${error.reason}`));
             }
         });
     }
@@ -79,7 +83,7 @@ export class ChatWindow extends Block<Props> {
             <div class="chat_window__wrapper">
                 <div class="chat_window__head">
                     {{{ChatWindowHead ref='chatWindowHead' title=title onChatActionsClick=chatActionsToggle}}}
-                    {{{ChatDropdown ref='chatDropdown' active=active openAddUserPopup=openAddUserPopup openRemoveUserPopup=openRemoveUserPopup}}}
+                    {{{ChatDropdown ref='chatDropdown' active=active openAddUserPopup=openAddUserPopup openRemoveUserPopup=openRemoveUserPopup onDeleteChat=onDeleteChat}}}
                     {{{AddUserPopup ref='addUser' onClose=closeAddUserPopup onSave=saveAddUserPopup}}}
                     {{{RemoveUserPopup ref='removeUser' onClose=closeRemoveUserPopup onSave=saveRemoveUserPopup}}}
                 </div>

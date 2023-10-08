@@ -3,7 +3,9 @@ import './chatDropdown.less';
 
 interface Props {
     active: boolean,
-    openAddUserPopup: () => void
+    openAddUserPopup: () => void,
+    openRemoveUserPopup: () => void,
+    onDeleteChat: () => void
 }
 
 export class ChatDropdown extends Block<Props> {
@@ -19,7 +21,7 @@ export class ChatDropdown extends Block<Props> {
             <div class="chat_dropdown__wrapper {{#if active}}active{{/if}}">
                 {{{ChatDropdownAction class='chat_dropdown__add_user' text='Добавить пользователя' onClick=openAddUserPopup}}}
                 {{{ChatDropdownAction class='chat_dropdown__remove_user' text='Удалить пользователя' onClick=openRemoveUserPopup}}}
-                {{{ChatDropdownAction class='chat_dropdown__delete' text='Удалить чат'}}}
+                {{{ChatDropdownAction class='chat_dropdown__delete' text='Удалить чат' onClick=onDeleteChat}}}
             </div>
         `);
     }

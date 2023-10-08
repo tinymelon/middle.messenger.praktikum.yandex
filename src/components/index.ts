@@ -30,6 +30,7 @@ export {ProfileForm} from './profileForm';
 export {ProfileFormField} from './profileFormField';
 export {ProfileFormPassword} from './profileFormPassword';
 export {ProfileAvatarWrapper} from './profileAvatarWrapper';
+export {PopupAvatarUploadForm} from './popupAvatarUploadForm';
 
 export {PopupAvatarUpload} from './popupAvatarUpload';
 export {Dialog} from './dialog';

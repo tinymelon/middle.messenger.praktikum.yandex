@@ -1,21 +1,20 @@
 import HttpTransport from "../core/httpTransport";
-import {APIError, SearchUser, UserSearchResponse} from "./type";
-import {UserDTO, UploadAvatar, ChangePassword} from "./type";
+import {APIError, SearchUser, UserRequestData, UserSearchResponse} from "./type";
+import {UserDTO, ChangePassword} from "./type";
 
 const userApi = new HttpTransport('/user');
 
 export default class UserApi {
-    async changeProfile(data: UserDTO): Promise<UserDTO> {
+    async changeProfile(data: UserRequestData): Promise<UserDTO> {
         return userApi.put<UserDTO>('/profile', {
            data,
            headers: { 'Content-Type': 'application/json' }
         });
     }
 
-    async changeAvatar(data: UploadAvatar): Promise<UserDTO> {
+    async changeAvatar(data: FormData): Promise<UserDTO> {
         return userApi.put<UserDTO>('/profile/avatar', {
-            data,
-            headers: { 'Content-Type': 'multipart/form-data' }
+            data
         });
     }
 

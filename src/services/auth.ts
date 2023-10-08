@@ -17,10 +17,10 @@ const getUser = async() => {
 
 const signin = async (data: LoginRequestData) => {
     const response = await authApi.login(data);
+
     if (apiHasError(response)) {
         throw Error(response.reason);
     }
-    return;
     const me = await getUser();
 
     window.store.set({user: me});

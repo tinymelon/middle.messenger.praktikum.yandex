@@ -5,7 +5,9 @@ interface Props {
     class: string,
     page: string,
     text: string,
-    onClick?: (e: Event) => void
+    onClick?: (e: unknown) => void,
+    property?: string,
+    value?: unknown
 }
 
 export class ActionButton extends Block<Props> {
@@ -14,18 +16,30 @@ export class ActionButton extends Block<Props> {
             ...props,
             events: {
                 click: (event: MouseEvent) => {
-                    event.preventDefault();
-                    event.stopImmediatePropagation();
+                    this.setData();
                     if (this.props.page) {
+                        event.preventDefault();
+                        event.stopImmediatePropagation();
                         const router = new Router('#app');
                         router.go(`/${this.props.page}`);
                     }
                     if (this.props.onClick) {
+                        event.preventDefault();
+                        event.stopImmediatePropagation();
                         this.props.onClick(event);
                     }
                 }
             }
         });
+    }
+
+    protected setData() {
+        if (this.props.onClick && this.props.property && typeof this.props.value != undefined) {
+            const data: Record<string, any> = {};
+            data[this.props.property] = this.props.value;
+            data[this.props.property] = this.props.value;
+            this.props.onClick(data);
+        }
     }
 
     protected render(): string {

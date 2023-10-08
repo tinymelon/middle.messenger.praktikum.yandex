@@ -1,7 +1,8 @@
 import Block from "../../core/block";
 
 interface Props {
-    onClick: () => void
+    onClick: () => void,
+    avatar?: string
 }
 
 export class ProfileAvatarWrapper extends Block<Props> {
@@ -18,7 +19,9 @@ export class ProfileAvatarWrapper extends Block<Props> {
         //language=hbs
         return (`
             <div class="profile__avatar_wrapper">
-                <!-- <img src="" alt="" class="profile__avatar_image"> -->
+                {{#if avatar}}
+                    <img src="{{avatar}}" alt="" class="profile__avatar_image">
+                {{/if}}
             </div>
         `);
     }

@@ -3,7 +3,7 @@ import UserApi from "../api/user";
 import { apiHasError } from "../utils/apiHasError";
 import {transformChats, transformMessage} from "../utils/apiTransformers";
 import WsTransport, {WsTransportEvents} from "../core/wsTransport";
-import {Chat} from "../type";
+import {Chat, Message} from "../type";
 import {MessageDTO} from "../api/type";
 import cloneDeep from "../utils/cloneDeep";
 
@@ -33,6 +33,24 @@ const createChat = async (title: string) => {
 
     const chats = await getChats();
     window.store.set({chats})
+}
+
+const deleteChat = async (chatId: number) => {
+    const response = await chatApi.delete({chatId});
+    if (apiHasError(response)) {
+        throw Error(response.reason);
+    }
+
+    const responseChat = await chatApi.getChats();
+    if (apiHasError(responseChat)) {
+        throw Error(responseChat.reason);
+    }
+
+    const chats = await getChats();
+    window.store.set({
+        chats,
+        activeChat: null
+    })
 }
 
 const addChatUser = async (userLogin: string, chatId: number) => {
@@ -126,7 +144,9 @@ const getChatMessages = async (chatId: number) => {
     });
     websocket.on(WsTransportEvents.MESSAGE, (data: MessageDTO[] | MessageDTO) => {
         const messages = cloneDeep(window.store.getState().messages);
+        const chats = cloneDeep(window.store.getState().chats);
         const activeChat = window.store.getState().activeChat;
+        let message: Message;
         if (!messages[chatId]) messages[chatId] = [];
         if (Array.isArray(data)) {
             if (!data.length) {
@@ -134,14 +154,16 @@ const getChatMessages = async (chatId: number) => {
                     gettingMessages: false,
                     noNewMessages: true
                 })
-                return
-            };
+                return;
+            }
             for (let i in data) {
                 messages[chatId].unshift(transformMessage(data[i]));
             }
+            message = messages[chatId][messages[chatId].length - 1];
 
         } else {
-            messages[chatId].push(transformMessage(data));
+            message = transformMessage(data);
+            messages[chatId].push(message);
         }
         //messages[chatId].reverse();
         const obj: Record<string, any> = {
@@ -150,9 +172,19 @@ const getChatMessages = async (chatId: number) => {
             gettingMessages: false,
             noNewMessages: false
         }
+        const chat = chats.find((elem) => {
+            return elem.id == chatId;
+        });
+        if (chat && chat.lastMessage) {
+            chat.lastMessage.time = message.time;
+            chat.lastMessage.content = message.content;
+        }
         if (activeChat == chatId) {
             obj.activeMessages = cloneDeep(messages[chatId]).reverse();
+        } else if (chat && !message.isRead) {
+            chat.unreadCount++;
         }
+        obj.chats = chats;
         window.store.set(obj)
     });
 }
@@ -168,11 +200,17 @@ const sendMessage = async (chatId: number, message: string) => {
 const changeActiveChat = (chatId: number) => {
     const messages = cloneDeep(window.store.getState().messages);
     if (!messages[chatId]) messages[chatId] = [];
+    const chats = cloneDeep(window.store.getState().chats);
+    const chat = chats.find((elem) => {
+        return elem.id == chatId;
+    });
+    if (chat) chat.unreadCount = 0;
     window.store.set({
         activeMessages: cloneDeep(messages[chatId]).reverse(),
         activeChat: chatId,
         chatScroll: 0,
-        noNewMessages: false
+        noNewMessages: false,
+        chats
     });
 }
 
@@ -196,6 +234,7 @@ const getOlderMessages = (scroll: number): void => {
 
 export {
     createChat,
+    deleteChat,
     getChats,
     addChatUser,
     removeChatUser,

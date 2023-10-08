@@ -1,11 +1,18 @@
 import HttpTransport from "../core/httpTransport";
-import { APIError, ChatDTO, CreateChat, AddUser, Token } from "./type";
+import { APIError, ChatDTO, CreateChat, DeleteChat, AddUser, Token } from "./type";
 
 const chatApi = new HttpTransport('/chats');
 
 export default class ChatApi {
     async create(data: CreateChat): Promise<void | APIError> {
         return chatApi.post<void>('/', {
+            data,
+            headers: { 'Content-Type': 'application/json' }
+        })
+    }
+
+    async delete(data: DeleteChat): Promise<void | APIError> {
+        return chatApi.delete<void>('/', {
             data,
             headers: { 'Content-Type': 'application/json' }
         })

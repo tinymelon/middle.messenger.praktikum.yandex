@@ -1,3 +1,4 @@
 import './profile.less';
+import ProfilePage from './profile'
 
-export { ProfilePage } from './profile';
+export default ProfilePage;

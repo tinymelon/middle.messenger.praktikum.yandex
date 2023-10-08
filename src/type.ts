@@ -22,7 +22,7 @@ export type User = {
     firstName: string;
     secondName: string;
     displayName: string;
-    avatar: string;
+    avatar: string | null;
     phone: string;
     email: string;
 };
@@ -44,5 +44,6 @@ export type Chat = {
 export type Message = {
     content: string,
     time: string,
-    class: string
+    class: string,
+    isRead?: boolean
 }

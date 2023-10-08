@@ -58,14 +58,14 @@ export class ChatsList extends Block<Props> {
             <div class="chats_list__list">
                 {{#each chats}}
                     {{{ChatListEntry
-                            title=this.title
-                            avatar=this.avatar
-                            content=this.lastMessage.content
-                            time=this.lastMessage.time
-                            unread=this.unreadCount
-                            chatID=this.id
-                            activeChat=../activeChat
-                            onChatSelect=../onChatSelect
+                        title=this.title
+                        avatar=this.avatar
+                        content=this.lastMessage.content
+                        time=this.lastMessage.time
+                        unread=this.unreadCount
+                        chatID=this.id
+                        activeChat=../activeChat
+                        onChatSelect=../onChatSelect
                     }}}
                 {{/each}}
             </div>
@@ -74,4 +74,4 @@ export class ChatsList extends Block<Props> {
     }
 }
 
-export const withStoreChatsList = connect(({chats, user}) => ({chats, user}))(ChatsList)
+export const withStoreChatsList = connect(({chats, user, activeChat}) => ({chats, user, activeChat}))(ChatsList)

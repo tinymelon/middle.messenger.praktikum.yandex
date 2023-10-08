@@ -17,7 +17,7 @@ export const transformUser = (data: UserDTO): User => {
         firstName: data.first_name,
         secondName: data.second_name,
         displayName: data.display_name,
-        avatar: data.avatar,
+        avatar: buildPathToResource(data.avatar),
         phone: data.phone,
         email: data.email,
     };
@@ -60,6 +60,7 @@ export const transformMessage = (data: MessageDTO): Message => {
     const currentUser = window.store.getState().user?.id
     return {
         content: data.content,
+        isRead: data.is_read,
         time,
         class: (data.content.length < 150 ? 'short ' : '') + ((currentUser == data.user_id) ? 'sent' : 'received')
     };

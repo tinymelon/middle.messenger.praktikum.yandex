@@ -17,7 +17,7 @@ export class ProfileActionsList extends Block<Props> {
             <div class="profile_actions__wrapper">
                 {{{ProfileAction class='profile_actions__action' text='Изменить данные' onClick=onModeChange property='editable' value=''}}}
                 {{{ProfileAction class='profile_actions__action' text='Изменить пароль' onClick=onModeChange property='changePassword' value=true}}}
-                {{{ProfileAction page='/' class='profile_actions__action red' text='Выйти'}}}
+                {{{ProfileAction page='/' class='profile_actions__action red' onClick=onLogout text='Выйти'}}}
             </div>
         `);
     }

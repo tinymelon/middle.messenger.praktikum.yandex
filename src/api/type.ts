@@ -17,8 +17,18 @@ export type UserDTO = {
     email: string;
 };
 
-export type UploadAvatar = {
-    file: FormData
+export type UserRequestData = {
+    login: string;
+    first_name: string;
+    second_name: string;
+    display_name: string;
+    phone: string;
+    email: string;
+}
+
+export type PasswordRequestData = {
+    oldPassword: string,
+    newPassword: string
 }
 
 export type ChangePassword = {
@@ -32,6 +42,10 @@ export type CreateUser = Omit<UserDTO, 'avatar' | 'display_name' | 'id'>  & {
 
 export type CreateChat = {
     title: string
+}
+
+export type DeleteChat = {
+    chatId: number
 }
 
 export type AddUser = {
