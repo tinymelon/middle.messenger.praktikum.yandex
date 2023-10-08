@@ -1,6 +1,1 @@
-import { withStoreAddUserPopup, AddUserPopup } from './addUserPopup'
-
-export {
-    AddUserPopup
-}
-export default withStoreAddUserPopup
+export {withStoreAddUserPopup as default, AddUserPopup} from './addUserPopup'

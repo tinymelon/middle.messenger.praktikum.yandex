@@ -10,7 +10,7 @@ const userApi = new UserApi();
 const changeProfileData = async (data: UserRequestData) => {
     const response = await userApi.changeProfile(data);
     if (apiHasError(response)) {
-        throw Error(response.reason)
+        throw new Error(response.reason)
     }
     const responseUser = transformUser(response as UserDTO);
     const store = window.store.getState();
@@ -23,14 +23,14 @@ const changeProfileData = async (data: UserRequestData) => {
 const changeProfilePassword = async (data: PasswordRequestData) => {
     const response = await userApi.changePassword(data);
     if (apiHasError(response)) {
-        throw Error(response.reason)
+        throw new Error(response.reason)
     }
 }
 
 const changeProfileAvatar = async (data: FormData) => {
     const response = await userApi.changeAvatar(data);
     if (apiHasError(response)) {
-        throw Error(response.reason)
+        throw new Error(response.reason)
     }
     const responseUser = transformUser(response as UserDTO);
     const store = window.store.getState();

@@ -16,7 +16,7 @@ const initApp = async () => {
     let me = null;
     try {
         me = await getUser();
-    } catch (error) {
+    } catch {
         router.go('/');
         return;
     }

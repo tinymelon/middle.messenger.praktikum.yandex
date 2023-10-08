@@ -61,7 +61,7 @@ export default class Router {
     }
 
     getRoute(pathname: string): Nullable<Route> {
-        const route = this.routes.find(route => route.match(pathname));
+        const route = this.routes.find(route => route.compare(pathname));
         return route || null;
     }
 }

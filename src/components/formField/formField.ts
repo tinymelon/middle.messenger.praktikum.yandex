@@ -31,7 +31,7 @@ export class FormField extends Block<Props> {
 
     public value() {
         if (!this.validate()) {
-            return false;
+            return '';
         }
         const ref = this.refs.input as Block<Props>;
         const element = ref.element as HTMLInputElement;

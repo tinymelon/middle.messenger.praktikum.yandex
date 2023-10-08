@@ -1,6 +1,8 @@
 import Block from "../../core/block";
 import {connect} from "../../utils/connect";
 import {addChatUser, removeChatUser, deleteChat} from "../../services/chat";
+import {AddUserPopup} from "../addUserPopup";
+import {RemoveUserPopup} from "../removeUserPopup";
 
 interface Props {
     chatActionsToggle: () => void,
@@ -49,24 +51,24 @@ export class ChatWindow extends Block<Props> {
             closeRemoveUserPopup: () => window.store.set({isOpenDialogRemoveUser: false}),
             saveAddUserPopup: () => {
                 if (!this.props.activeChat) return;
-                const userLogin = (<any> this.refs.addUser).getUserLogin();
+                const userLogin = (this.refs.addUser as unknown as AddUserPopup).getUserLogin();
                 if(!userLogin) {
-                    (<any> this.refs.addUser).setError('Введите логин пользователя');
+                    (this.refs.addUser as unknown as AddUserPopup).setError('Введите логин пользователя');
                     return;
                 }
                 addChatUser(userLogin, this.props.activeChat)
                     .then(() => console.log(`User ${userLogin} added`))
-                    .catch(error => (<any> this.refs.addUser).setError(error))
+                    .catch(error => (this.refs.addUser as unknown as AddUserPopup).setError(error))
             },
             saveRemoveUserPopup: () => {
                 if (!this.props.activeChat) return;
-                const userLogin = (<any> this.refs.removeUser).getUserLogin();
+                const userLogin = (this.refs.removeUser as unknown as RemoveUserPopup).getUserLogin();
                 if(!userLogin) {
-                    (<any> this.refs.removeUser).setError('Введите логин пользователя');
+                    (this.refs.removeUser as unknown as RemoveUserPopup).setError('Введите логин пользователя');
                     return;
                 }
                 removeChatUser(userLogin, this.props.activeChat)
-                    .catch(error => (<any> this.refs.removeUser).setError(error));
+                    .catch(error => (this.refs.removeUser as unknown as RemoveUserPopup).setError(error));
             },
             onDeleteChat: () => {
                 if (this.props.activeChat)

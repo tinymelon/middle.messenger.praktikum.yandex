@@ -19,10 +19,10 @@ export class Store<State extends Record<string, any>> extends EventBus {
     }
 
     public set(nextState: Partial<State>) {
-        const prevState = { ...this.state };
+        const previousState = { ...this.state };
 
         this.state = { ...this.state, ...nextState };
 
-        this.emit(StoreEvents.Updated, prevState, nextState);
+        this.emit(StoreEvents.Updated, previousState, nextState);
     }
 }

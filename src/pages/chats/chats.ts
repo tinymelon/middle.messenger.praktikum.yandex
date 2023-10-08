@@ -2,6 +2,8 @@ import Block from "../../core/block";
 import { connect } from "../../utils/connect";
 import {initChatPage} from "../../services/initApp";
 import {changeActiveChat} from '../../services/chat';
+import {ChatsList} from "../../components/chatsList";
+import {ChatWindow} from "../../components/chatWindow";
 
 interface Props {
     setSearch: (arg0: SubmitEvent | Event) => void,
@@ -29,11 +31,11 @@ export class ChatsPage extends Block<Props> {
                 console.log(data);
             },
             setSelectedChat: (id: string, title: string) => {
-                changeActiveChat(parseInt(id));
-                (<any> this.refs.list).setProps({
+                changeActiveChat(Number.parseInt(id));
+                (this.refs.list as unknown as ChatsList).setProps({
                     activeChat: id
                 });
-                (<any> this.refs.chatWindow).setProps({
+                (this.refs.chatWindow as unknown as ChatWindow).setProps({
                     activeChat: id,
                     title
                 });

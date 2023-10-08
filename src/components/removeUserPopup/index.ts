@@ -1,6 +1,1 @@
-import { withStoreRemoveUserPopup, RemoveUserPopup } from './removeUserPopup'
-
-export {
-    RemoveUserPopup
-}
-export default withStoreRemoveUserPopup
+export {withStoreRemoveUserPopup as default, RemoveUserPopup} from './removeUserPopup'

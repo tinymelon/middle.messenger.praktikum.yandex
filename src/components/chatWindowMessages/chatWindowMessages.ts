@@ -12,10 +12,10 @@ export class ChatWindowMessages extends Block<Props> {
             ...props,
             events: {
                 scroll: (event: Event) => {
-                    const elem = event.target as HTMLElement;
-                    const top = elem.lastElementChild?.getBoundingClientRect().top;
+                    const element = event.target as HTMLElement;
+                    const top = element.lastElementChild?.getBoundingClientRect().top;
                     if (top && top > 0) {
-                        getOlderMessages(elem.scrollTop);
+                        getOlderMessages(element.scrollTop);
                     }
                 }
             }

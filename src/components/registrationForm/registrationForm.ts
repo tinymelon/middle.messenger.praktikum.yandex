@@ -65,7 +65,7 @@ export class RegistrationForm extends Block<Props> {
                 </div>
 
                 {{{ActionButton text='Зарегистрироваться'}}}
-                {{{LoginBlockLink text='Войти?' href='#' page=' '}}}
+                {{{LoginBlockLink text='Войти?' href='#' page=''}}}
             </form>
         `)
     }

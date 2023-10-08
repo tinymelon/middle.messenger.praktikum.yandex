@@ -1,7 +1,7 @@
 import Block from "../../core/block";
 
 interface Props {
-    onClick?: (e: Event) => void,
+    onClick?: (event: Event) => void,
 }
 
 export class ChatAddButton extends Block<Props> {

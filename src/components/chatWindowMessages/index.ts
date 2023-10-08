@@ -1,5 +1,1 @@
-import {ChatWindowMessages, withStoreChatWindowMessages} from './chatWindowMessages';
-
-export {ChatWindowMessages};
-
-export default withStoreChatWindowMessages;
+export {ChatWindowMessages, withStoreChatWindowMessages as default} from './chatWindowMessages';

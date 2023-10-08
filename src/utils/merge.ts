@@ -3,15 +3,15 @@ type Indexed<T = unknown> = {
 };
 
 export default function merge(lhs: Indexed, rhs: Indexed): Indexed {
-    for (let i in rhs) {
-        if (typeof lhs[i] == 'object' && typeof rhs[i] == 'object') {
-            lhs[i] = merge(lhs[i] as Indexed, rhs[i] as Indexed);
-        } else if ((typeof lhs[i] == 'object' && typeof rhs[i] != 'object') || !rhs[i]) {
-            lhs[i] = lhs[i];
-        } else if ((typeof lhs[i] != 'object' && typeof rhs[i] == 'object') || !lhs[i]) {
-            lhs[i] = rhs[i];
+    for (let index in rhs) {
+        if (typeof lhs[index] == 'object' && typeof rhs[index] == 'object') {
+            lhs[index] = merge(lhs[index] as Indexed, rhs[index] as Indexed);
+        } else if ((typeof lhs[index] == 'object' && typeof rhs[index] != 'object') || !rhs[index]) {
+            lhs[index] = lhs[index];
+        } else if ((typeof lhs[index] != 'object' && typeof rhs[index] == 'object') || !lhs[index]) {
+            lhs[index] = rhs[index];
         } else {
-            lhs[i] = rhs[i];
+            lhs[index] = rhs[index];
         }
     }
 

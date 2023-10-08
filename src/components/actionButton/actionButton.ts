@@ -5,7 +5,7 @@ interface Props {
     class: string,
     page: string,
     text: string,
-    onClick?: (e: unknown) => void,
+    onClick?: (event: unknown) => void,
     property?: string,
     value?: unknown
 }

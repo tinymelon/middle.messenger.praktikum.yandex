@@ -13,7 +13,7 @@ export default class Route {
     }
 
     navigate(pathname: string) {
-        if (this.match(pathname)) {
+        if (this.compare(pathname)) {
             this._pathname = pathname;
             this.render();
         }
@@ -25,7 +25,7 @@ export default class Route {
         }
     }
 
-    match(pathname: string) {
+    compare(pathname: string) {
         return pathname === this._pathname;
     }
 

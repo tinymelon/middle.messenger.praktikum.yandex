@@ -12,7 +12,7 @@ const chatApi = new ChatApi();
 const getChats = async () => {
     const responseChat = await chatApi.getChats();
     if (apiHasError(responseChat)) {
-        throw Error(responseChat.reason);
+        throw new Error(responseChat.reason);
     }
     const transformedChats = transformChats(responseChat);
     getChatsMessages(transformedChats);
@@ -23,12 +23,12 @@ const getChats = async () => {
 const createChat = async (title: string) => {
     const response = await chatApi.create({title});
     if (apiHasError(response)) {
-        throw Error(response.reason);
+        throw new Error(response.reason);
     }
 
     const responseChat = await chatApi.getChats();
     if (apiHasError(responseChat)) {
-        throw Error(responseChat.reason);
+        throw new Error(responseChat.reason);
     }
 
     const chats = await getChats();
@@ -38,12 +38,12 @@ const createChat = async (title: string) => {
 const deleteChat = async (chatId: number) => {
     const response = await chatApi.delete({chatId});
     if (apiHasError(response)) {
-        throw Error(response.reason);
+        throw new Error(response.reason);
     }
 
     const responseChat = await chatApi.getChats();
     if (apiHasError(responseChat)) {
-        throw Error(responseChat.reason);
+        throw new Error(responseChat.reason);
     }
 
     const chats = await getChats();
@@ -59,10 +59,10 @@ const addChatUser = async (userLogin: string, chatId: number) => {
         login: userLogin
     });
     if (apiHasError(user)) {
-        throw Error(user.reason);
+        throw new Error(user.reason);
     }
-    if (!user.length) {
-        throw Error('Пользователь не найден');
+    if (user.length === 0) {
+        throw new Error('Пользователь не найден');
     }
     const userId = user[0].id;
     const response = await chatApi.addUser({
@@ -70,12 +70,12 @@ const addChatUser = async (userLogin: string, chatId: number) => {
         chatId
     });
     if (apiHasError(response)) {
-        throw Error(response.reason);
+        throw new Error(response.reason);
     }
 
     const responseChat = await chatApi.getChats();
     if (apiHasError(responseChat)) {
-        throw Error(responseChat.reason);
+        throw new Error(responseChat.reason);
     }
 
     const chats = await getChats();
@@ -91,23 +91,23 @@ const removeChatUser = async (userLogin: string, chatId: number) => {
         login: userLogin
     });
     if (apiHasError(user)) {
-        throw Error(user.reason);
+        throw new Error(user.reason);
     }
     const userId = user[0].id;
     if (!userId) {
-        throw Error('Пользователь не найден');
+        throw new Error('Пользователь не найден');
     }
     const response = await chatApi.removeUser({
         users: [userId],
         chatId
     });
     if (apiHasError(response)) {
-        throw Error(response.reason);
+        throw new Error(response.reason);
     }
 
     const responseChat = await chatApi.getChats();
     if (apiHasError(responseChat)) {
-        throw Error(responseChat.reason);
+        throw new Error(responseChat.reason);
     }
 
     const chats = await getChats();
@@ -130,7 +130,7 @@ const getChatMessages = async (chatId: number) => {
     const userId = window.store.getState().user?.id;
     const response = await chatApi.getToken(chatId.toString());
     if (apiHasError(response)) {
-        throw Error(response.reason);
+        throw new Error(response.reason);
     }
     const token = response.token;
     const url = `/chats/${userId}/${chatId}/${token}`;
@@ -149,43 +149,43 @@ const getChatMessages = async (chatId: number) => {
         let message: Message;
         if (!messages[chatId]) messages[chatId] = [];
         if (Array.isArray(data)) {
-            if (!data.length) {
+            if (data.length === 0) {
                 window.store.set({
                     gettingMessages: false,
                     noNewMessages: true
                 })
                 return;
             }
-            for (let i in data) {
-                messages[chatId].unshift(transformMessage(data[i]));
+            for (let index in data) {
+                messages[chatId].unshift(transformMessage(data[index]));
             }
-            message = messages[chatId][messages[chatId].length - 1];
+            message = messages[chatId].at(-1) as Message;
 
         } else {
             message = transformMessage(data);
             messages[chatId].push(message);
         }
         //messages[chatId].reverse();
-        const obj: Record<string, any> = {
+        const object: Record<string, any> = {
             messages,
             wsChats,
             gettingMessages: false,
             noNewMessages: false
         }
-        const chat = chats.find((elem) => {
-            return elem.id == chatId;
+        const chat = chats.find((element) => {
+            return element.id == chatId;
         });
         if (chat && chat.lastMessage) {
             chat.lastMessage.time = message.time;
             chat.lastMessage.content = message.content;
         }
         if (activeChat == chatId) {
-            obj.activeMessages = cloneDeep(messages[chatId]).reverse();
+            object.activeMessages = cloneDeep(messages[chatId]).reverse();
         } else if (chat && !message.isRead) {
             chat.unreadCount++;
         }
-        obj.chats = chats;
-        window.store.set(obj)
+        object.chats = chats;
+        window.store.set(object)
     });
 }
 
@@ -201,8 +201,8 @@ const changeActiveChat = (chatId: number) => {
     const messages = cloneDeep(window.store.getState().messages);
     if (!messages[chatId]) messages[chatId] = [];
     const chats = cloneDeep(window.store.getState().chats);
-    const chat = chats.find((elem) => {
-        return elem.id == chatId;
+    const chat = chats.find((element) => {
+        return element.id == chatId;
     });
     if (chat) chat.unreadCount = 0;
     window.store.set({

@@ -16,7 +16,7 @@ export class AddChatPopup extends Block<Props> {
     }
 
     public getChatTitle() {
-        return (<any> this.refs.title).value();
+        return (this.refs.title as unknown as AddChatPopup).value();
     }
 
     public setError(error: string) {

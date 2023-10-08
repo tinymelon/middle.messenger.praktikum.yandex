@@ -11,7 +11,7 @@ export const WsTransportEvents = {
 export default class WsTransport extends EventBus {
     private socket?: WebSocket;
     private pingInterval?: ReturnType<typeof setInterval>
-    private readonly pingIntervalTime = 30000;
+    private readonly pingIntervalTime = 30_000;
     private readonly url: string;
 
     constructor(url: string) {
@@ -74,9 +74,7 @@ export default class WsTransport extends EventBus {
                     return;
                 }
                 this.emit(WsTransportEvents.MESSAGE, data);
-            } catch (e) {
-
-            }
+            } catch {}
         });
     }
 }

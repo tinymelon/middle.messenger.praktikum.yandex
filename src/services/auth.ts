@@ -9,7 +9,7 @@ const authApi = new AuthApi();
 const getUser = async() => {
     const responseUser = await authApi.me();
     if (apiHasError(responseUser)) {
-        throw Error(responseUser.reason)
+        throw new Error(responseUser.reason)
     }
 
     return transformUser(responseUser as UserDTO);
@@ -19,7 +19,7 @@ const signin = async (data: LoginRequestData) => {
     const response = await authApi.login(data);
 
     if (apiHasError(response)) {
-        throw Error(response.reason);
+        throw new Error(response.reason);
     }
     const me = await getUser();
 
@@ -31,7 +31,7 @@ const signin = async (data: LoginRequestData) => {
 const signup = async (data: CreateUser) => {
     const response = await authApi.create(data);
     if (apiHasError(response)) {
-        throw Error(response.reason)
+        throw new Error(response.reason)
     }
 
     const me = await getUser();

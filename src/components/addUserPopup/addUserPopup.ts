@@ -1,5 +1,6 @@
 import Block from "../../core/block";
 import { connect } from "../../utils/connect";
+import {LoginForm} from "../loginForm";
 
 interface Props {
     isOpenDialogAddUser: boolean,
@@ -16,7 +17,7 @@ export class AddUserPopup extends Block<Props> {
     }
 
     public getUserLogin() {
-        return (<any> this.refs.login).value();
+        return (this.refs.login as unknown as LoginForm).value();
     }
 
     public setError(error: string) {

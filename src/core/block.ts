@@ -244,8 +244,8 @@ export default class Block<Props extends Record<string, any>> {
         return true;
     }
 
-    public value(): string | boolean {
-        return false;
+    public value(): string {
+        return '';
     }
 
     public show() {

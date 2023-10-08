@@ -1,6 +1,7 @@
 import Block from "../../core/block";
 import {connect} from "../../utils/connect";
 import {createChat} from "../../services/chat";
+import {AddChatPopup} from "../addChatPopup";
 
 interface Props {
     onChatSelect: (arg0: string, arg1: string) => void,
@@ -20,14 +21,14 @@ export class ChatsList extends Block<Props> {
             openDialog: () => window.store.set({isOpenDialogChat: true}),
             closeDialog: () => window.store.set({isOpenDialogChat: false}),
             saveDialogData: () => {
-                const chatTitle = (<any> this.refs.createChat).getChatTitle();
+                const chatTitle = (this.refs.createChat as unknown as AddChatPopup).getChatTitle();
                 if(!chatTitle) {
-                    (<any> this.refs.createChat).setError('Название переписки не может быть пустым');
+                    (this.refs.createChat as unknown as AddChatPopup).setError('Название переписки не может быть пустым');
                     return;
                 }
                 createChat(chatTitle)
                     .then(() => window.store.set({isOpenDialogChat: false}))
-                    .catch(error => (<any> this.refs.createChat).setError(error))
+                    .catch(error => (this.refs.createChat as unknown as AddChatPopup).setError(error))
             }
         });
         this._setEventListenerToSearch();

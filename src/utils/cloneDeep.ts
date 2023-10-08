@@ -1,14 +1,14 @@
 type CloneDeep<T> = T extends object? { [K in keyof T]: CloneDeep<T[K]> } : T;
 
-function cloneDeep<T>(obj: T): CloneDeep<T> {
-    if (typeof obj !== 'object' || obj === null) {
-        return obj as CloneDeep<T>;
+function cloneDeep<T>(object: T): CloneDeep<T> {
+    if (typeof object !== 'object' || object === null) {
+        return object as CloneDeep<T>;
     }
 
-    const copy: Record<string, any> = Array.isArray(obj) ? [] : {};
+    const copy: Record<string, any> = Array.isArray(object) ? [] : {};
 
-    for (const [key, value] of (<any>Object).entries(obj)) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+    for (const [key, value] of (<any>Object).entries(object)) {
+        if (Object.prototype.hasOwnProperty.call(object, key)) {
             copy[key] = cloneDeep(value);
         }
     }
