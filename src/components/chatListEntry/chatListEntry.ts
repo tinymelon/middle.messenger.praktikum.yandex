@@ -1,8 +1,9 @@
 import Block from "../../core/block";
 
 interface Props {
-    onChatSelect: (arg0: string | undefined, arg1: string) => void,
+    onChatSelect: (arg0: string | undefined, arg1: string, arg2: string | undefined) => void,
     title: string,
+    avatar?: string,
     content: string,
     time: string,
     unread?: string,
@@ -16,17 +17,18 @@ export class ChatListEntry extends Block<Props> {
             ...props,
             events: {
                 click: () => {
-                    this.props.onChatSelect(this.props.chatID, this.props.title);
+                    this.props.onChatSelect(this.props.chatID, this.props.title, this.props.avatar);
                 }
             }
         });
     }
 
     protected render(): string {
+        //language=hbs
         return (`
         <div class="chat_list_entry__wrapper {{#ifEquals chatID activeChat}}active{{/ifEquals}}">
             <div class="chat_list_entry__img_wrapper">
-                <img src="" alt="">
+                {{#if avatar}}<img src="{{avatar}}" alt="">{{/if}}
             </div>
             <div class="chat_list_entry__info">
                 <div class="chat_list_entry__info_name">{{title}}</div>

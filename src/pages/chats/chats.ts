@@ -8,7 +8,8 @@ import {ChatWindow} from "../../components/chatWindow";
 interface Props {
     setSearch: (arg0: SubmitEvent | Event) => void,
     setSelectedChat: (arg0: string, arg1: string) => void,
-    title?: string
+    title?: string,
+    avatar?: string
 }
 
 export class ChatsPage extends Block<Props> {
@@ -30,14 +31,15 @@ export class ChatsPage extends Block<Props> {
                 ref.setProps(data);
                 console.log(data);
             },
-            setSelectedChat: (id: string, title: string) => {
+            setSelectedChat: (id: string, title: string, avatar: string) => {
                 changeActiveChat(Number.parseInt(id));
                 (this.refs.list as unknown as ChatsList).setProps({
                     activeChat: id
                 });
                 (this.refs.chatWindow as unknown as ChatWindow).setProps({
                     activeChat: id,
-                    title
+                    title,
+                    avatar
                 });
             }
         });
@@ -50,7 +52,7 @@ export class ChatsPage extends Block<Props> {
         return (`
             <div class="chats_page__wrapper">
                 {{{ChatsList ref='list' onSearch=setSearch onChatSelect=setSelectedChat}}}
-                {{{ChatWindow ref='chatWindow' title=title}}}
+                {{{ChatWindow ref='chatWindow' title=title avatar=avatar}}}
             </div>
         `);
     }

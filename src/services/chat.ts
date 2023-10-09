@@ -118,11 +118,13 @@ const removeChatUser = async (userLogin: string, chatId: number) => {
 }
 
 const getChatsMessages = (chats: Chat[]): void => {
-    const userId = window.store.getState().user?.id;
+    const state = window.store.getState();
+    const userId = state.user?.id;
+    const wsChats = state.wsChats;
     if (!userId) return;
 
     chats.map((chat) => {
-        getChatMessages(chat.id);
+        if (!wsChats[chat.id]) getChatMessages(chat.id).catch((error) => alert(`Ошибка получения сообщений. Причина: ${error.reason}`));
     });
 }
 

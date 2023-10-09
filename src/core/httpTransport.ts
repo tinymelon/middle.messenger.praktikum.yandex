@@ -8,14 +8,15 @@ type Options = {
 }
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;
+type HTTPMethod = <R=unknown>(url: string, options?: OptionsWithoutMethod) => Promise<R>
 
 export default class HttpTransport {
-    METHODS: Record<string, string> = {
+    METHODS = {
         GET: 'GET',
         POST: 'POST',
         PUT: 'PUT',
         DELETE: 'DELETE'
-    }
+    } as const;
 
     private readonly apiUrl: string = ''
 
@@ -23,27 +24,28 @@ export default class HttpTransport {
         this.apiUrl = `${constants.HOST}${apiPath}`;
     }
 
-    get<TResponse>(url: string, options: OptionsWithoutMethod = {}): Promise<TResponse> {
-        return this.request<TResponse>(`${this.apiUrl}${url}`, {...options, method: this.METHODS.GET}, options.timeout);
+    get: HTTPMethod = (url, options = {}) => {
+        const {data, timeout} = options;
+        url = (typeof data == 'object') ? `${url}${this.queryStringify(data)}` : url;
+        return this.request(`${this.apiUrl}${url}`, {...options, method: this.METHODS.GET}, timeout);
     };
 
-    post<TResponse>(url: string, options: OptionsWithoutMethod = {}): Promise<TResponse> {
-        return this.request<TResponse>(`${this.apiUrl}${url}`, {...options, method: this.METHODS.POST}, options.timeout);
+    post: HTTPMethod = (url, options = {}) => {
+        return this.request(`${this.apiUrl}${url}`, {...options, method: this.METHODS.POST}, options.timeout);
     };
 
-    put<TResponse>(url: string, options: OptionsWithoutMethod = {}): Promise<TResponse> {
-        return this.request<TResponse>(`${this.apiUrl}${url}`, {...options, method: this.METHODS.PUT}, options.timeout);
+    put: HTTPMethod = (url, options = {}) => {
+        return this.request(`${this.apiUrl}${url}`, {...options, method: this.METHODS.PUT}, options.timeout);
     };
 
-    delete<TResponse>(url: string, options: OptionsWithoutMethod = {}): Promise<TResponse> {
-        return this.request<TResponse>(`${this.apiUrl}${url}`, {...options, method: this.METHODS.DELETE}, options.timeout);
+    delete: HTTPMethod = (url, options = {}) => {
+        return this.request(`${this.apiUrl}${url}`, {...options, method: this.METHODS.DELETE}, options.timeout);
     };
 
     queryStringify(data: Record<any, any>): string {
         if (typeof data !== 'object') {
             throw new TypeError('Data must be object');
         }
-
 
         const keys = Object.keys(data);
         // eslint-disable-next-line unicorn/no-array-reduce
@@ -54,8 +56,6 @@ export default class HttpTransport {
 
     async request<TResponse>(url: string, options: Options = {}, timeout = 5000): Promise<TResponse> {
         const {headers = {}, method, data} = options;
-        // eslint-disable-next-line unicorn/no-this-assignment
-        const self = this;
 
         return new Promise(function(resolve, reject) {
             if (!method) {
@@ -64,13 +64,10 @@ export default class HttpTransport {
             }
 
             const xhr = new XMLHttpRequest();
-            const isGet = method === self.METHODS.GET;
             xhr.withCredentials = true;
             xhr.open(
                 method,
-                isGet && !!data
-                    ? `${url}${self.queryStringify(data)}`
-                    : url,
+                url
             );
 
 
@@ -90,7 +87,7 @@ export default class HttpTransport {
 
             xhr.timeout = timeout;
             xhr.ontimeout = reject;
-            if (isGet || !data) {
+            if (!data) {
                 xhr.send();
             } else if (data instanceof FormData) {
                 xhr.send(data);

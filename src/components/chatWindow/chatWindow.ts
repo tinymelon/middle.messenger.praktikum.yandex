@@ -13,6 +13,7 @@ interface Props {
     saveAddUserPopup: () => void,
     saveRemoveUserPopup: () => void,
     title: string,
+    avatar?: string,
     active?: boolean,
     activeChat?: number
 }
@@ -84,7 +85,7 @@ export class ChatWindow extends Block<Props> {
         {{#if activeChat}}
             <div class="chat_window__wrapper">
                 <div class="chat_window__head">
-                    {{{ChatWindowHead ref='chatWindowHead' title=title onChatActionsClick=chatActionsToggle}}}
+                    {{{ChatWindowHead ref='chatWindowHead' title=title avatar=avatar onChatActionsClick=chatActionsToggle}}}
                     {{{ChatDropdown ref='chatDropdown' active=active openAddUserPopup=openAddUserPopup openRemoveUserPopup=openRemoveUserPopup onDeleteChat=onDeleteChat}}}
                     {{{AddUserPopup ref='addUser' onClose=closeAddUserPopup onSave=saveAddUserPopup}}}
                     {{{RemoveUserPopup ref='removeUser' onClose=closeRemoveUserPopup onSave=saveRemoveUserPopup}}}

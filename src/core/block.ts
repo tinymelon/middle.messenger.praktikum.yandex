@@ -10,7 +10,7 @@ export default class Block<Props extends Record<string, any>> {
         FLOW_CDU: "flow:component-did-update",
         FLOW_CWU: 'flow:component-will-unmount',
         FLOW_RENDER: "flow:render"
-    };
+    } as const;
 
     public id = nanoid(6);
     public props = {} as Props;

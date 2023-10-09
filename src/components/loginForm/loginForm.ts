@@ -37,7 +37,6 @@ export class LoginForm extends Block<Props> {
     }
 
     protected render(): string {
-        console.log(this.props.error);
         //language=hbs
         return (`
             <form action="messenger" class="auth_from_wrapper__form">
