@@ -38,19 +38,21 @@ export class RegistrationForm extends Block<Props> {
                     submitted: true
                 });
             }
+            return false;
         }
         const refNewPass = this.refs.password as Block<Props>;
         const refPassAgain = this.refs.passwordAgain as Block<Props>;
         if (refPassAgain.value() != refNewPass.value()) {
             refPassAgain.setProps({error: 'Пароли не совпадают'});
+            return false;
         }
-        return false;
+        return true;
     }
 
     protected render(): string {
         //language=hbs
         return (`
-            <form action="chats" class="auth_from_wrapper__form">
+            <form action="messenger" class="auth_from_wrapper__form">
                 <div class="auth_from_wrapper__form_inputs">
                     {{{FormField label='Почта' name='email' ref='email' type='email' validate=validators.email}}}
                     {{{FormField label='Логин' name='login' ref='login' type='text' validate=validators.login}}}
@@ -59,10 +61,11 @@ export class RegistrationForm extends Block<Props> {
                     {{{FormField label='Телефон' name='phone' ref='phone' type='phone' validate=validators.phone}}}
                     {{{FormField label='Пароль' name='password' ref='password' type='password' validate=validators.password}}}
                     {{{FormField label='Пароль (ещё раз)' ref='passwordAgain' type='password' validate=validators.passwordAgain compare=compare}}}
+                    {{{ ErrorLine ref="errorLine" error=error}}}
                 </div>
 
                 {{{ActionButton text='Зарегистрироваться'}}}
-                {{{LoginBlockLink text='Войти?' href='#' page='login'}}}
+                {{{LoginBlockLink text='Войти?' href='#' page=''}}}
             </form>
         `)
     }

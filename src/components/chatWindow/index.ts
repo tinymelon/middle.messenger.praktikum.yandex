@@ -1,3 +1,3 @@
 import './chatWindow.less';
 
-export {ChatWindow} from './chatWindow';
+export {ChatWindow, withStoreChatWindow as default} from "./chatWindow";

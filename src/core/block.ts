@@ -1,14 +1,16 @@
 import EventBus from "./eventBus";
 import {nanoid} from 'nanoid';
 import Handlebars from "handlebars";
+import cloneDeep from "../utils/cloneDeep";
 
 export default class Block<Props extends Record<string, any>> {
     static EVENTS = {
         INIT: "init",
         FLOW_CDM: "flow:component-did-mount",
         FLOW_CDU: "flow:component-did-update",
+        FLOW_CWU: 'flow:component-will-unmount',
         FLOW_RENDER: "flow:render"
-    };
+    } as const;
 
     public id = nanoid(6);
     public props = {} as Props;
@@ -55,6 +57,7 @@ export default class Block<Props extends Record<string, any>> {
         eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+        eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
     }
 
@@ -67,6 +70,7 @@ export default class Block<Props extends Record<string, any>> {
     protected init() {}
 
     private _componentDidMount() {
+        this._checkInDom();
         this.componentDidMount();
     }
 
@@ -90,7 +94,7 @@ export default class Block<Props extends Record<string, any>> {
         return oldProperties && newProperties ? true : true;
     }
 
-    protected unmountComponent() {
+    public unmountComponent() {
         if (this._element) {
             this._componentWillUnmount();
             this._removeEvents();
@@ -103,6 +107,17 @@ export default class Block<Props extends Record<string, any>> {
     }
 
     protected componentWillUnmount() {}
+
+    _checkInDom() {
+        const elementInDOM = document.body.contains(this._element as Node);
+
+        if (elementInDOM) {
+            setTimeout(() => this._checkInDom(), 1000);
+            return;
+        }
+
+        this.eventBus().emit(Block.EVENTS.FLOW_CWU, this.props);
+    }
 
     private _removeEvents() {
         const {events = {}} = this.props;
@@ -121,8 +136,6 @@ export default class Block<Props extends Record<string, any>> {
     }
 
     private _render() {
-        this.unmountComponent();
-
         const fragment = this.compile(this.render(), this.props);
 
         const newElement = fragment.firstElementChild as HTMLElement;
@@ -181,7 +194,15 @@ export default class Block<Props extends Record<string, any>> {
     }
 
     getContent() {
-        return this.element;
+        if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+            setTimeout(() => {
+                if (this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
+                    this.dispatchComponentDidMount();
+                }
+            }, 100);
+        }
+
+        return this._element;
     }
 
     public get element(): HTMLElement | undefined {
@@ -203,10 +224,11 @@ export default class Block<Props extends Record<string, any>> {
                 if (property.toString().startsWith('_')) {
                     throw new Error('Нет доступа');
                 }
-                const oldValue = target[property];
+                const oldProps = cloneDeep(target);
+                const oldValue = oldProps[property];
                 target[property] = value;
                 if (oldValue !== value) {
-                    self.eventBus().emit(Block.EVENTS.FLOW_CDU, {...target}, target);
+                    self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, target);
                 }
                 return true;
             },
@@ -217,19 +239,20 @@ export default class Block<Props extends Record<string, any>> {
         return props;
     }
 
-    public validate(): boolean {
+    public validate(isSubmit?: boolean): boolean {
+        if (isSubmit) return true;
         return true;
     }
 
-    public value(): string | boolean {
-        return false;
+    public value(): string {
+        return '';
     }
 
-    protected show() {
+    public show() {
         this.getContent()!.style.display = 'block';
     }
 
-    protected hide() {
+    public hide() {
         this.getContent()!.style.display = 'none';
     }
 }

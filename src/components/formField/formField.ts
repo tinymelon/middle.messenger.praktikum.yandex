@@ -1,10 +1,10 @@
 import Block from "../../core/block";
 
 interface Props {
-    onBlur: () => void,
-    validate: (arg0: string, arg1?: boolean, arg2?: string) => string,
-    compare: () => string,
-    value: string,
+    onBlur?: () => void,
+    validate?: (arg0: string, arg1?: boolean, arg2?: string) => string,
+    compare?: () => string,
+    value?: string,
     label: string,
     type: string,
     name?: string,
@@ -31,23 +31,29 @@ export class FormField extends Block<Props> {
 
     public value() {
         if (!this.validate()) {
-            return false;
+            return '';
         }
         const ref = this.refs.input as Block<Props>;
         const element = ref.element as HTMLInputElement;
         return element.value;
     }
 
-    public validate() {
+    public validate(isSubmitted?: boolean) {
         const ref = this.refs.input as Block<Props>;
         const element = ref.element as HTMLInputElement;
         const value = element.value;
-        const error = this.props.validate?.(value, this.props.submitted, this.props.compare ? this.props.compare() : undefined);
+        const error = this.props.validate?.(value, isSubmitted || this.props.submitted, this.props.compare ? this.props.compare() : undefined);
         if (error) {
-            this.setProps({ error });
+            this.setProps({
+                error,
+                submitted: isSubmitted || this.props.submitted
+            });
             return false;
         }
-        this.setProps({ error: undefined });
+        this.setProps({
+            error: undefined,
+            submitted: isSubmitted || this.props.submitted
+        });
         return true;
     }
 

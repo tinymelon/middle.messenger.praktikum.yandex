@@ -1,3 +1,3 @@
 import './profile.less';
 
-export { ProfilePage } from './profile';
+export {default} from './profile'

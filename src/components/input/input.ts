@@ -11,7 +11,13 @@ export class Input extends Block<Props> {
     constructor(props: Props) {
         super({
             events: {
-                blur: props.onBlur
+                blur: props.onBlur,
+                keypress: (event: KeyboardEvent) => {
+                    if (event.key == 'Enter') {
+                        event.preventDefault();
+                        event.stopImmediatePropagation();
+                    }
+                }
             },
             ...props
         });

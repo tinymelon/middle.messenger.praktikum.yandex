@@ -1,10 +1,15 @@
 import Block from "../../core/block";
+import { connect } from "../../utils/connect";
+import {initChatPage} from "../../services/initApp";
+import {changeActiveChat} from '../../services/chat';
+import {ChatsList} from "../../components/chatsList";
+import {ChatWindow} from "../../components/chatWindow";
 
 interface Props {
     setSearch: (arg0: SubmitEvent | Event) => void,
     setSelectedChat: (arg0: string, arg1: string) => void,
-    activeChat: string | undefined,
-    title?: string
+    title?: string,
+    avatar?: string
 }
 
 export class ChatsPage extends Block<Props> {
@@ -26,23 +31,31 @@ export class ChatsPage extends Block<Props> {
                 ref.setProps(data);
                 console.log(data);
             },
-            setSelectedChat: (id: string, title: string) => {
-                this.setProps({
-                    activeChat: id,
-                    title
+            setSelectedChat: (id: string, title: string, avatar: string) => {
+                changeActiveChat(Number.parseInt(id));
+                (this.refs.list as unknown as ChatsList).setProps({
+                    activeChat: id
                 });
-            },
-            activeChat: undefined
+                (this.refs.chatWindow as unknown as ChatWindow).setProps({
+                    activeChat: id,
+                    title,
+                    avatar
+                });
+            }
         });
+
+        initChatPage();
     }
 
     protected render(): string {
         //language=hbs
         return (`
             <div class="chats_page__wrapper">
-                {{{ChatsList ref='list' onSearch=setSearch onChatSelect=setSelectedChat activeChat=activeChat}}}
-                {{{ChatWindow ref='chatWindow' activeChat=activeChat title=title}}}
+                {{{ChatsList ref='list' onSearch=setSearch onChatSelect=setSelectedChat}}}
+                {{{ChatWindow ref='chatWindow' title=title avatar=avatar}}}
             </div>
         `);
     }
 }
+
+export default connect(({chats, user}) => ({chats, user}))(ChatsPage)

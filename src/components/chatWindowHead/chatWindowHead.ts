@@ -18,7 +18,7 @@ export class ChatWindowHead extends Block<Props> {
         return (`
             <div class="chat_window__head_info">
                 <div class="chat_window__head_info_image">
-                    <img src="" alt="">
+                    {{#if avatar}}<img src="{{avatar}}" alt="">{{/if}}
                 </div>
                 <div class="chat_window__head_info_title">{{title}}</div>
                 {{{ChatWindowHeadMenu onChatActionsClick=onChatActionsClick}}}

@@ -3,7 +3,8 @@ import * as validators from '../../utils/validators';
 
 interface Props {
     onSubmit: (arg0: SubmitEvent) => void,
-    errors: Record<string, string>
+    errors: Record<string, string>,
+    error: string
 }
 
 export class LoginForm extends Block<Props> {
@@ -30,21 +31,22 @@ export class LoginForm extends Block<Props> {
                     submitted: true
                 });
             }
+            return false;
         }
-        return false;
+        return true;
     }
 
     protected render(): string {
         //language=hbs
         return (`
-            <form action="chats" class="auth_from_wrapper__form">
+            <form action="messenger" class="auth_from_wrapper__form">
                 <div class="auth_from_wrapper__form_inputs">
                     {{{FormField label='Логин' name='login' ref='login' type='text' validate=validators.login}}}
                     {{{FormField label='Пароль' name='password' ref='password' type='password' validate=validators.password}}}
+                    {{{ ErrorLine ref="errorLine" error=error}}}
                 </div>
-                
                 {{{ActionButton text='Авторизоваться'}}}
-                {{{LoginBlockLink text='Нет аккаунта?' page='registration'}}}
+                {{{LoginBlockLink text='Нет аккаунта?' page='sign-up'}}}
             </form>
         `)
     }

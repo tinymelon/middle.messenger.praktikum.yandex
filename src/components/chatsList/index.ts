@@ -1,3 +1,3 @@
 import './chatsList.less';
 
-export {ChatsList} from './chatsList';
+export {ChatsList, withStoreChatsList as default} from './chatsList';

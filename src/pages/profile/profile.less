@@ -24,6 +24,15 @@
   margin-top: 21px;
 }
 
-.profile__save_button {
-  margin-top: 50px;
+.profile__save_button,
+.profile__cancel_button {
+  width: 48%;
+}
+
+.profile__cancel_button {
+  background-color: @colorRed;
+
+  &:hover {
+    background-color: lighten(@colorRed, 10%);
+  }
 }

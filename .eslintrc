@@ -21,6 +21,12 @@
           "arg2": true
         }
       }
+    ],
+    "unicorn/no-null": [
+      "off"
+    ],
+    "unicorn/no-this-assignment": [
+      "off"
     ]
   }
 }
