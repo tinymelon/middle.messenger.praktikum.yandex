@@ -27,19 +27,19 @@ export default class HttpTransport {
     get: HTTPMethod = (url, options = {}) => {
         const {data, timeout} = options;
         url = (typeof data == 'object') ? `${url}${this.queryStringify(data)}` : url;
-        return this.request(`${this.apiUrl}${url}`, {...options, method: this.METHODS.GET}, timeout);
+        return this.request(url, {...options, method: this.METHODS.GET}, timeout);
     };
 
     post: HTTPMethod = (url, options = {}) => {
-        return this.request(`${this.apiUrl}${url}`, {...options, method: this.METHODS.POST}, options.timeout);
+        return this.request(url, {...options, method: this.METHODS.POST}, options.timeout);
     };
 
     put: HTTPMethod = (url, options = {}) => {
-        return this.request(`${this.apiUrl}${url}`, {...options, method: this.METHODS.PUT}, options.timeout);
+        return this.request(url, {...options, method: this.METHODS.PUT}, options.timeout);
     };
 
     delete: HTTPMethod = (url, options = {}) => {
-        return this.request(`${this.apiUrl}${url}`, {...options, method: this.METHODS.DELETE}, options.timeout);
+        return this.request(url, {...options, method: this.METHODS.DELETE}, options.timeout);
     };
 
     queryStringify(data: Record<any, any>): string {
@@ -50,12 +50,13 @@ export default class HttpTransport {
         const keys = Object.keys(data);
         // eslint-disable-next-line unicorn/no-array-reduce
         return keys.reduce((result, key, index) => {
-            return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
+            return `${result}${key}=${encodeURIComponent(data[key])}${index < keys.length - 1 ? '&' : ''}`;
         }, '?');
     }
 
     async request<TResponse>(url: string, options: Options = {}, timeout = 5000): Promise<TResponse> {
         const {headers = {}, method, data} = options;
+        const fullUrl = `${this.apiUrl}${url}`;
 
         return new Promise(function(resolve, reject) {
             if (!method) {
@@ -67,7 +68,7 @@ export default class HttpTransport {
             xhr.withCredentials = true;
             xhr.open(
                 method,
-                url
+                fullUrl
             );
 
 
