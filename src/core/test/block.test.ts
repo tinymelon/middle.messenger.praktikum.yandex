@@ -89,14 +89,14 @@ describe('Block', () => {
                 testNum: 1,
                 testStr: 'string',
                 testBool: false,
-                method: () => undefined
+                method: () => null
             });
             render = sandbox.spy(Component.prototype, 'render');
             block.setProps({
                 testNum: 1,
                 testStr: 'string',
                 testBool: false,
-                method: () => undefined
+                method: () => null
             });
 
             expect(render.called).to.be.false;

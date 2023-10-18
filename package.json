@@ -8,12 +8,8 @@
     "build": "tsc && vite build --emptyOutDir",
     "eslint": "npx eslint \"**/*.ts\"",
     "stylelint": "npx stylelint \"**/*.less\"",
-    "test": "mocha"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm-run-all test stylelint eslint build"
-    }
+    "test": "mocha",
+    "prepare": "husky install"
   },
   "engines": {
     "node": ">=18.17"
