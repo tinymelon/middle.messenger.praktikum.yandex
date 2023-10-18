@@ -1,5 +1,4 @@
 import Route from "./route";
-//import Block from "./block";
 
 export default class Router {
     public routes: Array<Route>;
@@ -47,8 +46,8 @@ export default class Router {
         route?.render();
     }
 
-    go(pathname: string) {
-        this.history.pushState({}, '', pathname);
+    go(pathname: string, data: Record<string, any> = {}) {
+        this.history.pushState(data, '', pathname);
         this._onRoute(pathname);
     }
 
