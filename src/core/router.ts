@@ -37,13 +37,14 @@ export default class Router {
     }
 
     _onRoute(pathname: string) {
+        if (this._currentRoute?.compare(pathname)) return;
         const route = this.getRoute(pathname);
         if (this._currentRoute) {
             this._currentRoute.leave();
         }
 
         this._currentRoute = route;
-        route?.render();
+        route?.navigate(pathname);
     }
 
     go(pathname: string, data: Record<string, any> = {}) {
