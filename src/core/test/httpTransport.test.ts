@@ -18,7 +18,7 @@ describe('HTTP Transport', () => {
         sandbox.restore();
     });
 
-    it('должен корректно кодировать символы для запроса', () => {
+    it('должен кодировать символы для запроса', () => {
         const stringify = sandbox.spy(http, 'queryStringify');
         http.queryStringify({
             a: '1=2&1',
@@ -30,13 +30,13 @@ describe('HTTP Transport', () => {
         expect(stringify).returned('?a=1%3D2%261&b=x%262&c=%D0%99&d=%5Bobject%20Object%5D');
     });
 
-    it('должен корректно преобразовывать строковые параметры для GET-запроса и вызывать его', () => {
+    it('должен преобразовывать строковые параметры для GET-запроса и вызывать его', () => {
         http.get('', {data: {a: '1', b: 'string'}});
 
         expect(request).calledWithMatch('?a=1&b=string', {method: 'GET'});
     });
 
-    it('должен корректно преобразовывать числовой параметр для GET-запроса и вызывать его', () => {
+    it('должен преобразовывать числовой параметр для GET-запроса и вызывать его', () => {
         http.get('', {data: {a: 1, b: 'string'}});
 
         expect(request).calledWithMatch('?a=1&b=string', {method: 'GET'});

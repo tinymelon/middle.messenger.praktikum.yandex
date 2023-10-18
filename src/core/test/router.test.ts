@@ -27,7 +27,7 @@ describe('Router', () => {
         sandbox.restore();
     });
 
-    it('должен корректно задавать history.state при переходе на указанную страницу', () => {
+    it('должен задавать указанный history.state при переходе на указанную страницу', () => {
         sandbox.stub(router, 'getRoute').callsFake(() => null);
         router.go('/1', {a: 'test'});
 

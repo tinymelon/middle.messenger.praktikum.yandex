@@ -13,7 +13,9 @@ export default function isEqual(a: Record<string, any>, b: Record<string, any>):
 }
 
 function compareHelper(a: unknown, b: unknown): boolean {
-    let result: boolean = true;
+    let result: boolean;
+    if (typeof a === 'function') a = a.toString();
+    if (typeof b === 'function') b = b.toString();
     result = typeof a == 'object' && a !== null && typeof b == 'object' && b !== null ? isEqual(a as Record<string, any>, b as Record<string, any>) : a === b;
     return result;
 }
