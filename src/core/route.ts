@@ -15,7 +15,7 @@ export default class Route {
     navigate(pathname: string) {
         if (this.compare(pathname)) {
             this._pathname = pathname;
-            this.render();
+            this._render();
         }
     }
 
@@ -29,7 +29,7 @@ export default class Route {
         return pathname === this._pathname;
     }
 
-    render() {
+    private _render() {
         const app = document.querySelector(this._props.rootQuery);
         if (!this._block) this._block = new this._blockClass();
         app.innerHTML = '';

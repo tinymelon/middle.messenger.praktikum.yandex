@@ -1,5 +1,4 @@
 import Route from "./route";
-//import Block from "./block";
 
 export default class Router {
     public routes: Array<Route>;
@@ -38,17 +37,18 @@ export default class Router {
     }
 
     _onRoute(pathname: string) {
+        if (this._currentRoute?.compare(pathname)) return;
         const route = this.getRoute(pathname);
         if (this._currentRoute) {
             this._currentRoute.leave();
         }
 
         this._currentRoute = route;
-        route?.render();
+        route?.navigate(pathname);
     }
 
-    go(pathname: string) {
-        this.history.pushState({}, '', pathname);
+    go(pathname: string, data: Record<string, any> = {}) {
+        this.history.pushState(data, '', pathname);
         this._onRoute(pathname);
     }
 

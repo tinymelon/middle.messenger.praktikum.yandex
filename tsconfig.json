@@ -20,5 +20,10 @@
 
     "typeRoots": ["node_modules/@types", "typings/app.d.ts"]
   },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+    "transpileOnly": true
+  },
   "include": ["src"]
 }

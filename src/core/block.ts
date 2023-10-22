@@ -227,7 +227,7 @@ export default class Block<Props extends Record<string, any>> {
                 const oldProps = cloneDeep(target);
                 const oldValue = oldProps[property];
                 target[property] = value;
-                if (oldValue !== value) {
+                if (oldValue?.toString() !== value?.toString()) {
                     self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, target);
                 }
                 return true;
@@ -246,13 +246,5 @@ export default class Block<Props extends Record<string, any>> {
 
     public value(): string {
         return '';
-    }
-
-    public show() {
-        this.getContent()!.style.display = 'block';
-    }
-
-    public hide() {
-        this.getContent()!.style.display = 'none';
     }
 }
