@@ -6,7 +6,7 @@
     "dev": "vite",
     "start": "tsc && vite build --emptyOutDir && node server",
     "build": "tsc && vite build --emptyOutDir",
-    "eslint": "npx eslint \"**/*.ts\"",
+    "eslint": "npx eslint \"**/*.ts\" && npx eslint \"**/*.js\"",
     "stylelint": "npx stylelint \"**/*.less\"",
     "test": "mocha",
     "prepare": "husky install"
