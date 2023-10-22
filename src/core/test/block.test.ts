@@ -4,18 +4,22 @@ import {createSandbox, SinonSpy} from "sinon";
 import Block from "../block";
 import {afterEach} from "mocha";
 
+interface Props {
+    propStr?: string,
+    propNum?: number,
+    text?: string,
+    events?: Record<string, any>
+}
+
 describe('Block', () => {
     use(sinonChai);
     let block: Component;
     let render: SinonSpy
     const sandbox = createSandbox();
 
-    class Component extends Block<Record<string, any>> {
-        // public override get element(): HTMLElement | undefined {
-        //     return undefined;
-        // }
+    class Component extends Block<Props> {
         public override render() {
-            return '<div></div>';
+            return '<div>{{text}}</div>';
         }
         public override componentDidMount() {}
         public override componentWillUnmount() {}
@@ -32,15 +36,13 @@ describe('Block', () => {
     describe('при инициализации', () => {
         it('должен создаваться с указанными пропсами', () => {
             block = new Component({
-                prop1: 'string',
-                prop2: 1,
-                prop3: (() => false).toString()
+                propStr: 'string',
+                propNum: 1
             });
 
             expect(block.props).deep.equal({
-                prop1: 'string',
-                prop2: 1,
-                prop3: (() => false).toString()
+                propStr: 'string',
+                propNum: 1
             });
         });
 
@@ -50,23 +52,31 @@ describe('Block', () => {
 
             expect(render.calledOnce).to.be.true;
         });
+
+        it('в шаблоне должны заменяться переменные на значения из пропсов', () => {
+            const text = 'Test';
+            block = new Component({text});
+            const renderText = block.element?.textContent;
+
+            expect(renderText).to.be.equal(text);
+        });
     });
 
     describe('пропсы', () => {
         it('должны обновляться', () => {
             block = new Component({});
-            block.setProps({chatId: 123});
+            block.setProps({propNum: 123});
 
-            expect(block.props).deep.equal({chatId: 123});
+            expect(block.props).deep.equal({propNum: 123});
         });
 
         it('должны вызывать рендер если изменилось существующее поле', () => {
             block = new Component({
-                test: 1
+                propNum: 1
             });
             render = sandbox.spy(Component.prototype, 'render');
             block.setProps({
-                test: 2
+                propNum: 2
             });
 
             expect(render.calledOnce).to.be.true;
@@ -74,11 +84,11 @@ describe('Block', () => {
 
         it('должны вызывать рендер если добавилось поле', () => {
             block = new Component({
-                test: 1
+                propNum: 1
             });
             render = sandbox.spy(Component.prototype, 'render');
             block.setProps({
-                prop: 2
+                propStr: '2'
             });
 
             expect(render.calledOnce).to.be.true;
@@ -111,11 +121,11 @@ describe('Block', () => {
                 }
             }
             block = new UpdateComponent({
-                test: 1
+                propNum: 1
             });
             render = sandbox.spy(UpdateComponent.prototype, 'render');
             block.setProps({
-                test: 2
+                propNum: 2
             });
 
             expect(render.calledOnce).to.be.true;
@@ -128,11 +138,11 @@ describe('Block', () => {
                 }
             }
             block = new UpdateComponent({
-                test: 1
+                propNum: 1
             });
             render = sandbox.spy(UpdateComponent.prototype, 'render');
             block.setProps({
-                test: 2
+                propNum: 2
             });
 
             expect(render.called).to.be.false;
@@ -140,11 +150,11 @@ describe('Block', () => {
 
         it('вызывается componentDidMount после рендера', () => {
             block = new Component({
-                test: 1
+                propNum: 1
             });
             const cdm = sandbox.spy(Component.prototype, 'componentDidMount');
             block.setProps({
-                test: 2
+                propNum: 2
             });
 
             expect(cdm.calledOnce).to.be.true;
